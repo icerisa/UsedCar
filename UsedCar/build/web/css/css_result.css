@@ -1,0 +1,130 @@
+@charset "UTF-8";
+@import url('https://fonts.googleapis.com/css?family=Athiti');
+
+body {
+  font-family: 'Athiti', sans-serif;
+
+  line-height: 1.42em;
+  color:black;
+}
+
+.containerTable2 th h1 ,.containerTable th h1 {
+      font-weight: bold;
+      font-size: 13pt;
+}
+
+.containerTable td , .containerTable2 td {
+      font-weight: normal;
+      font-size: 13pt;
+  -webkit-box-shadow: 0 2px 4px -1px #0E1119;
+}
+
+.no{
+  background-color: white;
+  color:#185875;
+}
+.containerTable, .containerTable2 {
+      overflow: hidden;
+      width: 70%;
+      margin: 0 auto;
+  display: table;
+  padding: 0 0 8em 0;
+    margin-bottom: 30px;
+}
+
+.nope{
+  background-color: white;
+}
+
+.containerTable td, .containerTable th ,
+.containerTable2 td, .containerTable2 th{
+      padding-bottom: 1%;
+      padding-top: 1%;
+      padding-left:1%;  
+}
+
+.container2,.container3{
+      text-align: center;
+}
+
+.container2 {
+      background-color: #0099c8;
+      color:white;
+}
+
+.container3 {
+      color:#0081a8;
+}
+
+.containerTable td:first-child { 
+  color: white; 
+  background-color: #0099c8;
+  width:25%;
+}
+
+.containerTable2 td:first-child { 
+  color:#0081a8;
+  width: 25%;
+}
+
+
+.containerTable tr:hover ,.containerTable2 tr:hover {
+   background-color: #eeeeee;
+  -webkit-box-shadow: 0 2px 4px -1px #0E1119;
+}
+
+
+.containerTable td,.containerTable2 td{
+  text-align: right;
+}
+
+.tagline{
+    margin: 15px auto 3px;
+    max-width: 500px;
+    border-color: #999999;
+}
+
+.hellolist{
+  text-align: left;
+}
+
+.centerPoint{
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+@media screen and (min-width:768px) {
+.containerTable th h1 , .containerTable2 th h1 {
+      font-weight: bold;
+      font-size: 15pt;
+}
+
+.containerTable td , .containerTable2 td {
+      font-weight: normal;
+      font-size: 13pt;
+  -webkit-box-shadow: 0 2px 4px -1px #0E1119;
+
+}
+
+.centerPoint{
+  margin-left: 250px;
+  margin-right: 250px;
+  font-size: 13pt;
+
+}
+
+.dot{
+    margin: 15px auto 3px;
+    max-width: 500px;
+    border: dotted 1px #999999;
+    margin-bottom: 30px;
+
+}
+
+.centerPoint p{
+  text-align: left;
+  font-size: 14pt;
+  font-weight: bold;
+}
+
+}

@@ -1,0 +1,425 @@
+/*!
+* Start Bootstrap - Business Casual (http://startbootstrap.com/)
+* Copyright 2013-2016 Start Bootstrap
+* Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+*/
+*{
+    font-family: 'Athiti', sans-serif;    
+}
+
+body {
+    background: url('../img/bg.png') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+.c{
+    background-color: #0099c8;
+    color:white;
+    margin:0px auto;
+}
+
+.button_submit,.button_submit2{
+    width: 100px;
+    min-width: 20px;
+    height: 40px;
+    font-size: 12pt;
+    margin-bottom: 15px;
+}
+
+.colorTopic{
+    color:#0081a8;
+    padding-left: 3px;
+}
+
+.showresult{
+    margin : 0px auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font-size: 12pt;
+
+}
+
+.borderContain{
+    border: 1px solid #0081a8;
+    margin-bottom: 20px;
+}
+
+select,input{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.showresult td{
+  width:100px;
+}
+
+.topicStyle{
+  font-size: 15pt;
+  text-align: left;
+  padding-left: 5px;
+}
+
+table{
+    margin : 20px auto;
+    font-size: 18pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+
+}
+
+td,.showresult td{
+    text-align: left;
+}
+
+.kk_mid{
+    background-color: #ccced1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.row{
+    margin-bottom: 10%;
+}
+
+p {
+    font-size: 1.25em;
+    line-height: 1.6;
+    color: #000;
+}
+
+hr {
+    max-width: 400px;
+    border-color: #999999;
+}
+
+.brand,
+.descript {
+    text-align: center;
+}
+
+.brand{
+    font-size: 15pt;
+}
+
+.descript{
+    font-size: 13pt;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.navbar-brand {
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.navbar-nav {
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-align: right;
+}
+
+.img-full {
+    min-width: 100%;
+
+}
+
+.brand-before,
+.brand-name {
+    text-transform: capitalize;
+
+}
+
+.logo{
+    width: 140px;
+
+}
+
+.brand-before {
+    margin: 15px 0;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.brand {
+        display: inherit;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-size: 2.5em;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+        margin-top: -20px;
+    }
+
+.tagline-divider {
+    margin: 15px auto 3px;
+    max-width: 250px;
+    border-color: #999999;
+}
+
+.alignP{
+    font-size:14pt;
+}
+
+.alignP td{
+    padding-left: 5px;
+}
+
+.box {
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background: #fff;
+    margin:15px;
+}
+
+.intro-text {
+    text-transform: uppercase;
+    font-size: 1.25em;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.img-border {
+    float: none;
+    margin: 0 auto 0;
+    border: #999999 solid 1px;
+}
+
+.img-left {
+    float: none;
+    margin: 0 auto 0;
+}
+table{
+    margin : 20px auto;
+    font-size: 12pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.set{
+    width: 100%;
+    height: 30px;
+    padding-top: 0;
+    font-size: 13pt;
+    left: 10px;
+}
+
+.manage_it{
+    width: 50%;
+    font-size: 12pt;
+}
+
+.sett{
+    color: gray;
+    margin: 0px auto;
+}
+
+.pdpg {
+  text-align: center;
+  font-size: 22pt;
+  color: #0081a8;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.footer {
+    height: 55px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #0d4889;
+  text-align: center;
+}
+
+.footer p{
+  font-size: 14pt;
+  color:white;
+}
+
+/*this is pc size screen na jaaaaaaa >____< */
+@media screen and (min-width:768px) {
+    .brand {
+        display: inherit;
+        margin: 0;
+        padding: 10px 0 10px;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        font-size: 30pt;
+        font-weight: 700;
+        line-height: normal;
+        color: #fff;
+        margin-top: -20px;
+    }
+.set{
+    width: 33%;
+    height: 50px;
+    padding-top: 0;
+    font-size: 15pt;
+    color: white;
+}
+
+.sett{
+    width: 33%;
+    height: 50px;
+    padding-top: 0;
+    font-size: 15pt;
+    color: gray;
+}
+
+.box{
+    padding:0;
+    margin: 0;
+}
+
+.manage_it{
+    width: 100%;
+}
+
+.topicStyle{
+  font-size: 18pt;
+  text-align: left;
+  padding-left: 10px; 
+}
+
+.alignP{
+    font-size:16pt;
+}
+
+.showresult{
+    margin : 0px auto;
+    font-size: 15pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.showresult td{
+    padding: 5px 10px;
+    width: 500px;
+}
+
+.brand-name {
+    margin: 0;
+    font-size: 2em;
+}
+
+select,
+input{
+    width: 15em;
+    min-width: 30%;
+}
+
+.button_submit{
+    width: 120px;
+    height: 50px;
+    font-size: 15pt;
+    margin-bottom: 15px;
+    background-color: #0099c8;
+    border-color: #0099c8;
+    color: white;
+}
+
+.button_submit2{
+        width: 120px;
+    height: 50px;
+    font-size: 15pt;
+    margin-bottom: 30px;
+
+}
+
+table{
+    margin : 20px auto;
+    font-size: 15pt;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+td{
+    padding: 10px 20px;
+}
+
+    .top-divider {
+        margin-top: 0;
+    }
+
+    .img-left {
+        float: left;
+        margin-right: 25px;
+    }
+
+    .descript {
+        display: inherit;
+        margin: 0;
+        padding: 0 0 40px;
+        text-align: center;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        text-transform: uppercase;
+        font-size: 25pt;
+        font-weight: 400;
+        letter-spacing: 3px;
+        color: #fff;
+        margin-bottom: -10px;
+    }
+
+    .navbar {
+        border-radius: 0;
+    }
+
+
+    .navbar {
+        min-height: 0;
+    }
+
+    .navbar-default {
+        border: none;
+        background: #fff;
+        background: rgba(255,255,255,0.9);
+    }
+
+    .nav>li>a {
+        padding: 35px;
+    }
+
+    .navbar-nav>li>a {
+        line-height: normal;
+    }
+
+    .navbar-nav {
+        display: table;
+        float: none;
+        margin: 0 auto;
+        table-layout: fixed;
+        font-size: 1.25em;
+    }
+    .sizeme{
+        font-size: 15pt;
+
+    }
+
+}
+
+@media screen and (min-width:1200px) {
+    .box:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}

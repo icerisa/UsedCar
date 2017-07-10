@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css?family=Athiti');
+
+* {
+  font-family: 'Athiti', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+h1 {
+  margin: 1em 0;
+  text-align: center;
+}
+
+.buttonn{
+  width: 100px;
+
+  font-size: 13pt;
+   padding: .5em 1em; white-space: nowrap; 
+}
+
+#container {
+    margin: 0 auto;
+    width: 80%; 
+}
+
+#container input[type="radio"] {
+  height: 2.5em;
+  visibility: hidden;
+}
+
+#container label {
+  background: #f9f9f9; 
+  border-radius: .25em .25em 0 0;
+  color: #888;  
+  cursor: pointer;
+  display: block;
+  float: left;
+  font-size: 1em;  
+  height: 2.5em;
+  line-height: 2.5em;
+  margin-right: .25em;
+  padding: 0 1.5em;
+  text-align: center;
+}
+
+#container input:hover + label {
+  background: #ddd;  
+  color: #666; 
+}
+
+#container input:checked + label {
+  background: #f1f1f1; 
+  color: #444; 
+  position: relative;
+  z-index: 6;
+  /*
+  -webkit-transition: .1s;
+  -moz-transition: .1s;
+  -o-transition: .1s;
+  -ms-transition: .1s;
+  */
+}
+
+#content {
+  background: #f1f1f1;  
+  border-radius: 0 .25em .25em .25em;
+  min-height: 28em;  
+  position: relative;
+  width: 100%;
+  z-index: 5;
+  display: flex;  
+}
+
+#content div {
+  opacity: 0;
+  padding: 1.5em 20%;
+  position: absolute;
+  z-index: -100;
+  /*
+  transition: all linear 0.1s;
+  */
+}
+
+.hthree{
+  font-size: 15pt;
+}
+
+#content-1 p {
+  clear: both;
+  margin-bottom: 1em;
+}
+#content-1 p.left img {
+  float: left;
+  margin-right: 1em;
+}
+#content-1 p.last {
+  margin-bottom: 0;
+}
+
+#content-2 p {
+  float: left;
+  width: 48.5%;
+}
+#content-2 p.column-right {
+  margin-left: 3%;
+}
+#content-2 p img {
+  display: block;
+  margin: 0 auto 1em auto;
+}
+#content-3 p,
+#content-3 ul {
+  margin-bottom: 1em;
+}
+#content-3 ul {
+  margin-left: 2em;
+}
+
+#container input#reset:checked ~ #content #content-1,
+#container input#create:checked ~ #content #content-2,
+#container input#delete:checked ~ #content #content-3 {
+    opacity: 1;
+    z-index: 100;
+}
+
+input[type="radio"].visible {
+  visibility: visible !important;
+}
+
+input[type="text"],
+input[type="password"]{
+  width: 300px;
+  margin-bottom: 0px;
+
+}
+
+.tablee td{
+    width: 200px;
+    padding: 5px;
+}
