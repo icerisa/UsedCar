@@ -38,7 +38,7 @@ public class InputData extends HttpServlet {
         String brandIdParam = request.getParameter("brandId");
         if(brandIdParam != null){
             try{
-                int brandId = Integer.parseInt(brandIdParam);        
+                int brandId = Integer.parseInt(brandIdParam);                   
                 ArrayList<String> models = KKBook.getAllModelFromBrand(brandId);
                 out.print("<option value=''>กรุณาเลือก Model</option>");
                 for(String model : models){

@@ -7,21 +7,17 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Brand;
-import model.gradeTent;
-import model.pdpg_used;
+import model.Calculator;
 
 /**
  *
  * @author yacth_Mon
  */
-public class Index extends HttpServlet {
+public class Calculate extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,15 +31,20 @@ public class Index extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        ArrayList<Brand> brands = Brand.getAllBrands();
-        request.setAttribute("Brands", brands);
-        Map<Integer, String> NCBs = pdpg_used.getAllNCB();
-        request.setAttribute("NCBs", NCBs);
-        Map<Integer, String> gradeTents = gradeTent.getAllGradeTent();
-        request.setAttribute("GradeTents", gradeTents);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-
+        request.setCharacterEncoding("UTF-8"); //brandId, model, year, sub_model, middle_price, NCB, income, dept
+        int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
+        int brandId = Integer.parseInt(request.getParameter("brandId"));
+        String model = request.getParameter("model");
+        int year = Integer.parseInt(request.getParameter("year"));
+        String sub_model = request.getParameter("sub_model");
+        long middle_price = Long.parseLong(request.getParameter("middle_price"));
+        int NCB = Integer.parseInt(request.getParameter("NCB"));
+        int income = Integer.parseInt(request.getParameter("income"));
+        int dept = Integer.parseInt(request.getParameter("debt"));        
+        Calculator cal = new Calculator(gradeTent,brandId,model,year,sub_model,middle_price,NCB,income,dept);
+        PrintWriter out = response.getWriter();
+        out.print(cal); // Check value giving to cal
+        // After all value is correct we going to get data from pdpg_used
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

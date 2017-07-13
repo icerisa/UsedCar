@@ -4,6 +4,7 @@
     Author     : yacth_Mon
 --%>
 
+<%@page import="java.util.Map"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.Brand"%>
@@ -50,7 +51,7 @@
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
-            <form action="result.html" method="get">
+            <form action="Calculate" method="get">
                 <div class="row">
                     <div class="box">
                         <div class="col-lg-12 text-center">
@@ -87,18 +88,30 @@
                             <h2 class="brand-name">ข้อมูลรถยนต์</h2>
                             <hr class="tagline-divider">
                             <table class="alignP">
+                                <td>Grade Tent</td>
+                                <td>:</td>
+                                <td>
+                                    <select id="gradeTent" name="gradeTent">
+                                        <% Map<Integer, String> gradeTents = (Map<Integer, String>) request.getAttribute("GradeTents");
+                                            for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
+                                                out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
+                                            }
+                                        %>           
+                                    </select>
+                                </td>
+                                </tr>
                                 <tr>
                                     <td>Brand</td>
                                     <td>:</td>
                                     <td>
-                                        <select id="brand">
+                                        <select id="brand" name="brandId">
                                             <option value="">choose options</option>
-<!--                                            <option value="isuzu">Isuzu</option>
-                                            <option value="jaguar">Jaguar</option>-->
-                                            <% ArrayList<Brand> brands = (ArrayList<Brand>)request.getAttribute("Brands"); 
-                                            for(Brand b : brands){
-                                                out.println("<option value='" + b.getId()+"'>"+b.getBrandName()+"</option>");
-                                            } %>
+                                            <!--                                            <option value="isuzu">Isuzu</option>
+                                                                                        <option value="jaguar">Jaguar</option>-->
+                                            <% ArrayList<Brand> brands = (ArrayList<Brand>) request.getAttribute("Brands");
+                                                for (Brand b : brands) {
+                                                    out.println("<option value='" + b.getId() + "'>" + b.getBrandName() + "</option>");
+                                                }%>
                                         </select>
                                     </td>
                                 </tr>
@@ -107,7 +120,7 @@
                                     <td>Model</td>
                                     <td>:</td>
                                     <td>
-                                        <select id="model">
+                                        <select id="model" name="model">
                                             <option value="">choose options</option>
                                             <option value="dmax" style="display: none">D-Max</option>
                                             <option value="elf">ELF</option>
@@ -118,7 +131,7 @@
                                     <td>Year</td>
                                     <td>:</td>
                                     <td>
-                                        <select id="year">
+                                        <select id="year" name="year">
                                             <option value="2017">2017</option>
                                             <option value="2016">2016</option>
                                         </select>
@@ -129,7 +142,7 @@
                                     <td>Sub Model</td>
                                     <td>:</td>
                                     <td>
-                                        <select id="sub_model">
+                                        <select id="sub_model" name="sub_model">
                                             <option value="wagon_da" >Wagon 4dr 7st Auto 6sp RWD 1.9DCT (DA)</option>
                                             <option value="wagon_dvd">Wagon 4dr 7st Auto 6sp RWD 1.9DCT (DVD)</option>
                                         </select>
@@ -140,7 +153,7 @@
                                     <td>ราคากลาง</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" value="2323" id="middle_price" readonly class="kk_mid">
+                                        <input type="text" value="2323" name="middle_price" id="middle_price" readonly class="kk_mid">
                                     </td>
                                 </tr>
                             </table>
@@ -152,9 +165,12 @@
                                     <td>ประวัติการชำระหนี้</td>
                                     <td>:</td>
                                     <td>
-                                        <select >
-                                            <option value="good_secured">Good Secured</option>
-                                            <option value="good_un">Good Unsecured</option>
+                                        <select name="NCB" >
+                                            <% Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
+                                                for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
+                                                    out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -163,7 +179,7 @@
                                     <td>รายได้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" name="income">
+                                        <input type="number" name="income">
                                     </td>
                                 </tr>
 
@@ -171,13 +187,13 @@
                                     <td>ภาระหนี้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" name="debt">
+                                        <input type="number" name="debt">
                                     </td>
                                 </tr>
 
                             </table>
                             <br>
-                            <button class="button_submit">ยืนยัน</button>
+                            <input type="submit" class="button_submit" value="ยืนยัน">
                         </div>
                     </div>
             </form>
@@ -197,13 +213,13 @@
             })
         </script> 
         <script>
-            $(document).ready(function(){
-                $('#brand').change(function(){
+            $(document).ready(function () {
+                $('#brand').change(function () {
                     $.ajax({
                         type: 'POST',
                         data: {brandId: $(this).val()},
                         url: 'InputData', // send brandId to get all model from brandId
-                        success: function(data){
+                        success: function (data) {
                             $('#model').html(data) //receive data to model
                             $('#year').html("");
                             $('#sub_model').html("");
@@ -211,42 +227,42 @@
                         }
                     })
                 })
-                
-                $('#model').change(function(){
+
+                $('#model').change(function () {
                     $.ajax({
                         type: 'POST',
                         data: {carModel: $(this).val()},
                         url: 'InputData', // send carModel to get all year from carModel
-                        success: function(data){
+                        success: function (data) {
                             $('#year').html(data);
                             $('#sub_model').html("");
                             $('#middle_price').val(0);
                         }
                     })
                 })
-                
-                $('#year').change(function(){
+
+                $('#year').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {year: $(this).val(),carModel: $('#model').val()},
-                        url: 'InputData',// send carModel and year to get all sub_models
-                        success: function(data){
+                        data: {year: $(this).val(), carModel: $('#model').val()},
+                        url: 'InputData', // send carModel and year to get all sub_models
+                        success: function (data) {
                             $('#sub_model').html(data);
                             $('#middle_price').val(0);
                         }
                     })
                 })
-                
-                $('#sub_model').change(function(){
+
+                $('#sub_model').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {pkOfSubModel:$('#sub_model').val()},
+                        data: {pkOfSubModel: $('#sub_model').val()},
                         url: 'InputData',
-                        success: function(data){
+                        success: function (data) {
                             $('#middle_price').val(data);
                         }
                     })
-                }) 
+                })
             })
         </script>
         <div class="footer">

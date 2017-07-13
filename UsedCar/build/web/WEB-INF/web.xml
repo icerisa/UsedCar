@@ -29,6 +29,10 @@
         <servlet-name>InputData</servlet-name>
         <servlet-class>controller.InputData</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Calculate</servlet-name>
+        <servlet-class>controller.Calculate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -44,6 +48,10 @@
     <servlet-mapping>
         <servlet-name>InputData</servlet-name>
         <url-pattern>/InputData</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Calculate</servlet-name>
+        <url-pattern>/Calculate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
