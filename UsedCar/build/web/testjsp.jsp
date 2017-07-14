@@ -1,8 +1,3 @@
-<%-- 
-    Document   : testjsp
-    Created on : Jul 6, 2017, 1:24:52 AM
-    Author     : yacth_Mon
---%>
 <% 
     String data = (String)request.getAttribute("testData");
 %>

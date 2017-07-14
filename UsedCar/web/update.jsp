@@ -1,9 +1,3 @@
-<%-- 
-    Document   : update
-    Created on : Jul 9, 2017, 7:04:55 PM
-    Author     : yacth_Mon
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

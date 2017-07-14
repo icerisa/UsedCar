@@ -1,9 +1,3 @@
-<%-- 
-    Document   : manage_user
-    Created on : Jul 9, 2017, 6:59:44 PM
-    Author     : yacth_Mon
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
