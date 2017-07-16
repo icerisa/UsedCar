@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Calculator;
+import model.Rate;
 
 /**
  *
@@ -36,14 +37,18 @@ public class Calculate extends HttpServlet {
         int brandId = Integer.parseInt(request.getParameter("brandId"));
         String model = request.getParameter("model");
         int year = Integer.parseInt(request.getParameter("year"));
-        String sub_model = request.getParameter("sub_model");
+        int sub_model = Integer.parseInt(request.getParameter("sub_model"));
         long middle_price = Long.parseLong(request.getParameter("middle_price"));
         int NCB = Integer.parseInt(request.getParameter("NCB"));
         int income = Integer.parseInt(request.getParameter("income"));
         int dept = Integer.parseInt(request.getParameter("debt"));        
         Calculator cal = new Calculator(gradeTent,brandId,model,year,sub_model,middle_price,NCB,income,dept);
+        cal.getAllData();
         PrintWriter out = response.getWriter();
         out.print(cal); // Check value giving to cal
+        out.print("<br>");
+//        request.setAttribute("Calculator", cal);
+//        request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
         // After all value is correct we going to get data from pdpg_used
     }
 

@@ -18,12 +18,12 @@ import java.util.ArrayList;
 public class Brand {
     int id;
     String brandName;
-    String brandType;
+    int brandTypeId;
 
-    public Brand(int id, String brandName, String brandType) {
+    public Brand(int id, String brandName, int brandTypeId) {
         this.id = id;
         this.brandName = brandName;
-        this.brandType = brandType;
+        this.brandTypeId = brandTypeId;
     }
 
     public Brand() {
@@ -45,12 +45,12 @@ public class Brand {
         this.brandName = brandName;
     }
 
-    public String getBrandType() {
-        return brandType;
+    public int getBrandTypeId() {
+        return brandTypeId;
     }
 
-    public void setBrandType(String brandType) {
-        this.brandType = brandType;
+    public void setBrandTypeId(int brandTypeId) {
+        this.brandTypeId = brandTypeId;
     }
     
     public static ArrayList<Brand> getAllBrands(){
@@ -64,7 +64,7 @@ public class Brand {
               Brand brand = new Brand();              
               brand.setId(rs.getInt("brandId"));
               brand.setBrandName(rs.getString("brandName"));
-              brand.setBrandType(rs.getString("brandType"));
+              brand.setBrandTypeId(rs.getInt("brandType"));
               brands.add(brand);
           }
           con.close();
@@ -72,6 +72,36 @@ public class Brand {
             System.out.println(e);
         };
         return brands;
+    }
+    public static String getBrandNameFromId(int id){
+        try{
+            Connection con = DBConnector.getConnection();
+            String sql = "SELECT brandName FROM brand WHERE brandId=?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()){
+                return rs.getString("brandName");
+            }
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return "Brand Not found";
+    }
+    public static int getBrandTypeFromId(int id){
+        try{
+            Connection con = DBConnector.getConnection();
+            String sql = "SELECT brandType FROM brand WHERE brandId=?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id);
+            ResultSet rs = pstm.executeQuery();
+            if(rs.next()){
+                return rs.getInt("brandType");
+            }
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return -1;
     }
     
 }

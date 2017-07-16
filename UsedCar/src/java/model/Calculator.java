@@ -21,21 +21,23 @@ public class Calculator {
     int brandId; 
     String model;
     int year;
-    String sub_model;
+    int sub_modelId;
     long middle_price;
-    int NCB;
+    int ncbType;
     int income;
     int dept;    
     pdpg_used pdpg_used;
+    NCB ncb;
+    Rate rate;
     
-    public Calculator(int gradeTent,int brandId, String model, int year, String sub_model, long middle_price, int NCB, int income, int dept) {
+    public Calculator(int gradeTent,int brandId, String model, int year, int sub_model, long middle_price, int NCBType, int income, int dept) {
         this.gradeTent = gradeTent;
         this.brandId = brandId;
         this.model = model;
         this.year = year;
-        this.sub_model = sub_model;
+        this.sub_modelId = sub_model;
         this.middle_price = middle_price;
-        this.NCB = NCB;
+        this.ncbType = NCBType;
         this.income = income;
         this.dept = dept;
     }
@@ -43,6 +45,14 @@ public class Calculator {
     public Calculator() {
     }
 
+    public NCB getNcb() {
+        return ncb;
+    }
+
+    public Rate getRate() {
+        return rate;
+    }
+    
     public pdpg_used getPdpg_used() {
         return pdpg_used;
     }
@@ -63,16 +73,16 @@ public class Calculator {
         return year;
     }
 
-    public String getSub_model() {
-        return sub_model;
+    public int getSub_modelId() {
+        return sub_modelId;
     }
 
     public long getMiddle_price() {
         return middle_price;
     }
 
-    public int getNCB() {
-        return NCB;
+    public int getNCBType() {
+        return ncbType;
     }
 
     public int getIncome() {
@@ -85,17 +95,22 @@ public class Calculator {
 
     @Override
     public String toString() {
-        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_model=" + sub_model + ", middle_price=" + middle_price + ", NCB=" + NCB + ", income=" + income + ", dept=" + dept + ", pdpg_used=" + pdpg_used +", car_age="+getCarAgeId() +'}';
+        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + sub_modelId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
     }
 
-    public void getPDPG_UsedData() {
+
+
+    public void getAllData() {
         int carAgeId = getCarAgeId();
         if (carAgeId > -1) {
-            pdpg_used data = new pdpg_used();
-            //int gradeTentId, int ncb_type,String occupation, int carAgeId
-            //data.getData(this.gradeTent, this.NCB, , ? occupation ?, carAgeId);
-            //this.pdpg_used = data;
+            pdpg_used data = new pdpg_used();            
+            data.getData(this.gradeTent, this.ncbType, "Salary", carAgeId);            
+            this.pdpg_used = data;// find pdpg_used that match with infomation
+            Rate rate = new Rate();
+            rate.getData(Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId));
+            this.rate = rate;// find rate that match with infomation
         }
+        this.ncb = new NCB(this.ncbType);
     }
 
     public int getCarAgeId() {

@@ -1,4 +1,13 @@
+<%@page import="model.KKBook"%>
+<%@page import="model.pdpg_used"%>
+<%@page import="model.NCB"%>
+<%@page import="model.Brand"%>
+<%@page import="model.Calculator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% Calculator cal = (Calculator) request.getAttribute("Calculator");
+    pdpg_used pdpg = cal.getPdpg_used();
+    long middle_price = cal.getMiddle_price();
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,15 +28,11 @@
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/material.indigo-pink.min.css">
-
-
     </head>
     <body>
-        <jsp:include page="menu.jsp" />
+        <jsp:include page="/menu.jsp" />
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
-
-
         <div class="container">
             <div class="row">
                 <div class="box"><br>
@@ -38,20 +43,19 @@
                             <table class="showresult">
                                 <tr>
                                     <td class="colorTopic">Brand</td>
-                                    <td>: Isuzu</td>
+                                    <td>: <%=Brand.getBrandNameFromId(cal.getBrandId())%></td>
                                     <td class="colorTopic">Year</td>
-                                    <td>: 2017</td>
+                                    <td>: <%=cal.getYear()%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">Model</td>
-                                    <td>: DMAX</td>
+                                    <td>: <%=cal.getModel()%></td>
                                     <td class="colorTopic">ราคากลาง</td>
-                                    <td>: 201,700</td>
+                                    <td>: <%=middle_price%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">SubModel</td>
-                                    <td colspan="4">: Wagon 4dr ยาวมากมากมากมาก</td>
-
+                                    <td colspan="4">: <%=KKBook.getSubModelFromId(cal.getSub_modelId())%></td>
                                 </tr>
                             </table>
                             <br>
@@ -59,17 +63,17 @@
                             <table class="showresult">
                                 <tr>
                                     <td class="colorTopic">ประวัติการชำระหนี้</td>
-                                    <td>: Good Secured</td>
+                                    <td>: <%=cal.getNcb().getNCB_Name()%></td>
                                     <td class="colorTopic">รายได้ต่อเดือน</td>
-                                    <td>: 20,000</td>
+                                    <td>: <%=cal.getIncome()%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">ภาระหนี้ต่อเดือน</td>
-                                    <td colspan="4">: 10,000</td>
+                                    <td colspan="4">: <%=cal.getDept()%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">การยกเว้นผู้ค้ำประกัน</td>
-                                    <td colspan="4">: ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60</td>
+                                    <td colspan="4">: <%=pdpg.getDescription()%></td>
                                 </tr>
                             </table>
                         </div>
@@ -83,48 +87,31 @@
                                 </tr>
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
-                                    <th class="container2"><h1>48</h1></th>
+
                                     <th class="container2"><h1>60</h1></th>
                                     <th class="container2"><h1>72</h1></th>
+                                        <%  int maxTerm = pdpg.getMaxTerm();
+                                            if (maxTerm >= 48) {
+                                                out.println("<th class='container2'><h1>48</h1></th>");
+                                            }
+                                            if (maxTerm >= 60) {
+                                                out.println("<th class='container2'><h1>60</h1></th>");
+                                            }
+                                            if (maxTerm >= 72) {
+                                                out.println("<th class='container2'><h1>72</h1></th>");
+                                            }
+                                        %>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
+                                <%  int maxLtv = pdpg.getMaxLTV();
+                                    for (int i = 0; i < 6; i++) {
+                                        float currentLtv = (maxLtv - (5 * i))/100;
+                                        float loan = currentLtv * middle_price;
+                                        out.println("<tr>");
+                                        out.println("<td>" + loan + "</td>");
+                                        out.println("</tr>");
+                                    }%>
                             </tbody>
                         </table>
                         <hr class="tagline">

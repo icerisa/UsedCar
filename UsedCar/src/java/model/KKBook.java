@@ -165,5 +165,37 @@ public class KKBook {
         };
         return middle_price;
     }
-            
+    
+    public static String getSubModelFromId(int id){
+        try{
+          Connection con = DBConnector.getConnection();
+          String sql = "SELECT carSubModel FROM kk_book WHERE bookId=?";
+          PreparedStatement pstm = con.prepareStatement(sql);
+          pstm.setInt(1, id);
+          ResultSet rs = pstm.executeQuery();
+          if(rs.next()){
+              return rs.getString("carSubModel");
+          }
+          con.close();
+        } catch (Exception e){
+            System.out.println(e);
+        };
+        return "Sub Model not found";
+    }
+    public static int getAutoTypeFromId(int id){
+        try{
+          Connection con = DBConnector.getConnection();
+          String sql = "SELECT autoTypeId FROM kk_book WHERE bookId=?";
+          PreparedStatement pstm = con.prepareStatement(sql);
+          pstm.setInt(1, id);
+          ResultSet rs = pstm.executeQuery();
+          if(rs.next()){
+              return rs.getInt("autoTypeId");
+          }
+          con.close();
+        } catch (Exception e){
+            System.out.println(e);
+        };
+        return -1;
+    }
 }

@@ -23,7 +23,7 @@ public class pdpg_used {
     int NCB_Type;
     String NCB_Name;
     String occupation;
-    int carAge;
+    int carAgeId;
     int maxLTV;
     int maxTerm;
     long conditionExcept;
@@ -72,12 +72,12 @@ public class pdpg_used {
         this.occupation = occupation;
     }
 
-    public int getCarAge() {
-        return carAge;
+    public int getCarAgeId() {
+        return carAgeId;
     }
 
-    public void setCarAge(int carAge) {
-        this.carAge = carAge;
+    public void setCarAgeId(int carAgeId) {
+        this.carAgeId = carAgeId;
     }
 
     public int getMaxLTV() {
@@ -112,6 +112,11 @@ public class pdpg_used {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return "pdpg_used{" + "pdpgId=" + pdpgId + ", gradeTentId=" + gradeTentId + ", NCB_Type=" + NCB_Type + ", NCB_Name=" + NCB_Name + ", occupation=" + occupation + ", carAgeId=" + carAgeId + ", maxLTV=" + maxLTV + ", maxTerm=" + maxTerm + ", conditionExcept=" + conditionExcept + ", description=" + description + '}';
+    }
+
     public void getData(int gradeTentId, int ncb_type,String occupation, int carAgeId) {
         try {
             Connection con = DBConnector.getConnection();
@@ -123,7 +128,17 @@ public class pdpg_used {
             pstm.setInt(4, carAgeId);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()) {
-                // to do
+                this.pdpgId = rs.getInt("pdpgId");
+                this.gradeTentId = rs.getInt("gradeTentId");
+                this.NCB_Type = rs.getInt("NCB_Type");
+                this.NCB_Name = rs.getString("NCB_Name");
+                this.occupation = rs.getString("occupation");
+                this.carAgeId = rs.getInt("carAge");
+                String ltv = rs.getString("maxLTV");
+                this.maxLTV = Integer.parseInt(ltv.substring(0,ltv.length()-1));
+                this.maxTerm = rs.getInt("maxTerm");
+                this.conditionExcept = rs.getLong("conditionExcept");
+                this.description = rs.getString("description");
             }
             con.close();
         } catch (Exception e) {
@@ -132,20 +147,4 @@ public class pdpg_used {
 
     }
     
-    public static Map<Integer,String> getAllNCB(){
-        Map<Integer,String> subModels = new HashMap<Integer,String>();
-        try{
-          Connection con = DBConnector.getConnection();
-          String sql = "SELECT DISTINCT NCB_Type,NCB_Name FROM pdpg_used";
-          PreparedStatement pstm = con.prepareStatement(sql);
-          ResultSet rs = pstm.executeQuery();
-          while(rs.next()){              
-              subModels.put(rs.getInt("NCB_Type"),rs.getString("NCB_Name"));
-          }
-          con.close();
-        } catch (Exception e){
-            System.out.println(e);
-        };
-        return subModels;
-    }
 }

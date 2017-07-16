@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Brand;
+import model.NCB;
 import model.gradeTent;
 import model.pdpg_used;
 
@@ -38,7 +39,7 @@ public class Index extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         ArrayList<Brand> brands = Brand.getAllBrands();
         request.setAttribute("Brands", brands);
-        Map<Integer, String> NCBs = pdpg_used.getAllNCB();
+        Map<Integer, String> NCBs = NCB.getAllNCB();
         request.setAttribute("NCBs", NCBs);
         Map<Integer, String> gradeTents = gradeTent.getAllGradeTent();
         request.setAttribute("GradeTents", gradeTents);
