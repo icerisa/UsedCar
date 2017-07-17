@@ -98,16 +98,14 @@ public class Calculator {
         return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + sub_modelId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
     }
 
-
-
     public void getAllData() {
         int carAgeId = getCarAgeId();
         if (carAgeId > -1) {
-            pdpg_used data = new pdpg_used();            
-            data.getData(this.gradeTent, this.ncbType, "Salary", carAgeId);            
-            this.pdpg_used = data;// find pdpg_used that match with infomation
+            pdpg_used pdpg = new pdpg_used();            
+            pdpg.getData(this.gradeTent, this.ncbType, "Salary", carAgeId);            
+            this.pdpg_used = pdpg;// find pdpg_used that match with infomation
             Rate rate = new Rate();
-            rate.getData(Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId));
+            rate.getData(Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId), pdpg.getMaxTerm());
             this.rate = rate;// find rate that match with infomation
         }
         this.ncb = new NCB(this.ncbType);

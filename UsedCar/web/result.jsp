@@ -1,3 +1,4 @@
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="model.KKBook"%>
 <%@page import="model.pdpg_used"%>
 <%@page import="model.NCB"%>
@@ -87,29 +88,60 @@
                                 </tr>
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
-
-                                    <th class="container2"><h1>60</h1></th>
-                                    <th class="container2"><h1>72</h1></th>
                                         <%  int maxTerm = pdpg.getMaxTerm();
+                                            int rowToShow = 6; // บรรทัดที่จะให้โชว์ค่า Default = 6
+                                            int maxLtv = pdpg.getMaxLTV();
+                                            DecimalFormat df = new DecimalFormat("##,###,###,###.##");
+                                            float rate = cal.getRate().getRateNumber() / 100f;
+                                            double[] loan = new double[rowToShow], loan48 = null, loan60 = null, loan72 = null;// ประกาศค่าใว้รอ
+                                            int[] atleastIncome48 = null, atleastIncome60 = null, atleastIncome72 = null;
+                                            int[] highestDept48 = null, highestDept60 = null, highestDept72 = null;
+
                                             if (maxTerm >= 48) {
+                                                loan48 = new double[rowToShow];//ถ้า Term มากกว่า 48 ค่อย new double[6] ให้
+                                                atleastIncome48 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                                highestDept48 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>48</h1></th>");
                                             }
                                             if (maxTerm >= 60) {
+                                                loan60 = new double[rowToShow];//ถ้า Term มากกว่า 60 ค่อย new double[6] ให้
+                                                atleastIncome60 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                                highestDept60 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>60</h1></th>");
                                             }
                                             if (maxTerm >= 72) {
+                                                loan72 = new double[rowToShow];//ถ้า Term มากกว่า 72 ค่อย new double[6] ให้
+                                                atleastIncome72 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                                highestDept72 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>72</h1></th>");
                                             }
                                         %>
                                 </tr>
                             </thead>
                             <tbody>
-                                <%  int maxLtv = pdpg.getMaxLTV();
-                                    for (int i = 0; i < 6; i++) {
-                                        float currentLtv = (maxLtv - (5 * i))/100;
-                                        float loan = currentLtv * middle_price;
+                                <%  for (int i = 0; i < rowToShow; i++) { // คำนวนและแสงดค่าแต่ละ Row
+                                        float currentLtv = (maxLtv - (5 * i)) / 100f;
+                                        loan[i] = currentLtv * middle_price;
                                         out.println("<tr>");
-                                        out.println("<td>" + loan + "</td>");
+                                        out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(loan[i]) + "</td>");
+                                        if (maxTerm >= 48) {
+                                            if (loan48 != null) {
+                                                loan48[i] = (rate * loan[i] * (48 / 12) + loan[i]) / 48f;
+                                            }
+                                            out.println("<td id='loan-48-" + i + "' value='" + loan48[i] + "'>" + df.format(loan48[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 60) {
+                                            if (loan60 != null) {
+                                                loan60[i] = (rate * loan[i] * (60 / 12) + loan[i]) / 60f;
+                                            }
+                                            out.println("<td id='loan-60-" + i + "' value='" + loan60[i] + "'>" + df.format(loan60[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 72) {
+                                            if (loan72 != null) {
+                                                loan72[i] = (rate * loan[i] * (72 / 12) + loan[i]) / 72f;
+                                            }
+                                            out.println("<td id='loan-72 -" + i + "' value='" + loan72[i] + "'>" + df.format(loan72[i]) + "</td>");
+                                        }
                                         out.println("</tr>");
                                     }%>
                             </tbody>
@@ -123,49 +155,44 @@
                                 </tr>
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
-                                    <th class="container2"><h1>48</h1></th>
-                                    <th class="container2"><h1>60</h1></th>
-                                    <th class="container2"><h1>72</h1></th>
+                                        <%
+                                            if (maxTerm >= 48) {
+                                                out.println("<th class='container2'><h1>48</h1></th>");
+                                            }
+                                            if (maxTerm >= 60) {
+                                                out.println("<th class='container2'><h1>60</h1></th>");
+                                            }
+                                            if (maxTerm >= 72) {
+                                                out.println("<th class='container2'><h1>72</h1></th>");
+                                            }
+                                        %>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
+                                <%for (int i = 0; i < rowToShow; i++) { // print 6 row
+                                        out.println("<tr>");
+                                        out.println("<td " + (i == 0 ? "id='maxLoan-2'" : "") + ">" + df.format(loan[i]) + "</td>");
+                                        if (maxTerm >= 48) {
+                                            if (atleastIncome48 != null) {
+                                                atleastIncome48[i] = ((int) loan48[i]) * 2;
+                                            }
+                                            out.println("<td id='income-48-" + i + "' value='" + atleastIncome48[i] + "'>" + df.format(atleastIncome48[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 60) {
+                                            if (atleastIncome60 != null) {
+                                                atleastIncome60[i] = ((int) loan60[i]) * 2;
+                                            }
+                                            out.println("<td id='income-60-" + i + "' value='" + atleastIncome60[i] + "'>" + df.format(atleastIncome60[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 72) {
+                                            if (atleastIncome72 != null) {
+                                                atleastIncome72[i] = ((int) loan72[i]) * 2;
+                                            }
+                                            out.println("<td id='income-72 -" + i + "' value='" + atleastIncome72[i] + "'>" + df.format(atleastIncome72[i]) + "</td>");
+                                        }
+                                        out.println("</tr>");
+                                    }%>
                             </tbody>
                         </table>
                         <hr class="tagline">
@@ -177,60 +204,58 @@
                                 </tr>
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
-                                    <th class="container2"><h1>48</h1></th>
-                                    <th class="container2"><h1>60</h1></th>
-                                    <th class="container2"><h1>72</h1></th>
+                                        <%
+                                            if (maxTerm >= 48) {
+                                                out.println("<th class='container2'><h1>48</h1></th>");
+                                            }
+                                            if (maxTerm >= 60) {
+                                                out.println("<th class='container2'><h1>60</h1></th>");
+                                            }
+                                            if (maxTerm >= 72) {
+                                                out.println("<th class='container2'><h1>72</h1></th>");
+                                            }
+                                        %>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>600,000 </td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>500,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td>400,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
+                                <%for (int i = 0; i < rowToShow; i++) { // print 6 row
+                                        out.println("<tr>");
+                                        out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(loan[i]) + "</td>");
+                                        if (maxTerm >= 48) {
+                                            if (highestDept48 != null) {
+                                                highestDept48[i] = (int) ((atleastIncome48[i] * 0.8f) - loan48[i]);
+                                                highestDept48[i] = (highestDept48[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                            }
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48[i] + "'>" + df.format(highestDept48[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 60) {
+                                            if (highestDept60 != null) {
+                                                highestDept60[i] = (int) ((atleastIncome60[i] * 0.8f) - loan60[i]);
+                                                highestDept60[i] = (highestDept60[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                            }
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60[i] + "'>" + df.format(highestDept60[i]) + "</td>");
+                                        }
+                                        if (maxTerm >= 72) {
+                                            if (highestDept72 != null) {
+                                                highestDept72[i] = (int) ((atleastIncome72[i] * 0.8f) - loan72[i]);
+                                                highestDept72[i] = (highestDept72[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                            }
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72[i] + "'>" + df.format(highestDept72[i]) + "</td>");
+                                        }
+                                        out.println("</tr>");
+                                    }%>
                             </tbody>
-                        </table>
+                        </table>                        
                         <hr class="tagline">
                         <table class="alignP">
                             <tr>
                                 <td>ระบุยอดที่ต้องการกู้</td>
                                 <td>:</td>
                                 <td>
-                                    <input type="number" class="want">
+                                    <input type="number" class="want" id="want">
                                 </td>
                                 <td>
-                                    <button class="button_cal">คำนวณ</button>
+                                    <button class="button_cal" onclick="doCalculate()">คำนวณ</button>
                                 </td>
                             </tr>
                         </table>
@@ -245,28 +270,26 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr>
-                                    <td class="container3"><span class="sizeme">ค่างวดต่อเดือน </span></td>
-                                    <td>15,000 </td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                </tr>
-                                <tr>
-                                    <td class="container3"><span class="sizeme">รายได้ขั้นต่ำต่อเดือน </span></td>
-                                    <td>14,000 </td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                </tr>
-                                <tr>
-                                    <td class="container3"><span class="sizeme">ภาระหนี้สูงสุดต่อเดือน </span></td>
-                                    <td>13,000 </td>
-                                    <td>12,000 </td>
-                                    <td>11,000 </td>
-                                </tr>
+                            <tbody id="customLoan">
 
                             </tbody>
                         </table>
+                        <!-- jQuery -->
+                        <script src="js/jquery.js"></script>
+                        <input type="hidden" id="maxTerm" value="<%=maxTerm%>">
+                        <input type="hidden" id="rate" value="<%=rate%>">
+                        <script>
+                                        function doCalculate() {
+                                            $.ajax({
+                                                type: 'POST',
+                                                data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(), rate: $("#rate").val()},
+                                                url: 'CalCustomLoan',
+                                                success: function (data) {
+                                                    $('#customLoan').html(data)
+                                                }
+                                            })
+                                        }
+                        </script>
                         <hr class="dot">
 
                         <div class="row">
@@ -282,7 +305,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="index.html"><input type="button" class="button_submit" value="ยืนยัน"></a>
+                        <a href="Index"><input type="button" class="button_submit" value="ยืนยัน"></a>
                     </div>
 
                 </div>

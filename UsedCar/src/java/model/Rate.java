@@ -74,7 +74,7 @@ public class Rate {
         this.term = term;
     }
 
-    public float getRate() {
+    public float getRateNumber() {
         return rate;
     }
 
@@ -87,15 +87,16 @@ public class Rate {
         return "Rate{" + "rateId=" + rateId + ", brandTypeId=" + brandTypeId + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + '}';
     }
     
-    public void getData(int brandType,int carYear, int autoTypeId){
+    public void getData(int brandType,int carYear, int autoTypeId, int term){
         System.out.println(brandType + " : " + carYear + " : " + autoTypeId);
         try{
             Connection con = DBConnector.getConnection();
-            String sql = "SELECT * FROM rate WHERE brandType=? AND carYear=? AND autoTypeId=?";
+            String sql = "SELECT * FROM rate WHERE brandType=? AND carYear=? AND autoTypeId=? AND term=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setInt(1, brandType);
             pstm.setInt(2, carYear);
             pstm.setInt(3, autoTypeId);
+            pstm.setInt(4, term);
             ResultSet rs = pstm.executeQuery();
             if(rs.next()){
                 this.rateId = rs.getInt("rateId");

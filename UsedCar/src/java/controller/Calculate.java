@@ -44,11 +44,10 @@ public class Calculate extends HttpServlet {
         int dept = Integer.parseInt(request.getParameter("debt"));        
         Calculator cal = new Calculator(gradeTent,brandId,model,year,sub_model,middle_price,NCB,income,dept);
         cal.getAllData();
-        PrintWriter out = response.getWriter();
-        out.print(cal); // Check value giving to cal
-        out.print("<br>");
-//        request.setAttribute("Calculator", cal);
-//        request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+//        PrintWriter out = response.getWriter();
+//        out.print(cal); // Check value giving to cal
+        request.setAttribute("Calculator", cal);
+        request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
         // After all value is correct we going to get data from pdpg_used
     }
 

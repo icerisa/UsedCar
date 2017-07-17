@@ -12,6 +12,9 @@
         <url-pattern>/profile.jsp</url-pattern>
         <url-pattern>/result.jsp</url-pattern>
         <url-pattern>/update.jsp</url-pattern>
+        <url-pattern>/Calculate</url-pattern>
+        <url-pattern>/InputData</url-pattern>
+        <url-pattern>/CalCustomLoan</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -33,6 +36,10 @@
         <servlet-name>Calculate</servlet-name>
         <servlet-class>controller.Calculate</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CalCustomLoan</servlet-name>
+        <servlet-class>controller.CalCustomLoan</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -52,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>Calculate</servlet-name>
         <url-pattern>/Calculate</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalCustomLoan</servlet-name>
+        <url-pattern>/CalCustomLoan</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
