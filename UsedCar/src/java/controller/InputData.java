@@ -32,63 +32,85 @@ public class InputData extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");        
-        PrintWriter out = response.getWriter(); 
-        // รับ brandId มา ส่ง carModel กลับ ((1)เลือก brand เสร็จแล้ว )
-        String brandIdParam = request.getParameter("brandId");
-        if(brandIdParam != null){
-            try{
-                int brandId = Integer.parseInt(brandIdParam);                   
-                ArrayList<String> models = KKBook.getAllModelFromBrand(brandId);
-                out.print("<option value=''>กรุณาเลือก Model</option>");
-                for(String model : models){
-                    out.println("<option value='" + model +"'>"+model+"</option>");
-                }                
-            } catch (NumberFormatException e){
-                out.print("<option value=''>Brand ที่เลือกผิดพลาด</option>");
-            }
-            return;
-        }
-        // รับ carModel มา แล้ว ((2) ส่ง Year กลับ) หรือ ((3) ส่ง carSubModels กลับ)
-        String carModelParam = request.getParameter("carModel");
-        if(carModelParam != null){            
-            String yearParam = request.getParameter("year");
-            // รับ year มา (มาพร้อม carModel) ส่ง carSubModels กลับไป ((3)เลือก year เสร็จแล้ว)
-            if(yearParam != null){
-                try{
-                    int year = Integer.parseInt(yearParam);
-                    String carModel = request.getParameter("carModel");
-                    Map<Integer,String> carSubModels = KKBook.getAllSubModelFromModelYear(carModel, year);
-                    out.print("<option value=''>กรุณาเลือก Sub Model</option>");
-                    for(Map.Entry<Integer,String> subModel:carSubModels.entrySet()){
-                        out.println("<option value='" + subModel.getKey()+"'>"+subModel.getValue()+"</option>");
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        //----------
+        String target = request.getParameter("target");
+        String brandIdParam = request.getParameter("brandId"); //(1)
+        String carModelParam = request.getParameter("carModel");//(2),(3),(4)
+        String yearParam = request.getParameter("year");//(3)
+        String monthParam = request.getParameter("month");//(4)        
+        String pkOfSubModelParam = request.getParameter("pkOfSubModel");//(5)
+        switch (target) {
+            case "getCarModel":
+                // รับ brandId มา ส่ง carModel กลับ ((1)เลือก brand เสร็จแล้ว )                
+                if (brandIdParam != null) {
+                    try {
+                        int brandId = Integer.parseInt(brandIdParam);
+                        ArrayList<String> models = KKBook.getAllModelFromBrand(brandId);
+                        out.print("<option value=''>กรุณาเลือก Model</option>");
+                        for (String model : models) {
+                            out.println("<option value='" + model + "'>" + model + "</option>");
+                        }
+                    } catch (NumberFormatException e) {
+                        out.print("<option value=''>Brand ที่เลือกผิดพลาด</option>");
                     }
-                }catch(NumberFormatException e){
-                    out.print("<option value=''>Year ที่เลือกผิดพลาด</option>");
+                    return;
                 }
-                return;
-            } else { // รับ carModel มา ส่ง year กลับ ในกรณีที่ไม่ได้เลือก year มาด้วย ((2)เลือก model เสร็จแล้ว)
-                ArrayList<Integer> years = KKBook.getAllYearFromModel(carModelParam);
-                out.print("<option value=''>กรุณาเลือก Year</option>");
-                for(int year:years){
-                    out.println("<option value='" + year+"'>"+year+"</option>");
+                break;
+            case "getCarYear":
+                // รับ carModel มา แล้ว ((2) ส่ง Year กลับ)                
+                if (carModelParam != null) {
+                    ArrayList<Integer> years = KKBook.getAllYearFromModel(carModelParam);
+                    out.print("<option value=''>กรุณาเลือก Year</option>");
+                    for (int year : years) {
+                        out.println("<option value='" + year + "'>" + year + "</option>");
+                    }
+                    return;
                 }
-                return;
-            }
+                break;
+            case "getCarMonth":
+                // รับ carYear + carModel มาแล้ว ((3)ส่ง Month กลับ
+                if(carModelParam !=null && yearParam !=null ){
+                    ArrayList<Integer> months = KKBook.getAllMonthFromModelYear(carModelParam, Integer.parseInt(yearParam));
+                    out.print("<option value=''>กรุณาเลือก Month</option>");
+                    for (int month : months) {
+                        out.println("<option value='" + month + "'>" + (month==0?"-":month) + "</option>");
+                    }
+                    return;
+                }
+                break;
+            case "getCarSubModel":
+                // รับ year มา (มาพร้อม carModel) ส่ง carSubModels กลับไป ((4)เลือก year เสร็จแล้ว)
+                if (yearParam != null && carModelParam!=null && monthParam!=null) {
+                    try {
+                        int year = Integer.parseInt(yearParam);
+                        String carModel = request.getParameter("carModel");
+                        Map<Integer, String> carSubModels = KKBook.getAllSubModelFromModelYear(carModel, year, Integer.parseInt(monthParam));
+                        out.print("<option value=''>กรุณาเลือก Sub Model</option>");
+                        for (Map.Entry<Integer, String> subModel : carSubModels.entrySet()) {
+                            out.println("<option value='" + subModel.getKey() + "'>" + subModel.getValue() + "</option>");
+                        }
+                    } catch (NumberFormatException e) {
+                        out.print("<option value=''>Month ที่เลือกผิดพลาด</option>");
+                    }
+                    return;
+                }
+                break;
+            case "getMiddlePrice":
+                // รับ pkOfSubModel มา แล้ว return middle_price กลับ        
+                if (pkOfSubModelParam != null) {
+                    try {
+                        int pkOfSubModel = Integer.parseInt(pkOfSubModelParam);
+                        int middle_price = KKBook.getMiddlePriceFromPK(pkOfSubModel);
+                        out.println(middle_price);
+                    } catch (NumberFormatException e) {
+                        out.println("Sub Model ที่เลือกผิดพลาด");
+                    }
+                }
+                break;
         }
-        // รับ pkOfSubModel มา แล้ว return middle_price กลับ
-        String pkOfSubModelParam = request.getParameter("pkOfSubModel");
-        if(pkOfSubModelParam != null){
-            try{
-                int pkOfSubModel = Integer.parseInt(pkOfSubModelParam);
-                int middle_price = KKBook.getMiddlePriceFromPK(pkOfSubModel);
-                out.println(middle_price);
-            } catch (NumberFormatException e){
-                out.println("Sub Model ที่เลือกผิดพลาด");
-            }
-        }
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

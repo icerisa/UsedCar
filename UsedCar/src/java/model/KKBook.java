@@ -129,14 +129,33 @@ public class KKBook {
         };
         return years;
     }
-    public static Map<Integer,String> getAllSubModelFromModelYear(String model, int year){
-        Map<Integer,String> subModels = new HashMap<Integer,String>();
+    public static ArrayList<Integer> getAllMonthFromModelYear(String model, int year){
+        ArrayList<Integer> months = new ArrayList<Integer>();
         try{
           Connection con = DBConnector.getConnection();
-          String sql = "SELECT bookId,carSubModel FROM kk_book WHERE carModel=? AND carYear=?";
+          String sql = "select DISTINCT(MONTH) from kk_book where carModel=? AND carYear=?;";
           PreparedStatement pstm = con.prepareStatement(sql);
           pstm.setString(1, model);
           pstm.setInt(2, year);
+          ResultSet rs = pstm.executeQuery();
+          while(rs.next()){
+              months.add(rs.getInt("MONTH"));
+          }
+          con.close();
+        } catch (Exception e){
+            System.out.println(e);
+        };
+        return months;
+    }
+    public static Map<Integer,String> getAllSubModelFromModelYear(String model, int year, int month){
+        Map<Integer,String> subModels = new HashMap<Integer,String>();
+        try{
+          Connection con = DBConnector.getConnection();
+          String sql = "SELECT bookId,carSubModel FROM kk_book WHERE carModel=? AND carYear=? AND month=?";
+          PreparedStatement pstm = con.prepareStatement(sql);
+          pstm.setString(1, model);
+          pstm.setInt(2, year);
+          pstm.setInt(3, month);
           ResultSet rs = pstm.executeQuery();
           while(rs.next()){              
               subModels.put(rs.getInt("bookId"),rs.getString("carSubModel"));
@@ -198,4 +217,5 @@ public class KKBook {
         };
         return -1;
     }
+    
 }

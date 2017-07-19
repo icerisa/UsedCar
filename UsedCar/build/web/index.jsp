@@ -131,6 +131,16 @@
                                         </select>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td>Month</td>
+                                    <td>:</td>
+                                    <td>
+                                        <select id="month" name="month">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                        </select>
+                                    </td>
+                                </tr>
 
                                 <tr>
                                     <td>Sub Model</td>
@@ -170,6 +180,17 @@
                                 </tr>
 
                                 <tr>
+                                    <td>อาชีพ</td>
+                                    <td>:</td>
+                                    <td>
+                                        <select id="occupation" name="occupation">
+                                            <option value="Salary" >Salary</option>
+                                            <option value="Non Salary">Non Salary</option>
+                                        </select> <br>                                        
+                                    </td>
+                                </tr>
+
+                                <tr>
                                     <td>รายได้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
@@ -186,7 +207,14 @@
                                 </tr>
 
                             </table>
-                            <br>
+                            <br>                   
+                            <div class="row">
+                                <div class="col-lg-12" style='color:red;font-size:17px;'>
+                                    <h4>หมายเหตุ</h4>
+                                    <li>Salary = พนักงานเงินเดือนที่มีเอกสารแสดงรายได้/ข้าราชการ/พนักงานรัฐวิสาหกิจ</li>
+                                    <li>Non Salary = พนักงานประจำที่ไม่มีเอกสารแสดงรายได้/เกษตรกร/เจ้าของกิจการ/อาชีพอิสระ/อื่นๆ</li>
+                                </div>
+                            </div>
                             <input type="submit" class="button_submit" value="ยืนยัน">
                         </div>
                     </div>
@@ -211,11 +239,12 @@
                 $('#brand').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {brandId: $(this).val()},
+                        data: {target: "getCarModel", brandId: $(this).val()},
                         url: 'InputData', // send brandId to get all model from brandId
                         success: function (data) {
                             $('#model').html(data) //receive data to model
                             $('#year').html("");
+                            $('#month').html("");
                             $('#sub_model').html("");
                             $('#middle_price').val(0);
                         }
@@ -225,10 +254,11 @@
                 $('#model').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {carModel: $(this).val()},
+                        data: {target: "getCarYear", carModel: $(this).val()},
                         url: 'InputData', // send carModel to get all year from carModel
                         success: function (data) {
                             $('#year').html(data);
+                            $('#month').html("");
                             $('#sub_model').html("");
                             $('#middle_price').val(0);
                         }
@@ -238,8 +268,21 @@
                 $('#year').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {year: $(this).val(), carModel: $('#model').val()},
-                        url: 'InputData', // send carModel and year to get all sub_models
+                        data: {target: "getCarMonth", year: $(this).val(), carModel: $('#model').val(), brandId: $('#brand').val()},
+                        url: 'InputData', // send year carModel and brandId to get all months
+                        success: function (data) {
+                            $('#month').html(data);
+                            $('#sub_model').html("");
+                            $('#middle_price').val(0);
+                        }
+                    })
+                })
+
+                $('#month').change(function () {
+                    $.ajax({
+                        type: 'POST',
+                        data: {target: "getCarSubModel", year: $("#year").val(), carModel: $('#model').val(), month: $(this).val()},
+                        url: 'InputData', // send year carModel and brandId to get all months
                         success: function (data) {
                             $('#sub_model').html(data);
                             $('#middle_price').val(0);
@@ -250,14 +293,22 @@
                 $('#sub_model').change(function () {
                     $.ajax({
                         type: 'POST',
-                        data: {pkOfSubModel: $('#sub_model').val()},
+                        data: {target: "getMiddlePrice", pkOfSubModel: $('#sub_model').val()},
                         url: 'InputData',
                         success: function (data) {
                             $('#middle_price').val(data);
                         }
                     })
                 })
-            })
+                $('#occupation').change(function () {
+                    if ($(this).val() === "Salary")
+                        $("#description").text("");
+                    else if ($(this).val() === "Non Salary")
+                        $("#description").text("");
+                })
+            }
+            )
+
         </script>
         <div class="footer">
             <p>Kiatnakin Bank</p>

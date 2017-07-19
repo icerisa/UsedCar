@@ -24,7 +24,7 @@ public class pdpg_used {
     String NCB_Name;
     String occupation;
     int carAgeId;
-    int maxLTV;
+    float maxLTV;
     int maxTerm;
     long conditionExcept;
     String description;
@@ -80,11 +80,11 @@ public class pdpg_used {
         this.carAgeId = carAgeId;
     }
 
-    public int getMaxLTV() {
+    public float getMaxLTV() {
         return maxLTV;
     }
 
-    public void setMaxLTV(int maxLTV) {
+    public void setMaxLTV(float maxLTV) {
         this.maxLTV = maxLTV;
     }
 
@@ -133,9 +133,8 @@ public class pdpg_used {
                 this.NCB_Type = rs.getInt("NCB_Type");
                 this.NCB_Name = rs.getString("NCB_Name");
                 this.occupation = rs.getString("occupation");
-                this.carAgeId = rs.getInt("carAge");
-                String ltv = rs.getString("maxLTV");
-                this.maxLTV = Integer.parseInt(ltv.substring(0,ltv.length()-1));
+                this.carAgeId = rs.getInt("carAge");                
+                this.maxLTV = rs.getFloat("maxLtv");
                 this.maxTerm = rs.getInt("maxTerm");
                 this.conditionExcept = rs.getLong("conditionExcept");
                 this.description = rs.getString("description");
