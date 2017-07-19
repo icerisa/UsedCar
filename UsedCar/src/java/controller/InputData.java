@@ -7,6 +7,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -35,6 +36,7 @@ public class InputData extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         //----------
+        DecimalFormat df = new DecimalFormat("##,###,###,###.##");
         String target = request.getParameter("target");
         String brandIdParam = request.getParameter("brandId"); //(1)
         String carModelParam = request.getParameter("carModel");//(2),(3),(4)
@@ -103,7 +105,7 @@ public class InputData extends HttpServlet {
                     try {
                         int pkOfSubModel = Integer.parseInt(pkOfSubModelParam);
                         int middle_price = KKBook.getMiddlePriceFromPK(pkOfSubModel);
-                        out.println(middle_price);
+                        out.println(df.format(middle_price));
                     } catch (NumberFormatException e) {
                         out.println("Sub Model ที่เลือกผิดพลาด");
                     }
