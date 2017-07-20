@@ -36,13 +36,16 @@ public class Calculate extends HttpServlet {
         int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
         int brandId = Integer.parseInt(request.getParameter("brandId"));
         String model = request.getParameter("model");
+        int month = Integer.parseInt(request.getParameter("month"));
         int year = Integer.parseInt(request.getParameter("year"));
         int sub_model = Integer.parseInt(request.getParameter("sub_model"));
         long middle_price = Long.parseLong(request.getParameter("middle_price"));
         int NCB = Integer.parseInt(request.getParameter("NCB"));
+        String occupation = request.getParameter("occupation");
         int income = Integer.parseInt(request.getParameter("income"));
-        int dept = Integer.parseInt(request.getParameter("debt"));        
-        Calculator cal = new Calculator(gradeTent,brandId,model,year,sub_model,middle_price,NCB,income,dept);
+        int dept = Integer.parseInt(request.getParameter("debt"));
+        
+        Calculator cal = new Calculator(gradeTent,brandId,model,year,month,sub_model,middle_price,NCB,occupation,income,dept);
         cal.getAllData();
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal

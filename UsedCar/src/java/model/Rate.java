@@ -17,11 +17,13 @@ import java.sql.ResultSet;
 public class Rate {
     int rateId;
     int brandTypeId;
+    int guarantee; //ผู้ค้ำ
     int carYear;
     int autoTypeId;
     int term;
     float rate;
 
+    
     public Rate() {
     }
 

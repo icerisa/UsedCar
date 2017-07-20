@@ -105,7 +105,8 @@ public class InputData extends HttpServlet {
                     try {
                         int pkOfSubModel = Integer.parseInt(pkOfSubModelParam);
                         int middle_price = KKBook.getMiddlePriceFromPK(pkOfSubModel);
-                        out.println(df.format(middle_price));
+//                        out.println(df.format(middle_price));
+                        out.println(middle_price);
                     } catch (NumberFormatException e) {
                         out.println("Sub Model ที่เลือกผิดพลาด");
                     }

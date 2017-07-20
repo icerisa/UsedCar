@@ -120,7 +120,7 @@ public class pdpg_used {
     public void getData(int gradeTentId, int ncb_type,String occupation, int carAgeId) {
         try {
             Connection con = DBConnector.getConnection();
-            String sql = "SELECT * FROM pdpg_used WHERE gradeTentId=? AND NCB_Type=? AND occupation=? AND carAge=?";
+            String sql = "SELECT * FROM pdpg_used WHERE gradeTentId=? AND NCB_Type=? AND occupation=? AND ageId=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setInt(1, gradeTentId);
             pstm.setInt(2, ncb_type);
@@ -133,7 +133,7 @@ public class pdpg_used {
                 this.NCB_Type = rs.getInt("NCB_Type");
                 this.NCB_Name = rs.getString("NCB_Name");
                 this.occupation = rs.getString("occupation");
-                this.carAgeId = rs.getInt("carAge");                
+                this.carAgeId = rs.getInt("ageId");                
                 this.maxLTV = rs.getFloat("maxLtv");
                 this.maxTerm = rs.getInt("maxTerm");
                 this.conditionExcept = rs.getLong("conditionExcept");

@@ -5,31 +5,21 @@
             <url>src/java/controller/Calculate.java</url>
             <bookmark id="1">
                 <name/>
-                <line>91</line>
+                <line>94</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/manage_user.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/Brand.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/login.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/Rate.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/KKBook.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/controller/Index.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/Filter/Authentication.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/Calculator.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/update.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/controller/CalCustomLoan.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/NCB.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/profile.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/index.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/web/result.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/controller/Calculate.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/controller/InputData.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/NetBeansProjects/UsedCar/src/java/model/pdpg_used.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/Calculator.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/web/result.jsp</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/InputData.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/Calculate.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/web/index.jsp</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/Rate.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/pdpg_used.java</file>
+            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/Index.java</file>
         </group>
     </open-files>
 </project-private>
