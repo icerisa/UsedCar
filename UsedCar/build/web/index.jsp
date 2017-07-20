@@ -115,9 +115,7 @@
                                     <td>:</td>
                                     <td>
                                         <select id="model" name="model">
-                                            <option value="">choose options</option>
-                                            <option value="dmax" style="display: none">D-Max</option>
-                                            <option value="elf">ELF</option>
+                                            <option value="">choose option</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -126,8 +124,7 @@
                                     <td>:</td>
                                     <td>
                                         <select id="year" name="year">
-                                            <option value="2017">2017</option>
-                                            <option value="2016">2016</option>
+                                            <option value="">choose option</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -136,8 +133,7 @@
                                     <td>:</td>
                                     <td>
                                         <select id="month" name="month">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
+                                            <option value="">choose option</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -147,8 +143,7 @@
                                     <td>:</td>
                                     <td>
                                         <select id="sub_model" name="sub_model">
-                                            <option value="wagon_da" >Wagon 4dr 7st Auto 6sp RWD 1.9DCT (DA)</option>
-                                            <option value="wagon_dvd">Wagon 4dr 7st Auto 6sp RWD 1.9DCT (DVD)</option>
+                                            <option value="">choose option</option>
                                         </select>
                                     </td>
                                 </tr>

@@ -33,24 +33,38 @@ public class Calculate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8"); //brandId, model, year, sub_model, middle_price, NCB, income, dept
-        int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
-        int brandId = Integer.parseInt(request.getParameter("brandId"));
-        String model = request.getParameter("model");
-        int month = Integer.parseInt(request.getParameter("month"));
-        int year = Integer.parseInt(request.getParameter("year"));
-        int sub_model = Integer.parseInt(request.getParameter("sub_model"));
-        long middle_price = Long.parseLong(request.getParameter("middle_price"));
-        int NCB = Integer.parseInt(request.getParameter("NCB"));
-        String occupation = request.getParameter("occupation");
-        int income = Integer.parseInt(request.getParameter("income"));
-        int dept = Integer.parseInt(request.getParameter("debt"));
-        
-        Calculator cal = new Calculator(gradeTent,brandId,model,year,month,sub_model,middle_price,NCB,occupation,income,dept);
-        cal.getAllData();
+        try {
+            int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
+            int brandId = Integer.parseInt(request.getParameter("brandId"));
+            String model = request.getParameter("model");
+            int month = Integer.parseInt(request.getParameter("month"));
+            int year = Integer.parseInt(request.getParameter("year"));
+            int sub_model = Integer.parseInt(request.getParameter("sub_model"));
+            long middle_price = Long.parseLong(request.getParameter("middle_price"));
+            int NCB = Integer.parseInt(request.getParameter("NCB"));
+            String occupation = request.getParameter("occupation");
+            int income = Integer.parseInt(request.getParameter("income"));
+            int dept = Integer.parseInt(request.getParameter("debt"));
+            Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept);
+            cal.getAllData();
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
         request.setAttribute("Calculator", cal);
-        request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+        if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
+            request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+        } else {
+            request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
+        }
+        }catch(NumberFormatException e){
+            request.setAttribute("Message", "Number format error (ค่าที่ส่งผิดพลาด)");
+            request.setAttribute("Exception", e);
+            request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
+        }catch(NullPointerException e){
+            request.setAttribute("Message", "Null pointer exception (หาข้อมูลไม่เจอ)");
+            request.setAttribute("Exception", e);
+            request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
+        }
+
         // After all value is correct we going to get data from pdpg_used
     }
 

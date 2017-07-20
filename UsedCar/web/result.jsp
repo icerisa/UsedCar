@@ -89,9 +89,9 @@
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
                                         <%  int maxTerm = pdpg.getMaxTerm();
-                                            int rowToShow = 6; // บรรทัดที่จะให้โชว์ค่า Default = 6
+                                            int rowToShow = 5; // บรรทัดที่จะให้โชว์ค่า Default = 5
                                             float maxLtv = pdpg.getMaxLTV();
-                                            DecimalFormat df = new DecimalFormat("##,###,###,###.##");
+                                            DecimalFormat df = new DecimalFormat("##,###,###,###");
                                             float rate = cal.getRate().getRateNumber() / 100f;
                                             double[] loan = new double[rowToShow], loan48 = null, loan60 = null, loan72 = null;// ประกาศค่าใว้รอ
                                             int[] atleastIncome48 = null, atleastIncome60 = null, atleastIncome72 = null;
