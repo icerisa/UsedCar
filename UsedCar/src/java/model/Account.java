@@ -5,10 +5,7 @@
  */
 package model;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Account {
     int id;
     String name;

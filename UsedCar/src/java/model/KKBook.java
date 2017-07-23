@@ -13,10 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class KKBook {
     int bookId;
     int brandId;

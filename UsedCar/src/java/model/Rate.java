@@ -10,10 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Rate {
     int rateId;
     int brandTypeId;
@@ -22,13 +19,17 @@ public class Rate {
     int autoTypeId;
     int term;
     float rate;
+    float rate48;
+    float rate60;
+    float rate72;
 
     
     public Rate() {
     }
 
-    public Rate(int rateId, int brandTypeId, int carYear, int autoTypeId, int term, float rate) {
+    public Rate(int rateId,int guarantee, int brandTypeId, int carYear, int autoTypeId, int term, float rate) {
         this.rateId = rateId;
+        this.guarantee = guarantee;
         this.brandTypeId = brandTypeId;
         this.carYear = carYear;
         this.autoTypeId = autoTypeId;
@@ -42,6 +43,14 @@ public class Rate {
 
     public void setRateId(int rateId) {
         this.rateId = rateId;
+    }
+
+    public int getGuarantee() {
+        return guarantee;
+    }
+
+    public void setGuarantee(int guarantee) {
+        this.guarantee = guarantee;
     }
 
     public int getBrandTypeId() {
@@ -83,33 +92,57 @@ public class Rate {
     public void setRate(float rate) {
         this.rate = rate;
     }
+    
+    public float getRate48(){
+        return rate48;
+    }
+    
+    public float getRate60(){
+        return rate60;
+    }
+    
+    public float getRate72(){
+        return rate72;
+    }
 
     @Override
     public String toString() {
-        return "Rate{" + "rateId=" + rateId + ", brandTypeId=" + brandTypeId + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + '}';
+        return "Rate{" + "rateId=" + rateId + ", guarantee=" + guarantee + ", brandTypeId=" + brandTypeId + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + '}';
     }
     
-    public void getData(int brandType,int carYear, int autoTypeId, int term){
-        System.out.println(brandType + " : " + carYear + " : " + autoTypeId);
+    public void getData(int guarantee,int brandType,int carYear, int autoTypeId, int term){
+        System.out.println(guarantee + " : " +brandType + " : " + carYear + " : " + autoTypeId);
         try{
             Connection con = DBConnector.getConnection();
-            String sql = "SELECT * FROM rate WHERE brandType=? AND carYear=? AND autoTypeId=? AND term=?";
+            String sql = "SELECT * FROM rate WHERE guarantee=? AND brandType=? AND carYear=? AND autoTypeId=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, brandType);
-            pstm.setInt(2, carYear);
-            pstm.setInt(3, autoTypeId);
-            pstm.setInt(4, term);
+            pstm.setInt(1, guarantee);
+            pstm.setInt(2, brandType);
+            pstm.setInt(3, carYear);
+            pstm.setInt(4, autoTypeId);
+            //pstm.setInt(5, term);
             ResultSet rs = pstm.executeQuery();
-            if(rs.next()){
+            while(rs.next()){
                 this.rateId = rs.getInt("rateId");
+                this.guarantee = rs.getInt("guarantee");
                 this.brandTypeId = rs.getInt("brandType");
                 this.carYear = rs.getInt("carYear");
                 this.autoTypeId = rs.getInt("autoTypeId");
                 this.term = rs.getInt("term");
                 this.rate = rs.getFloat("rate");
+                if(rs.getInt("term") == 48){
+                this.rate48 = rs.getFloat("rate");
+                }
+                if(rs.getInt("term") == 60){
+                    this.rate60 = rs.getFloat("rate");
+                }
+                if(rs.getInt("term") == 72){
+                    this.rate72 = rs.getFloat("rate");
+                }
             }
         } catch(Exception e){
             System.out.println(e);
         }
     }
+    
 }

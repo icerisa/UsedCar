@@ -12,10 +12,7 @@ import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class gradeTent {
     public static Map<Integer,String> getAllGradeTent(){
         Map<Integer,String> gradeTents = new HashMap<Integer,String>();

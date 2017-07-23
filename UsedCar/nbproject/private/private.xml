@@ -5,21 +5,19 @@
             <url>src/java/controller/Calculate.java</url>
             <bookmark id="1">
                 <name/>
-                <line>94</line>
+                <line>93</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/Calculator.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/web/result.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/InputData.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/Calculate.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/web/index.jsp</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/Rate.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/model/pdpg_used.java</file>
-            <file>file:/C:/Users/yacth_Mon/Documents/UsedCar/UsedCar/src/java/controller/Index.java</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/src/java/model/Calculator.java</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/src/java/controller/CalCustomLoan.java</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/src/java/model/Rate.java</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/src/java/model/pdpg_used.java</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/web/result.jsp</file>
+            <file>file:/C:/Users/Aize/Downloads/UsedCar-master/UsedCar-master/UsedCar/src/java/controller/Calculate.java</file>
         </group>
     </open-files>
 </project-private>

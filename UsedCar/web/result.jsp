@@ -51,12 +51,16 @@
                                 <tr>
                                     <td class="colorTopic">Model</td>
                                     <td>: <%=cal.getModel()%></td>
-                                    <td class="colorTopic">ราคากลาง</td>
-                                    <td>: <%=middle_price%></td>
+                                    <td class="colorTopic">Month</td>
+                                    <td>: <%=cal.getMonth()%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">SubModel</td>
                                     <td colspan="4">: <%=KKBook.getSubModelFromId(cal.getSub_modelId())%></td>
+                                </tr>
+                                <tr>
+                                    <td class="colorTopic">ราคากลาง</td>
+                                    <td colspan="4">: <%=middle_price%></td>
                                 </tr>
                             </table>
                             <br>
@@ -65,10 +69,12 @@
                                 <tr>
                                     <td class="colorTopic">ประวัติการชำระหนี้</td>
                                     <td>: <%=cal.getNcb().getNCB_Name()%></td>
-                                    <td class="colorTopic">รายได้ต่อเดือน</td>
-                                    <td>: <%=cal.getIncome()%></td>
+                                    <td class="colorTopic">อาชีพ</td>
+                                    <td>: <%=cal.getOccupation()%></td>
                                 </tr>
                                 <tr>
+                                    <td class="colorTopic">รายได้ต่อเดือน</td>
+                                    <td>: <%=cal.getIncome()%></td>
                                     <td class="colorTopic">ภาระหนี้ต่อเดือน</td>
                                     <td colspan="4">: <%=cal.getDept()%></td>
                                 </tr>
@@ -92,7 +98,9 @@
                                             int rowToShow = 5; // บรรทัดที่จะให้โชว์ค่า Default = 5
                                             float maxLtv = pdpg.getMaxLTV();
                                             DecimalFormat df = new DecimalFormat("##,###,###,###");
-                                            float rate = cal.getRate().getRateNumber() / 100f;
+                                            float rate48 = cal.getRate().getRate48() / 100f;
+                                            float rate60 = cal.getRate().getRate60() / 100f;
+                                            float rate72 = cal.getRate().getRate72() / 100f;
                                             double[] loan = new double[rowToShow], loan48 = null, loan60 = null, loan72 = null;// ประกาศค่าใว้รอ
                                             int[] atleastIncome48 = null, atleastIncome60 = null, atleastIncome72 = null;
                                             int[] highestDept48 = null, highestDept60 = null, highestDept72 = null;
@@ -119,26 +127,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%  for (int i = 0; i < rowToShow; i++) { // คำนวนและแสงดค่าแต่ละ Row
+                                <%  for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
                                         float currentLtv = (maxLtv - (5 * i)) / 100f;
                                         loan[i] = currentLtv * middle_price;
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(loan[i]) + "</td>");
                                         if (maxTerm >= 48) {
                                             if (loan48 != null) {
-                                                loan48[i] = (rate * loan[i] * (48 / 12) + loan[i]) / 48f;
+                                                loan48[i] = (rate48 * loan[i] * (48 / 12) + loan[i]) / 48f;
                                             }
                                             out.println("<td id='loan-48-" + i + "' value='" + loan48[i] + "'>" + df.format(loan48[i]) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (loan60 != null) {
-                                                loan60[i] = (rate * loan[i] * (60 / 12) + loan[i]) / 60f;
+                                                loan60[i] = (rate60 * loan[i] * (60 / 12) + loan[i]) / 60f;
                                             }
                                             out.println("<td id='loan-60-" + i + "' value='" + loan60[i] + "'>" + df.format(loan60[i]) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (loan72 != null) {
-                                                loan72[i] = (rate * loan[i] * (72 / 12) + loan[i]) / 72f;
+                                                loan72[i] = (rate72 * loan[i] * (72 / 12) + loan[i]) / 72f;
                                             }
                                             out.println("<td id='loan-72 -" + i + "' value='" + loan72[i] + "'>" + df.format(loan72[i]) + "</td>");
                                         }
@@ -223,22 +231,22 @@
                                         out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(loan[i]) + "</td>");
                                         if (maxTerm >= 48) {
                                             if (highestDept48 != null) {
-                                                highestDept48[i] = (int) ((atleastIncome48[i] * 0.8f) - loan48[i]);
-                                                highestDept48[i] = (highestDept48[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                                highestDept48[i] = (int) ((atleastIncome48[i] * 0.85f) - loan48[i]);
+                                                highestDept48[i] = (highestDept48[i] * 1000) / 100000 * 100; //ปัดเศษหลักร้อยทิ้ง
                                             }
                                             out.println("<td id='dept-48-" + i + "' value='" + highestDept48[i] + "'>" + df.format(highestDept48[i]) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (highestDept60 != null) {
-                                                highestDept60[i] = (int) ((atleastIncome60[i] * 0.8f) - loan60[i]);
-                                                highestDept60[i] = (highestDept60[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                                highestDept60[i] = (int) ((atleastIncome60[i] * 0.85f) - loan60[i]);
+                                                highestDept60[i] = (highestDept60[i] * 1000) / 100000 * 100; //ปัดเศษหลักร้อยทิ้ง
                                             }
                                             out.println("<td id='dept-60-" + i + "' value='" + highestDept60[i] + "'>" + df.format(highestDept60[i]) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (highestDept72 != null) {
-                                                highestDept72[i] = (int) ((atleastIncome72[i] * 0.8f) - loan72[i]);
-                                                highestDept72[i] = (highestDept72[i] / 1000) * 1000; //ปัดเศษหลักร้อยทิ้ง
+                                                highestDept72[i] = (int) ((atleastIncome72[i] * 0.85f) - loan72[i]);
+                                                highestDept72[i] = (highestDept72[i] * 1000) / 100000 * 100; //ปัดเศษหลักร้อยทิ้ง
                                             }
                                             out.println("<td id='dept-72 -" + i + "' value='" + highestDept72[i] + "'>" + df.format(highestDept72[i]) + "</td>");
                                         }
@@ -277,12 +285,14 @@
                         <!-- jQuery -->
                         <script src="js/jquery.js"></script>
                         <input type="hidden" id="maxTerm" value="<%=maxTerm%>">
-                        <input type="hidden" id="rate" value="<%=rate%>">
+                        <input type="hidden" id="rate48" value="<%=rate48%>">
+                        <input type="hidden" id="rate60" value="<%=rate60%>">
+                        <input type="hidden" id="rate72" value="<%=rate72%>">
                         <script>
                                         function doCalculate() {
                                             $.ajax({
                                                 type: 'POST',
-                                                data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(), rate: $("#rate").val()},
+                                                data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(), rate48: $("#rate48").val(), rate60: $("#rate60").val(), rate72: $("#rate72").val()},
                                                 url: 'CalCustomLoan',
                                                 success: function (data) {
                                                     $('#customLoan').html(data)

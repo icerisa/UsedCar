@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import model.Calculator;
 import model.Rate;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Calculate extends HttpServlet {
 
     /**
@@ -32,7 +29,7 @@ public class Calculate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8"); //brandId, model, year, sub_model, middle_price, NCB, income, dept
+        request.setCharacterEncoding("UTF-8"); //brandId, model, month ,year, sub_model, middle_price, NCB, occupation, income, dept , guarantee
         try {
             int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
             int brandId = Integer.parseInt(request.getParameter("brandId"));
@@ -45,7 +42,8 @@ public class Calculate extends HttpServlet {
             String occupation = request.getParameter("occupation");
             int income = Integer.parseInt(request.getParameter("income"));
             int dept = Integer.parseInt(request.getParameter("debt"));
-            Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept);
+            int guarantee = Integer.parseInt(request.getParameter("guarantee"));
+            Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept , guarantee);
             cal.getAllData();
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
@@ -54,6 +52,7 @@ public class Calculate extends HttpServlet {
             request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
         } else {
             request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
+            System.out.println("RATE == null");
         }
         }catch(NumberFormatException e){
             request.setAttribute("Message", "Number format error (ค่าที่ส่งผิดพลาด)");

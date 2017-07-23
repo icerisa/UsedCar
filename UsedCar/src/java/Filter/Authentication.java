@@ -19,10 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import model.Account;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Authentication implements Filter {
     
     private static final boolean debug = true;

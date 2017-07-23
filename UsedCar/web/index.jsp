@@ -152,7 +152,7 @@
                                     <td>ราคากลาง</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" value="2323" name="middle_price" id="middle_price" readonly class="kk_mid">
+                                        <input type="text" value="-" name="middle_price" id="middle_price" readonly class="kk_mid">
                                     </td>
                                 </tr>
                             </table>
@@ -198,6 +198,17 @@
                                     <td>:</td>
                                     <td>
                                         <input type="number" name="debt">
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>ผู้ค้ำประกัน</td>
+                                    <td>:</td>
+                                    <td>
+                                        <select id="guarantee" name="guarantee">
+                                            <option value="1" >มี</option>
+                                            <option value="0">ไม่มี</option>
+                                        </select> <br>   
                                     </td>
                                 </tr>
 

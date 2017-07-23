@@ -13,10 +13,7 @@ import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Locale;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Calculator {
     int gradeTent;
     int brandId; 
@@ -29,11 +26,12 @@ public class Calculator {
     int dept; 
     int month;
     String occupation;
+    int guarantee;
     pdpg_used pdpg_used;
     NCB ncb;
     Rate rate;
     
-    public Calculator(int gradeTent,int brandId, String model, int year,int month, int sub_model, long middle_price, int NCBType,String occupation, int income, int dept) {
+    public Calculator(int gradeTent,int brandId, String model, int year,int month, int sub_model, long middle_price, int NCBType,String occupation, int income, int dept , int guarantee) {
         this.gradeTent = gradeTent;
         this.brandId = brandId;
         this.model = model;
@@ -45,6 +43,7 @@ public class Calculator {
         this.occupation = occupation;
         this.income = income;
         this.dept = dept;
+        this.guarantee = guarantee;
     }   
 
     public Calculator() {
@@ -110,9 +109,13 @@ public class Calculator {
         return occupation;
     }
 
+    public int getGuarantee() {
+        return guarantee;
+    }
+    
     @Override
     public String toString() {
-        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + sub_modelId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", month=" + month + ", occupation=" + occupation + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
+        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + sub_modelId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", month=" + month + ", occupation=" + occupation + ", guarantee=" + guarantee + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
     }
 
     public void getAllData() {
@@ -120,10 +123,10 @@ public class Calculator {
         if (carAgeId > -1) {
             pdpg_used pdpg = new pdpg_used();
             pdpg.getData(this.gradeTent, this.ncbType, this.occupation, carAgeId);
-            this.pdpg_used = pdpg;// find pdpg_used that match with infomation
+            this.pdpg_used = pdpg;// find pdpg_used that match with information
             Rate rate = new Rate();
-            rate.getData(Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId), pdpg.getMaxTerm());
-            this.rate = rate;// find rate that match with infomation
+            rate.getData(guarantee,Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId), pdpg.getMaxTerm());
+            this.rate = rate;// find rate that match with information
         }
         this.ncb = new NCB(this.ncbType);
     }

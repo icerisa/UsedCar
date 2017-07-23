@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Calculator;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class CalCustomLoan extends HttpServlet {
 
     /**
@@ -35,24 +32,26 @@ public class CalCustomLoan extends HttpServlet {
         System.out.println("Pass");
         long want = Long.parseLong(request.getParameter("loanTotal"));
         int maxTerm = Integer.parseInt(request.getParameter("maxTerm"));
-        float rate = Float.parseFloat(request.getParameter("rate"));
+        float rate48 = Float.parseFloat(request.getParameter("rate48"));
+        float rate60 = Float.parseFloat(request.getParameter("rate60"));
+        float rate72 = Float.parseFloat(request.getParameter("rate72"));
         System.out.println(want);
         System.out.println(maxTerm);
         PrintWriter out = response.getWriter();
         float[] loanCal=new float[3],incomeCal = new float[3];
         int[] deptCal = new int[3];
-        DecimalFormat df = new DecimalFormat("##,###,###,###.##");
+        DecimalFormat df = new DecimalFormat("##,###,###,###");
         //----------------------- ค่างวดต่อเดือน
         out.println("<tr id=\"loanCalResult\">");
         out.println("<td class=\"container3\"><span class=\"sizeme\">ค่างวดต่อเดือน </span></td>");        
         if(maxTerm>=48){
-            loanCal[0] = (rate * want * (48 / 12) + want) / 48f;            
+            loanCal[0] = (rate48 * want * (48 / 12) + want) / 48f;            
         }
         if(maxTerm>=60){
-            loanCal[1] = (rate * want * (60 / 12) + want) / 60f;            
+            loanCal[1] = (rate60 * want * (60 / 12) + want) / 60f;            
         }
         if(maxTerm>=72){
-            loanCal[2] = (rate * want * (72 / 12) + want) / 72f;            
+            loanCal[2] = (rate72 * want * (72 / 12) + want) / 72f;            
         }
         out.println("<td>" +df.format(loanCal[0])+"</td>");
         out.println("<td>" +df.format(loanCal[1])+"</td>");
@@ -79,15 +78,15 @@ public class CalCustomLoan extends HttpServlet {
         out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
         if(maxTerm>=48){
             deptCal[0] = (int)(incomeCal[0]*0.85f - loanCal[0]);
-            deptCal[0] = (deptCal[0]/1000)*1000; // ปัดเศษหลักร้อยลง
+            deptCal[0] = (deptCal[0]*1000)/100000*100; // ปัดเศษหลักร้อยลง
         }
         if(maxTerm>=60){
             deptCal[1] = (int)(incomeCal[1]*0.85f - loanCal[1]);
-            deptCal[1] = (deptCal[1]/1000)*1000; // ปัดเศษหลักร้อยลง
+            deptCal[1] = (deptCal[1]*1000)/100000*100; // ปัดเศษหลักร้อยลง
         }
         if(maxTerm>=72){
             deptCal[2] = (int)(incomeCal[2]*0.85f - loanCal[2]);
-            deptCal[2] = (deptCal[2]/1000)*1000; // ปัดเศษหลักร้อยลง
+            deptCal[2] = (deptCal[2]*1000)/100000*100; // ปัดเศษหลักร้อยลง
         }
         out.println("<td>" +df.format(deptCal[0])+"</td>");
         out.println("<td>" +df.format(deptCal[1])+"</td>");

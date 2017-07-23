@@ -18,10 +18,7 @@ import model.NCB;
 import model.gradeTent;
 import model.pdpg_used;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Index extends HttpServlet {
 
     /**

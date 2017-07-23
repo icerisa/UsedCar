@@ -1,8 +1,4 @@
-<%-- 
-    Document   : 500error
-    Created on : Jul 20, 2017, 10:24:21 PM
-    Author     : yacth_Mon
---%>
+
 
 <%@page import="model.Calculator"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

@@ -11,10 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Brand {
     int id;
     String brandName;

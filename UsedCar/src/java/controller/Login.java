@@ -14,10 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 
-/**
- *
- * @author yacth_Mon
- */
+
 public class Login extends HttpServlet {
 
     /**
