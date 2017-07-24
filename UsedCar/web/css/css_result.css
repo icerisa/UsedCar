@@ -3,19 +3,17 @@
 
 body {
   font-family: 'Athiti', sans-serif;
-
   line-height: 1.42em;
-  color:black;
 }
 
 .containerTable2 th h1 ,.containerTable th h1 {
       font-weight: bold;
-      font-size: 13pt;
+      font-size: 12pt;
 }
 
 .containerTable td , .containerTable2 td {
       font-weight: normal;
-      font-size: 13pt;
+      font-size: 10pt;
   -webkit-box-shadow: 0 2px 4px -1px #0E1119;
 }
 
@@ -23,10 +21,21 @@ body {
   background-color: white;
   color:#185875;
 }
-.containerTable, .containerTable2 {
+.containerTable{
       overflow: hidden;
-      width: 70%;
-      margin: 0 auto;
+      width: 100%;
+      margin-top: 0;
+      margin-left: -10px;
+      margin-right: -10px;
+  display: table;
+  padding: 0 0 8em 0;
+    margin-bottom: 30px;
+}
+
+.containerTable2 {
+      overflow: hidden;
+      width: 100%;
+      margin-top: 0;
   display: table;
   padding: 0 0 8em 0;
     margin-bottom: 30px;
@@ -97,6 +106,15 @@ body {
 .containerTable th h1 , .containerTable2 th h1 {
       font-weight: bold;
       font-size: 15pt;
+}
+
+.containerTable, .containerTable2 {
+      overflow: hidden;
+      width: 70%;
+      margin: 0 auto;
+  display: table;
+  padding: 0 0 8em 0;
+    margin-bottom: 30px;
 }
 
 .containerTable td , .containerTable2 td {

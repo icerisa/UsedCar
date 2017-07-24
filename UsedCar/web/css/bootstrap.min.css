@@ -6064,6 +6064,12 @@ button.close {
     .modal-sm {
         width: 300px
     }
+    .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: -15px;
+    padding-left: -15px
+}
 }
 @media (min-width: 992px) {
     .modal-lg {

@@ -208,15 +208,15 @@
                                         <select id="guarantee" name="guarantee">
                                             <option value="1" >มี</option>
                                             <option value="0">ไม่มี</option>
-                                        </select> <br>   
+                                        </select>  
                                     </td>
                                 </tr>
 
                             </table>
-                            <br>                   
+                   
                             <div class="row">
-                                <div class="col-lg-12" style='color:red;font-size:17px;'>
-                                    <h4>หมายเหตุ</h4>
+                                <div class="col-lg-12 warning_me">
+                                    <h5>หมายเหตุ</h5>
                                     <li>Salary = พนักงานเงินเดือนที่มีเอกสารแสดงรายได้/ข้าราชการ/พนักงานรัฐวิสาหกิจ</li>
                                     <li>Non Salary = พนักงานประจำที่ไม่มีเอกสารแสดงรายได้/เกษตรกร/เจ้าของกิจการ/อาชีพอิสระ/อื่นๆ</li>
                                 </div>
