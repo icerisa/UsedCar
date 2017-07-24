@@ -63,8 +63,128 @@
                         <p id="conMessage"></p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-dismiss="modal" id="conConfirm">ยืนยัน</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="conCancel">ยกเลิก</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="conCancel">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="conConfirm">ยืนยัน</button>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Edit -->
+        <div class="modal fade" id="editModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="editHead">แก้ไขข้อมูล</h4>
+                    </div>
+                    <div class="modal-body" id="editBody">
+                        <form action="KKPUsedControl" method="POST" id="editData"> <!--Method POST without target -->
+                            <input type="hidden" name="dataId">
+                            <div class="form-group">
+                                <table id="editTableData">
+                                    <tr>
+                                        <td>Grade Tent</td>
+                                        <td>:</td>
+                                        <td id='editGradeTent'>
+                                            <select name='gradeTent' required>
+                                                <% Map<Integer, String> gradeTents = (Map<Integer, String>) request.getAttribute("GradeTents");
+                                                    for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
+                                                        out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
+                                                    }
+                                                %>   
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>NCB Type</td>
+                                        <td>:</td>
+                                        <td id='editNCBType'>
+                                            <select name='NCBType' required>
+                                                <% Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
+                                                    for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
+                                                        out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
+                                                    }
+                                                %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Occupation</td>
+                                        <td>:</td>
+                                        <td id='editOccupation'>
+                                            <select name='occupation' required>
+                                                <option value="Salary">Salary</option>
+                                                <option value="Non Salary">Non Salary</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>อายุรถ</td>
+                                        <td>:</td>
+                                        <td id='editCarAge'>
+                                            <select name='carAge' required>
+                                                <% Map<Integer, String> carAges = (Map<Integer, String>) request.getAttribute("CarAges");
+                                                    for (Map.Entry<Integer, String> carAge : carAges.entrySet()) {
+                                                        out.println("<option value='" + carAge.getKey() + "'>" + carAge.getValue() + "</option>");
+                                                    }
+                                                %>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>LTV สูงสุด</td>
+                                        <td>:</td>
+                                        <td id='editMaxLTV'>
+                                            <input type="number" min="0" max="100" name='maxLTV' required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Term ยาวสุด</td>
+                                        <td>:</td>
+                                        <td id='editMaxTerm'>
+                                            <select name='maxTerm' required>
+                                                <option value='48'>48</option>
+                                                <option value='60'>60</option>
+                                                <option value='72'>72</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>DBR</td>
+                                        <td>:</td>
+                                        <td id='editDBR'>
+                                            <input type="number" min="0" max="100" name='DBR' required>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>IIR</td>
+                                        <td>:</td>
+                                        <td id='editIIR'>
+                                            <input type="number" min="0" max="100" name='IIR' required >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ผู้ค้ำ</td>
+                                        <td>:</td>
+                                        <td>
+                                            <textarea id="editGuarantee" rows="5" name="guarantee" required></textarea>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ยกเว้นผู้ค้ำรายได้</td>
+                                        <td>:</td>
+                                        <td>
+                                            <input type="number" min="0" id="editExceptIncome" name="exceptIncome" required>
+                                        </td>
+                                    </tr>
+
+                                </table>
+                            </div>                        
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="editCancel">ยกเลิก</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="editConfirm">แก้ไข</button>                        
                     </div>
                 </div>
             </div>
@@ -76,7 +196,11 @@
             function showCon() {
                 $("#conModal").modal("toggle");
             }
+            function showEdit() {
+                $("#editModal").modal("toggle");
+            }
             <%String showNoti = (String) request.getAttribute("showNoti");
+                System.out.println("Alert : " + showNoti);
                 if (showNoti != null && Boolean.parseBoolean(showNoti)) {%>
             showNoti();
             <%}%>
@@ -113,14 +237,13 @@
                         <div id="vn-info">
                             <div class="form_add">
                                 <form action="KKPUsedControl" method="GET">
-                                    <table class="addData">
+                                    <table class="addData" id="addData">
                                         <tr>
                                             <td>Grade Tent</td>
                                             <td>:</td>
                                             <td id='addGradeTent'>
                                                 <select name='gradeTent' required>
-                                                    <% Map<Integer, String> gradeTents = (Map<Integer, String>) request.getAttribute("GradeTents");
-                                                        for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
+                                                    <%for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
                                                             out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
                                                         }
                                                     %>   
@@ -132,8 +255,7 @@
                                             <td>:</td>
                                             <td id='addNCBType'>
                                                 <select name='NCBType' required>
-                                                    <% Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
-                                                        for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
+                                                    <%for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
                                                             out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
                                                         }
                                                     %>
@@ -143,8 +265,8 @@
                                         <tr>
                                             <td>Occupation</td>
                                             <td>:</td>
-                                            <td id='addOccupation' required>
-                                                <select name='occupation'>
+                                            <td id='addOccupation'>
+                                                <select name='occupation' required>
                                                     <option value="Salary">Salary</option>
                                                     <option value="Non Salary">Non Salary</option>
                                                 </select>
@@ -155,8 +277,7 @@
                                             <td>:</td>
                                             <td id='addCarAge'>
                                                 <select name='carAge' required>
-                                                    <% Map<Integer, String> carAges = (Map<Integer, String>) request.getAttribute("CarAges");
-                                                        for (Map.Entry<Integer, String> carAge : carAges.entrySet()) {
+                                                    <%for (Map.Entry<Integer, String> carAge : carAges.entrySet()) {
                                                             out.println("<option value='" + carAge.getKey() + "'>" + carAge.getValue() + "</option>");
                                                         }
                                                     %>
@@ -166,7 +287,7 @@
                                         <tr>
                                             <td>LTV สูงสุด</td>
                                             <td>:</td>
-                                            <td id='addMaxLtv'>
+                                            <td id='addMaxLTV'>
                                                 <input type="number" min="0" max="100" name='maxLTV' required>
                                             </td>
                                         </tr>
@@ -184,14 +305,14 @@
                                         <tr>
                                             <td>DBR</td>
                                             <td>:</td>
-                                            <td id='addMaxLtv'>
+                                            <td id='addDBR'>
                                                 <input type="number" min="0" max="100" name='DBR' required>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>IIR</td>
                                             <td>:</td>
-                                            <td id='addMaxLtv'>
+                                            <td id='addIIR'>
                                                 <input type="number" min="0" max="100" name='IIR' required >
                                             </td>
                                         </tr>
@@ -209,36 +330,35 @@
                                             <td>ยกเว้นผู้ค้ำรายได้</td>
                                             <td>:</td>
                                             <td>
-                                                <input type="number" min="0" id="exceptIncome" name="exceptIncome" required>
+                                                <input type="number" min="0" id="addExceptIncome" name="exceptIncome" required>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>รายได้มากกว่า</td>
                                             <td>:</td>
                                             <td>
-                                                <input type="number" min="0" id="atleastIncome" name="atleastIncome" required>
+                                                <input type="number" min="0" id="addAtleastIncome" name="atleastIncome" required>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>LTV</td>
                                             <td>:</td>
                                             <td>
-                                                <input type="number" min="0" max="100" id="LTVPercent" name="LTVPercent" required>
+                                                <input type="number" min="0" max="100" id="addLTVPercent" name="LTVPercent" required>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>Term</td>
                                             <td>:</td>
                                             <td>
-                                                <select id="longestTerm" name="longestTerm" required>
+                                                <select id="addLongestTerm" name="longestTerm" required>
                                                     <option value="48">48</option>
                                                     <option value="60">60</option>
                                                     <option value="72">72</option>
                                                 </select>
                                             </td>
                                         </tr>
-                                    </table>
-                                    </select>
+                                    </table>                                    
                                     <button class="addme">เพิ่มข้อมูล</button>
                                 </form>
                             </div>
@@ -276,7 +396,7 @@
                                             out.println("<td data-th='IIR'>" + pdpg.getIIR() + "</td>");
                                             out.println("<td data-th='ยกเว้นผู้ค้ำรายได้'>" + pdpg.getConditionExcept() + "</td>");
                                             out.println("<td data-th='ผู้ค้ำ'>" + pdpg.getDescription() + "</td>");
-                                            out.println("<td>");
+                                            out.println("<td data-th='action'>");
                                             out.println("<div style=\"text-align:right;\" >");
                                             out.println("<i onClick='deleteData($(this).attr(\"data-id\"))' class=\"fa fa-trash\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
                                             out.println("<i onClick='editRow($(this).attr(\"data-id\"))' class=\"fa fa-pencil\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
@@ -288,16 +408,22 @@
                             </tbody>
                         </table>
                         <script>
+
                             function deleteData(id) {
                                 $("#conHead").html("ยืนยันการลบข้อมูล");
                                 $("#conMessage").html("คุณต้องการจะลบข้อมูลจริงๆหรือไม่");
                                 $("#conConfirm").click(function () {
                                     $.ajax({
-                                        type: 'POST',
+                                        type: 'POST', //send POST with target="delete"
                                         data: {target: "delete", id: id},
                                         url: 'KKPUsedControl',
                                         success: function () {
-                                            location.reload();
+                                            $("#notiHead").html("Action Result");
+                                            $("#notiMessage").html("การลบข้อมูลสำเร็จ");
+                                            $("#notiModal").on("hidden.bs.modal", function (e) {
+                                                window.location = window.location.pathname;
+                                            });
+                                            showNoti();
                                         }
                                     })
                                 });
@@ -325,11 +451,50 @@
                             function editRow(dataId) {
                                 let row = getRowFromId(dataId);
                                 if (row) {
-                                    for (i = 0, col; col = row.cells[i]; i++) {
+                                    let inputs = document.getElementById("editData").elements;
+                                    inputs["dataId"].value = dataId;
+                                    for (let i = 0, col; col = row.cells[i]; i++) {
                                         let tempData = col.innerHTML;
-                                        col.innerHTML = "";
+                                        switch (col.getAttribute("data-th")) {
+                                            case "Grade Tent":
+                                                setOption(inputs["gradeTent"], tempData);
+                                                break;
+                                            case "NCB Type":
+                                                break;
+                                            case "NCB Name":
+                                                setOption(inputs["NCBType"], tempData);
+                                                break;
+                                            case "Occupation":
+                                                setOption(inputs["occupation"], tempData);
+                                                break;
+                                            case "อายุรถ":
+                                                setOption(inputs["carAge"], tempData);
+                                                break;
+                                            case "LTV สูงสุด":
+                                                inputs["maxLTV"].value = tempData;
+                                                break;
+                                            case "Term ยาวสุด":
+                                                inputs["maxTerm"].value = tempData;
+                                                break;
+                                            case "DBR":
+                                                inputs["DBR"].value = tempData;
+                                                break;
+                                            case "IIR":
+                                                inputs["IIR"].value = tempData;
+                                                break;
+                                            case "ยกเว้นผู้ค้ำรายได้":
+                                                inputs["editExceptIncome"].value = tempData;
+                                                break;
+                                            case "ผู้ค้ำ":
+                                                inputs["guarantee"].innerHTML = tempData;
+                                                break;
+                                        }
                                     }
                                 }
+                                $("#editConfirm").click(function(){
+                                    document.getElementById("editData").submit(); //Method of this form is POST without target
+                                });
+                                showEdit();
                             }
 
                             function getRowFromId(id) {
@@ -363,11 +528,32 @@
                             function changeGuaranteeAdd() {
                                 // 0 = ไม่ต้องมีผู้ค้ำประกัน , 1 = ต้องมีผู้ค้ำประกัน
                                 let shouldShow = $("#addGuarantee").val() == 1 ? true : false;
-                                $('#exceptIncome').prop('disabled', shouldShow);
-                                $('#atleastIncome').prop('disabled', shouldShow);
-                                $('#LTVPercent').prop('disabled', shouldShow);
-                                $('#longestTerm').prop('disabled', shouldShow);
+                                $('#addExceptIncome').prop('disabled', shouldShow);
+                                $('#addAtleastIncome').prop('disabled', shouldShow);
+                                $('#addLTVPercent').prop('disabled', shouldShow);
+                                $('#addLongestTerm').prop('disabled', shouldShow);
                             }
+
+                            function setOption(selectElement, value) { //select option by value
+                                return [...selectElement.options].some((option, index) => {
+                                    if (option.innerHTML == value) {
+                                        selectElement.selectedIndex = index;
+                                        return true;
+                                    }
+                                });
+                            }
+//------------------------------ for OLD version -------------------------
+//                            function setOption(selectElement, value) {
+//                                var options = selectElement.options;
+//                                for (var i = 0, optionsLength = options.length; i < optionsLength; i++) {
+//                                    if (options[i].value == value) {
+//                                        selectElement.selectedIndex = i;
+//                                        return true;
+//                                    }
+//                                }
+//                                return false;
+//                            }
+//------------------------------ for OLD version -------------------------
                         </script>
                     </div>
                 </div>

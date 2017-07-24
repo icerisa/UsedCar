@@ -37,7 +37,7 @@ public class Update extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        ArrayList<pdpg_used> pdpg_useds = pdpg_used.getAllPDPG_USEDData();
+        ArrayList<pdpg_used> pdpg_useds = pdpg_used.getAllPDPG_UsedData();
         request.setAttribute("pdpg_useds", pdpg_useds);
         Map<Integer, String> NCBs = NCB.getAllNCB();
         request.setAttribute("NCBs", NCBs);
