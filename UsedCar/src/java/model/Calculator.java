@@ -119,7 +119,7 @@ public class Calculator {
     }
 
     public void getAllData() {
-        int carAgeId = getCarAgeId();
+        int carAgeId = carAge.getCarAgeId(this.year);
         if (carAgeId > -1) {
             pdpg_used pdpg = new pdpg_used();
             pdpg.getData(this.gradeTent, this.ncbType, this.occupation, carAgeId);
@@ -129,37 +129,5 @@ public class Calculator {
             this.rate = rate;// find rate that match with information
         }
         this.ncb = new NCB(this.ncbType);
-    }
-
-    public int getCarAgeId() {
-        int carAge = Calendar.getInstance(new Locale("US")).get(Calendar.YEAR) - this.year;        
-        try {
-            Connection con = DBConnector.getConnection();
-            String sql = "SELECT * FROM carage";
-            PreparedStatement pstm = con.prepareStatement(sql);            
-            ResultSet rs = pstm.executeQuery();
-            while (rs.next()) {
-                String check = rs.getString("age");
-                int between = check.indexOf("-"); // find if between type like 0-7 or 8-10
-                if (between > 0) {
-                    int low = Integer.parseInt(check.substring(0, between));
-                    int high = Integer.parseInt(check.substring(between+1));
-                    if (carAge >= low && carAge <= high) {// if carAge in range
-                        return rs.getInt("ageId");                        
-                    }
-                }
-                int greater = check.indexOf("+"); // find if it greater than type like 11+
-                if (greater > 0) {
-                    int number = Integer.parseInt(check.substring(0, greater));
-                    if (carAge > number) { // if carAge more than greater
-                        return rs.getInt("yearId");
-                    }
-                }
-            }
-            con.close();
-        } catch (SQLException e) {
-            System.out.println(e);
-        };
-        return -1;
     }
 }

@@ -42,27 +42,27 @@
   max-width:400px;
   width: 80%;
   line-height:2.5em;
-  margin:1em 2em;
   font-size: 13pt;
   border:2px solid #f2f2f2;
   outline:none;
   padding-left:10px;
 }
-.login-form input[type="button"] {
-  height:50px;
-  width:140px;
+
+.login-form input[type="submit"] {
+  height:40px;
+  width:80px;
   background:#fff;
   border:1px solid #f2f2f2;
-  color: slategrey;
+  border-radius: 10px;
+  color: #0099c8;
   text-transform:uppercase;
-  font-size: 15pt;
+  font-size: 13pt;
   cursor:pointer;
 }
 .forget{
   color:#f2f2f2;
   margin-right: -70%;
   cursor:pointer;
-
 }
 
 /*Media Querie*/
@@ -86,4 +86,26 @@
               max-width:40%;
         }
 
+.login input[type="text"],
+.login input[type="password"] {
+  max-width:400px;
+  width: 80%;
+  line-height:2.5em;
+  margin:1em 2em;
+  font-size: 13pt;
+  border:2px solid #f2f2f2;
+  outline:none;
+  padding-left:10px;
+}
+.login-form input[type="submit"] {
+  height:40px;
+  width:100px;
+  background:#fff;
+  border:1px solid #f2f2f2;
+  border-radius: 10px;
+  color: #0099c8;
+  text-transform:uppercase;
+  font-size: 14pt;
+  cursor:pointer;
+}
 }

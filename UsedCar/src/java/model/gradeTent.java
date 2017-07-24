@@ -14,6 +14,7 @@ import java.util.Map;
 
 
 public class gradeTent {
+    
     public static Map<Integer,String> getAllGradeTent(){
         Map<Integer,String> gradeTents = new HashMap<Integer,String>();
         try{
@@ -29,5 +30,23 @@ public class gradeTent {
             System.out.println(e);
         };
         return gradeTents;
+    }
+    
+    public static String getGradeTentNameFromId(int id){
+        String result ="";
+        try{
+          Connection con = DBConnector.getConnection();
+          String sql = "SELECT gradeTent FROM gradetent WHERE gradeTentId=?";          
+          PreparedStatement pstm = con.prepareStatement(sql);
+          pstm.setInt(1, id);
+          ResultSet rs = pstm.executeQuery();
+          if(rs.next()){              
+              result = rs.getString("gradeTent");
+          }
+          con.close();
+        } catch (Exception e){
+            System.out.println(e);
+        };
+        return result;
     }
 }

@@ -38,9 +38,9 @@ public class DBConnector {
         try{
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver loaded and registered");            
-            String url ="jdbc:mysql://"+hostName+"/"+db_Name;
+            String url ="jdbc:mysql://"+hostName+"/"+db_Name+"?useUnicode=yes&characterEncoding=UTF-8";
             //String url = "jdbc:mysql://"+hostName+":3306/"+db_Name+"?user="+user+"&password="+password;
-            conn = DriverManager.getConnection(url,user,password);
+            conn = DriverManager.getConnection(url,user,password);            
             //Connection conn = DriverManager.getConnection(url);
         }
         catch(ClassNotFoundException cfe){
