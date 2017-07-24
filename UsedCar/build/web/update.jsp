@@ -16,15 +16,15 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/business-casual.css" >
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/material.indigo-pink.min.css">
-
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/function_update.js"></script>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     </head>
     <body>
         <jsp:include page="menu.jsp" />
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
-
-
         <div class="container">
             <div class="row">
                 <div class="box">
@@ -32,25 +32,162 @@
                         <h1 class="pdpg">จัดการข้อมูล</h1>
 
                         <div id='search-box'>
-                            <form action='/search' id='search-form' method='get' target='_top'>
-                                <select class="selectionM">
-                                    <option value="all">All</option>
-                                    <option value="grade">Grade Tent</option>
-                                    <option value="ncb_type">NCB Type</option>
-                                    <option value="ncb_name">NCB Name</option>
-                                    <option value="occupation">Occupation</option>
-                                    <option value="age">อายุรถ</option>
-                                    <option value="max_ltv">LTV สูงสุด</option>
-                                    <option value="max_term">Term ยาวสุด</option>
-                                    <option value="condition_ex">ยกเว้นผู้ค้ำรายได้</option>
-                                    <option value="description_ex">ผู้ค้า</option>
-                                </select>
-                                <input class='search-text' name='q' placeholder='ค้นหา' type='text'/>
-                                <button id='search-button' type='submit'><span><i class="fa fa-search" aria-hidden="true"></i></span></button>
-                            </form>
+
+                            <select class="selectionM">
+                                <option value="all">All</option>
+                                <option value="grade">Grade Tent</option>
+                                <option value="ncb_type">NCB Type</option>
+                                <option value="ncb_name">NCB Name</option>
+                                <option value="occupation">Occupation</option>
+                                <option value="age">อายุรถ</option>
+                                <option value="max_ltv">LTV สูงสุด</option>
+                                <option value="max_term">Term ยาวสุด</option>
+                                <option value="condition_ex">ยกเว้นผู้ค้ำรายได้</option>
+                                <option value="description_ex">ผู้ค้ำ</option>
+                            </select>
+                            <input class='search-text' name='q' placeholder='ค้นหา' type='text'/>
+                            <button id='search-button' type='submit'><span><i class="fa fa-search" aria-hidden="true"></i></span></button>
+
                         </div>
 
-                        <button class="add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                        <div id="vn-click"><i class="fa fa-plus" aria-hidden="true"></i></div>
+                        <!--<button class="add"><i class="fa fa-plus" aria-hidden="true"></i></button>-->
+
+                        <div id="vn-info">
+                            <div class="form_add">
+                                <form>
+                                    <table class="addData">
+                                        <tr>
+                                            <td>Grade Tent</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Preferred</option>
+                                                    <option>A</option>
+                                                    <option>BCD</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCB Type</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>NCB Name</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Good Secured</option>
+                                                    <option>Good Unsecured</option>
+                                                    <option>Not Found</option>
+                                                    <option>Concern Unsecured</option>
+                                                    <option>Concern Secured</option>
+                                                    <option>Bad Unsecured</option>
+                                                    <option>Bad Secured</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Occupation</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>Salary</option>
+                                                    <option>Non Salary</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>อายุรถ</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>0-7</option>
+                                                    <option>8-10</option>
+                                                    <option>11+</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>LTV สูงสุด</td>
+                                            <td>:</td>
+                                            <td>
+                                                <input type="number" min="0" max="100">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Term ยาวสุด</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>48</option>
+                                                    <option>60</option>
+                                                    <option>72</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ผู้ค้ำ</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>ยกเว้นผู้ค้ำประกันได้</option>
+                                                    <option>ต้องมีผู้ค้ำประกัน</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr>
+                                            <td>ยกเว้นผู้ค้ำรายได้</td>
+                                            <td>:</td>
+                                            <td>
+                                                <input type="number" min="0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>รายได้มากกว่า</td>
+                                            <td>:</td>
+                                            <td>
+                                                <input type="number" min="0">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>LTV</td>
+                                            <td>:</td>
+                                            <td>
+                                                <input type="number" min="0" max="100">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Term</td>
+                                            <td>:</td>
+                                            <td>
+                                                <select>
+                                                    <option>48</option>
+                                                    <option>60</option>
+                                                    <option>72</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    </select>
+                                    <button class="addme">เพิ่มข้อมูล</button>
+                                </form>
+                            </div>
+                        </div>
+
 
                         <table class="rwd-table">
                             <tbody>
@@ -63,7 +200,7 @@
                                     <th>LTV สูงสุด</th>
                                     <th>Term ยาวสุด</th>
                                     <th>ยกเว้นผู้ค้ำรายได้</th>
-                                    <th>ผู้ค้า</th>
+                                    <th>ผู้ค้ำ</th>
                                     <th></th>
                                 </tr>
                                 <tr>
@@ -91,7 +228,7 @@
                                     <td data-th="ยกเว้นผู้ค้ำรายได้">
                                         20,000
                                     </td>
-                                    <td data-th="ผู้ค้า">
+                                    <td data-th="ผู้ค้ำ">
                                         ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60
                                     </td>
                                     <td>
@@ -126,7 +263,7 @@
                                     <td data-th="ยกเว้นผู้ค้ำรายได้">
                                         20,000
                                     </td>
-                                    <td data-th="ผู้ค้า">
+                                    <td data-th="ผู้ค้ำ">
                                         ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60
                                     </td>
                                     <td>
@@ -161,7 +298,7 @@
                                     <td data-th="ยกเว้นผู้ค้ำรายได้">
                                         20,000
                                     </td>
-                                    <td data-th="ผู้ค้า">
+                                    <td data-th="ผู้ค้ำ">
                                         ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60
                                     </td>
                                     <td>
@@ -196,7 +333,7 @@
                                     <td data-th="ยกเว้นผู้ค้ำรายได้">
                                         20,000
                                     </td>
-                                    <td data-th="ผู้ค้า">
+                                    <td data-th="ผู้ค้ำ">
                                         ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60
                                     </td>
                                     <td>
@@ -231,7 +368,7 @@
                                     <td data-th="ยกเว้นผู้ค้ำรายได้">
                                         20,000
                                     </td>
-                                    <td data-th="ผู้ค้า">
+                                    <td data-th="ผู้ค้ำ">
                                         ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 20,000 บาท หรือ ปรับ LTV<=80% เทอมไม่เกิน 60
                                     </td>
                                     <td>
@@ -249,7 +386,6 @@
         </div>
         <div class="footer">
             <p>Kiatnakin Bank</p>
-
         </div>
     </body>
 </html>

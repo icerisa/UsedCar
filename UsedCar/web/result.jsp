@@ -125,7 +125,7 @@
                                             }
                                         %>
                                 </tr>
-                            </thead>
+                            </thead>                            
                             <tbody>
                                 <%  for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
                                         float currentLtv = (maxLtv - (5 * i)) / 100f;
@@ -155,6 +155,7 @@
                             </tbody>
                         </table>
                         <hr class="tagline">
+                        <%if(cal.getIncome() != 0 || cal.getDept() != 0){%> 
                         <table class="containerTable">
                             <thead>
                                 <tr>
@@ -202,8 +203,8 @@
                                         out.println("</tr>");
                                     }%>
                             </tbody>
-                        </table>
-                        <hr class="tagline">
+                        </table>                            
+                        <hr class="tagline">                        
                         <table class="containerTable">
                             <thead>
                                 <tr>
@@ -255,6 +256,7 @@
                             </tbody>
                         </table>                        
                         <hr class="tagline">
+                        <%}%>
                         <table class="alignP">
                             <tr>
                                 <td>ระบุยอดที่ต้องการกู้</td>

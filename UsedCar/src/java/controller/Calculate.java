@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import model.Calculator;
 import model.Rate;
 
-
 public class Calculate extends HttpServlet {
 
     /**
@@ -30,6 +29,8 @@ public class Calculate extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8"); //brandId, model, month ,year, sub_model, middle_price, NCB, occupation, income, dept , guarantee
+        String incomeRaw = request.getParameter("income");
+        String deptRaw = request.getParameter("debt");
         try {
             int gradeTent = Integer.parseInt(request.getParameter("gradeTent"));
             int brandId = Integer.parseInt(request.getParameter("brandId"));
@@ -40,25 +41,29 @@ public class Calculate extends HttpServlet {
             long middle_price = Long.parseLong(request.getParameter("middle_price"));
             int NCB = Integer.parseInt(request.getParameter("NCB"));
             String occupation = request.getParameter("occupation");
-            int income = Integer.parseInt(request.getParameter("income"));
-            int dept = Integer.parseInt(request.getParameter("debt"));
+            int income = 0;
+            int dept = 0;
+            if (!incomeRaw.isEmpty() && !deptRaw.isEmpty()) {
+                income = Integer.parseInt(incomeRaw);
+                dept = Integer.parseInt(deptRaw);
+            }
             int guarantee = Integer.parseInt(request.getParameter("guarantee"));
-            Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept , guarantee);
+            Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept, guarantee);
             cal.getAllData();
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
-        request.setAttribute("Calculator", cal);
-        if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
-            request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
-        } else {
-            request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
-            System.out.println("RATE == null");
-        }
-        }catch(NumberFormatException e){
+            request.setAttribute("Calculator", cal);
+            if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
+                request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+            } else {
+                request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
+                System.out.println("RATE == null");
+            }
+        } catch (NumberFormatException e) {
             request.setAttribute("Message", "Number format error (ค่าที่ส่งผิดพลาด)");
             request.setAttribute("Exception", e);
             request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             request.setAttribute("Message", "Null pointer exception (หาข้อมูลไม่เจอ)");
             request.setAttribute("Exception", e);
             request.getServletContext().getRequestDispatcher("/500error.jsp").forward(request, response);
