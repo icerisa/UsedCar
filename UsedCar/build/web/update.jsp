@@ -33,7 +33,7 @@
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>        
         <!-- BS JavaScript -->
         <script type="text/javascript" src="js/bootstrap.js"></script>
-        <%--<jsp:include page="menu.jsp" />--%>
+        <jsp:include page="menu.jsp" />
         <!-- Modal notification -->
         <div class="modal fade" id="notiModal" role="dialog">
             <div class="modal-dialog">

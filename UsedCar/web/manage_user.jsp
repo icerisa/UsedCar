@@ -19,8 +19,10 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.min1.css" rel="stylesheet" />
         <link href="${pageContext.request.contextPath}/css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
 
-
-
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="js/jquery.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
+        <script type="text/javascript" src="js/bootstrap.js"></script>
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="${pageContext.request.contextPath}/css/demo.css" rel="stylesheet" />        
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -57,28 +59,47 @@
                                     </ul>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane" id="reset">
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <h4 class="info-text">รีเซ็ตรหัสผ่าน</h4>
-                                            </div>
-                                            <div class="col-sm-10 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <label>กรอกบัญชีผู้ใช้</label>
-                                                    <input type="text" class="form-control" placeholder="บัญชีผู้ใช้">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>กรอกรหัสผ่าน</label>
-                                                    <input type="text" class="form-control" placeholder="บัญชีผู้ใช้">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label>ยืนยันรหัสผ่าน</label>
-                                                    <input type="text" class="form-control" placeholder="บัญชีผู้ใช้">
-                                                </div>
-                                            </div>
 
-                                        </div>
+
+                                    <div class="tab-pane" id="reset">
+                                        <form action="Manage_user" method="POST" id='resetPasswordForm'>
+                                            <input type="hidden" value='resetPassword'>
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <h4 class="info-text">รีเซ็ตรหัสผ่าน</h4>
+                                                </div>
+                                                <div class="col-sm-10 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <label>กรอกบัญชีผู้ใช้</label>
+                                                        <input type="text" class="form-control" placeholder="บัญชีผู้ใช้">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>กรอกรหัสผ่าน</label>
+                                                        <input type="password" id='resetPassword' class="form-control" placeholder="รหัสผ่าน" >
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>ยืนยันรหัสผ่าน</label>
+                                                        <input type="password" id='resetConfirmPassword' class="form-control" placeholder="รหัสผ่าน" >
+                                                        <div id='message'></div>
+                                                    </div>
+                                                    <script>
+                                                        let match = false;
+                                                        $('#resetPassword, #resetConfirmPassword').on('keyup', function () {
+                                                            if ($('#resetPassword').val() == $('#resetConfirmPassword').val()) {
+                                                                $('#message').html('Matching').css('color', 'green');
+                                                                match = true;
+                                                            } else{
+                                                                match = false;
+                                                                $('#message').html('Not Matching').css('color', 'red');
+                                                            }
+                                                        });
+                                                    </script>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
+
+
                                     <div class="tab-pane" id="create">
                                         <h4 class="info-text">สร้างบัญชีผู้ใช้ </h4>
                                         <div class="row">
@@ -98,6 +119,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                     <div class="tab-pane" id="delete">
                                         <div class="row">
                                             <h4 class="info-text"> ลบบัญชีผู้ใช้ </h4>
@@ -110,6 +133,8 @@
                                             </div>
                                         </div>
                                     </div>
+
+
                                 </div>
                                 <div class="wizard-footer">
                                     <center><input type='button' class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' /></center>
