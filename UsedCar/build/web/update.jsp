@@ -425,26 +425,18 @@
                                             });
                                             showNoti();
                                         }
-                                    })
+                                    });
                                 });
                                 showCon();
                             }
 
                             function btnClickSearch() {
                                 let topic = document.getElementById("selectTopic").value;
-                                let keyword = document.getElementById("keyword").value;
-                                if (keyword === "All") {
+                                let keyword = document.getElementById("keyword").value;                                
+                                if (topic === "All") {
                                     showAll();
                                 } else {
                                     searchBy(topic, keyword);
-                                }
-                            }
-
-                            function showAll() {
-                                let table = document.getElementById("data");
-                                // i = 1 for skip thread
-                                for (let i = 1, row; row = table.rows[i]; i++) {
-                                    row.style.display = "table-row";
                                 }
                             }
 
@@ -491,7 +483,7 @@
                                         }
                                     }
                                 }
-                                $("#editConfirm").click(function(){
+                                $("#editConfirm").click(function () {
                                     document.getElementById("editData").submit(); //Method of this form is POST without target
                                 });
                                 showEdit();
@@ -507,6 +499,14 @@
                                 }
                             }
 
+                            function showAll() {
+                                let table = document.getElementById("data");
+                                // i = 1 for skip thread
+                                for (let i = 1, row; row = table.rows[i]; i++) {
+                                    row.style.display = "table-row";
+                                }
+                            }
+                            
                             function searchBy(thread, keyword) {
                                 let table = document.getElementById("data");
                                 // i = 1 for skip thread
@@ -514,7 +514,8 @@
                                     let shouldShow = false;
                                     for (var j = 0, col; col = row.cells[j]; j++) {
                                         if (col.getAttribute("data-th") === thread) {
-                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
+                                            //if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
+                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
                                                 shouldShow = true;
                                             }
                                         }
