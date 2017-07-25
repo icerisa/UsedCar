@@ -152,7 +152,8 @@
                                     <td>ราคากลาง</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" value="-" name="middle_price" id="middle_price" readonly class="kk_mid">
+                                        <input type="text" value="-" name="middle_price_to_show" id="middle_price_to_show" readonly class="kk_mid">
+                                        <input type="hidden" value="-" name="middle_price" id="middle_price">
                                     </td>
                                 </tr>
                             </table>
@@ -200,7 +201,7 @@
                                         <input type="number" name="debt">
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td>ผู้ค้ำประกัน</td>
                                     <td>:</td>
@@ -213,7 +214,7 @@
                                 </tr>
 
                             </table>
-                   
+
                             <div class="row">
                                 <div class="col-lg-12 warning_me">
                                     <h6>หมายเหตุ</h6>
@@ -301,8 +302,9 @@
                         type: 'POST',
                         data: {target: "getMiddlePrice", pkOfSubModel: $('#sub_model').val()},
                         url: 'InputData',
-                        success: function (data) {
+                        success: function (data) {                            
                             $('#middle_price').val(data);
+                            $('#middle_price_to_show').val(data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                         }
                     })
                 })

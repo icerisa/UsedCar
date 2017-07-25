@@ -432,7 +432,7 @@
 
                             function btnClickSearch() {
                                 let topic = document.getElementById("selectTopic").value;
-                                let keyword = document.getElementById("keyword").value;                                
+                                let keyword = document.getElementById("keyword").value;
                                 if (topic === "All") {
                                     showAll();
                                 } else {
@@ -506,7 +506,7 @@
                                     row.style.display = "table-row";
                                 }
                             }
-                            
+
                             function searchBy(thread, keyword) {
                                 let table = document.getElementById("data");
                                 // i = 1 for skip thread
@@ -514,10 +514,13 @@
                                     let shouldShow = false;
                                     for (var j = 0, col; col = row.cells[j]; j++) {
                                         if (col.getAttribute("data-th") === thread) {
-                                            //if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
-                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
                                                 shouldShow = true;
                                             }
+                                            if (thread === "Occupation" || thread === "LTV สูงสุด" || thread === "อายุรถ")
+                                                if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+                                                    shouldShow = true;
+                                                }
                                         }
                                     }
                                     row.style.display = shouldShow ? "table-row" : "none";

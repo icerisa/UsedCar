@@ -10,7 +10,7 @@
     </head>
     <body>
         <h1>That's so bad :(</h1>
-        <h3>You though it was success but it's error.</h3>
+        <h3>it's error.</h3>
         <% String message = (String)request.getAttribute("Message");
             Exception e = (Exception)request.getAttribute("Exception");
             out.println("Message : " + message + "<br><br>");

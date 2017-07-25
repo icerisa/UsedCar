@@ -13,7 +13,7 @@
         <div id="account" class="">
             <button class="mdl-button mdl-js-button" style="color:white; width:auto; font-size:; display:inline; padding:0%;">
                 <span class="material-icons" style="font-size:270%; vertical-align:middle;">account_circle</span>
-                <span class="nameaccount"><%= account.getName() %></span>
+                <span class="nameaccount"><%= account.getAccountName()%></span>
             </button>
         </div>
 

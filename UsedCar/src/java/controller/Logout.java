@@ -30,7 +30,8 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(false);
         if(session != null){
-            session.removeAttribute("Account");            
+            session.removeAttribute("Account");
+            request.setAttribute("successMessage", "<strong>สำเร็จ!</strong> ออกจากระบบสำเร็จ");
         }
         request.getServletContext().getRequestDispatcher("/Login").forward(request, response);
         

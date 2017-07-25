@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Account;
 
-
 public class Login extends HttpServlet {
 
     /**
@@ -29,14 +28,18 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");        
-        Account a = new Account();        
-        a.setId(0);
-        a.setName(request.getParameter("username"));
-        a.setAdmin(false);
-        HttpSession session = request.getSession(true); 
-        session.setAttribute("Account", a);
-        request.getServletContext().getRequestDispatcher("/Index").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        Account a = new Account();
+        boolean loginResult = a.doLogin(request.getParameter("username"), request.getParameter("password"));
+        if (loginResult) {
+            HttpSession session = request.getSession(true);
+            session.setAttribute("Account", a);
+            request.getServletContext().getRequestDispatcher("/Index").forward(request, response);
+        } else {
+            request.setAttribute("dangerMessage", "<strong>ล้มเหลว!</strong> การเข้าสู่ระบบล้มเหลว กรุณาตรวจสอบ Username และ Password");
+            request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

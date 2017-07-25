@@ -8,6 +8,10 @@
 <% Calculator cal = (Calculator) request.getAttribute("Calculator");
     pdpg_used pdpg = cal.getPdpg_used();
     long middle_price = cal.getMiddle_price();
+    boolean inputIncomeAndDept = false;
+    DecimalFormat df = new DecimalFormat("##,###,###,###");
+    if(cal.getIncome() == 0 && cal.getDept() == 0){
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -60,7 +64,7 @@
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">ราคากลาง</td>
-                                    <td colspan="4">: <%=middle_price%></td>
+                                    <td colspan="4">: <%=df.format(middle_price)%></td>
                                 </tr>
                             </table>
                             <br>
@@ -74,9 +78,9 @@
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">รายได้ต่อเดือน</td>
-                                    <td>: <%=cal.getIncome()%></td>
+                                    <td>: <%=df.format(cal.getIncome())%></td>
                                     <td class="colorTopic">ภาระหนี้ต่อเดือน</td>
-                                    <td colspan="4">: <%=cal.getDept()%></td>
+                                    <td colspan="4">: <%=df.format(cal.getDept())%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">การยกเว้นผู้ค้ำประกัน</td>
@@ -97,7 +101,7 @@
                                         <%  int maxTerm = pdpg.getMaxTerm();
                                             int rowToShow = 5; // บรรทัดที่จะให้โชว์ค่า Default = 5
                                             float maxLtv = pdpg.getMaxLTV();
-                                            DecimalFormat df = new DecimalFormat("##,###,###,###");
+                                            
                                             float rate48 = cal.getRate().getRate48() / 100f;
                                             float rate60 = cal.getRate().getRate60() / 100f;
                                             float rate72 = cal.getRate().getRate72() / 100f;
@@ -133,9 +137,13 @@
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(loan[i]) + "</td>");
                                         if (maxTerm >= 48) {
+                                            String showData = "-";
                                             if (loan48 != null) {
                                                 loan48[i] = (rate48 * loan[i] * (48 / 12) + loan[i]) / 48f;
-                                            }
+                                                if(true){
+                                                showData = "";
+                                                }
+                                            }                                            
                                             out.println("<td id='loan-48-" + i + "' value='" + loan48[i] + "'>" + df.format(loan48[i]) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
