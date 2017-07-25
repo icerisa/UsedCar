@@ -35,7 +35,7 @@
             </li>
             <% if(account.isAdmin()){ %>
             <li class="mdl-menu__item mdl-list__item list__item--border-top mgg" >
-                <span class="mdl-list__item-primary-content" onclick="location.href = 'update.html';">
+                <span class="mdl-list__item-primary-content" onclick="location.href = 'Update';">
                     <span class="mdl-list__item-avatar" style="background-color:#00BCD4">
                         <i class="material-icons" style = "margin:20%">book</i>
                     </span>
@@ -46,7 +46,7 @@
                 </span> -->
             </li>
             <li class="mdl-menu__item mdl-list__item list__item--border-top mgg" >
-                <span class="mdl-list__item-primary-content" onclick="location.href = 'manage_user.html';">
+                <span class="mdl-list__item-primary-content" onclick="location.href = 'Manage_user';">
                     <span class="mdl-list__item-avatar" style="background-color:#FFB300">
                         <i class="material-icons" style = "margin:20%">group_add</i>
                     </span>

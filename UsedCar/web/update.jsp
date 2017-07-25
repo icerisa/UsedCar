@@ -421,7 +421,7 @@
                                             $("#notiHead").html("Action Result");
                                             $("#notiMessage").html("การลบข้อมูลสำเร็จ");
                                             $("#notiModal").on("hidden.bs.modal", function (e) {
-                                                window.location = window.location.pathname;
+                                                window.location.href = "Update";
                                             });
                                             showNoti();
                                         }

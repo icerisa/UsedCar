@@ -84,11 +84,11 @@ public class KKPUsedControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        if (request.getParameter("gradeTent") != null) { // if doGet and have data
+//        if (request.getParameter("gradeTent") != null) { // if doGet and have data
             processRequest(request, response);
-        } else { // if doGet and don't have data 
-            response.sendRedirect(request.getContextPath() + "/Update");
-        }
+//        } else { // if doGet and don't have data 
+//            response.sendRedirect(request.getContextPath() + "/Update");
+//        }
 
     }
 
