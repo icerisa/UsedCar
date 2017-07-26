@@ -23,20 +23,18 @@ public class Account {
     String accountSurname;
     String accountEmail;
     String accountPhone;
-    int gradeTentId;
     boolean admin;
     // Result Code
     public static class ResultCode{ public static final int UNKNOW_ERROR = 0, SUCCESS = 1, USERNAME_DUPLICATE = 2, USERNAME_NOT_FOUND = 3;}
     public Account() {
     }
 
-    public Account(String userName, String accountName, String accountSurname, String accountEmail, String accountPhone, int gradeTentId, boolean admin) {        
+    public Account(String userName, String accountName, String accountSurname, String accountEmail, String accountPhone, boolean admin) {        
         this.userName = userName;
         this.accountName = accountName;
         this.accountSurname = accountSurname;
         this.accountEmail = accountEmail;
         this.accountPhone = accountPhone;
-        this.gradeTentId = gradeTentId;
         this.admin = admin;
     }
 
@@ -64,12 +62,37 @@ public class Account {
         return accountPhone;
     }
 
-    public int getGradeTentId() {
-        return gradeTentId;
-    }
 
     public boolean isAdmin() {
         return admin;
+    }
+
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
+    }
+
+    public void setAccountSurname(String accountSurname) {
+        this.accountSurname = accountSurname;
+    }
+
+    public void setAccountEmail(String accountEmail) {
+        this.accountEmail = accountEmail;
+    }
+
+    public void setAccountPhone(String accountPhone) {
+        this.accountPhone = accountPhone;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public boolean doLogin(String username, String password) {
@@ -88,8 +111,7 @@ public class Account {
                 this.accountName = rs.getString("accountName");
                 this.accountSurname = rs.getString("accountSurname");
                 this.accountEmail = rs.getString("accountEmail");
-                this.accountPhone = rs.getString("accountPhone");
-                this.gradeTentId = rs.getInt("gradeTentId");
+                this.accountPhone = rs.getString("accountPhone");                
                 this.admin = rs.getInt("userType") == 0 ? true : false;// if userType 0 is Admin
                 result = true;
             }
@@ -104,17 +126,16 @@ public class Account {
         int result = ResultCode.UNKNOW_ERROR; // UNKNOW ERROR FIRST
         try {
             Connection con = DBConnector.getConnection();
-            String sql = "INSERT INTO `account`( `username`, `password`, `accountName`, `accountSurname`, `accountEmail`, `accountPhone`, `gradeTentId`, `userType`) "
-                    + "VALUES (?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO `account`( `username`, `password`, `accountName`, `accountSurname`, `accountEmail`, `accountPhone`, `userType`) "
+                    + "VALUES (?,?,?,?,?,?,?)";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, this.userName);
             pstm.setString(2, md5(password));
             pstm.setString(3, this.accountName);
             pstm.setString(4, this.accountSurname);
             pstm.setString(5, this.accountEmail);
-            pstm.setString(6, this.accountPhone);
-            pstm.setInt(7, this.gradeTentId);
-            pstm.setInt(8, this.admin ? 0 : 1); //only if this user is admin then userType should be 0
+            pstm.setString(6, this.accountPhone);            
+            pstm.setInt(7, this.admin ? 0 : 1); //only if this user is admin then userType should be 0
             int rs = pstm.executeUpdate();
             if (rs > 0) {
                 result = ResultCode.SUCCESS; // Success
@@ -126,6 +147,28 @@ public class Account {
                 result = ResultCode.USERNAME_DUPLICATE; // Duplicate username
             }
         } catch(Exception e){
+            System.out.println(e);
+        }
+        return result;
+    }
+    
+    public boolean doUpdate() {
+        boolean result = false;
+        try {
+            Connection con = DBConnector.getConnection();
+            String sql = "UPDATE `account` SET `accountName`=?,`accountSurname`=?,`accountEmail`=?,`accountPhone`=? WHERE `accountId`=?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, this.accountName);
+            pstm.setString(2, this.accountSurname);
+            pstm.setString(3, this.accountEmail);
+            pstm.setString(4, this.accountPhone);
+            pstm.setInt(5, this.accountId);
+            int rs = pstm.executeUpdate();
+            if (rs > 0) {
+                result = true;
+            }
+            con.close();
+        } catch (Exception e) {
             System.out.println(e);
         }
         return result;
@@ -149,7 +192,8 @@ public class Account {
             System.out.println(e);
         }
         return result;
-    }
+    }   
+    
 
     public static int doDeleteAccount(String username) {
         int result = ResultCode.UNKNOW_ERROR;//UNKNOW ERROR First

@@ -142,11 +142,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>กรอกรหัสผ่าน</label>
-                                                    <input type="text" name="password" class="form-control" placeholder="รหัสผ่าน">
+                                                    <input type="password" name="password" class="form-control" placeholder="รหัสผ่าน">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>ยืนยันรหัสผ่าน</label>
-                                                    <input type="text" name="passwordRetry" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง">
+                                                    <input type="password" name="passwordRetry" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง">
                                                     <div id='createFormMessage'></div>
                                                 </div>
                                             </div>

@@ -15,6 +15,9 @@
         <url-pattern>/Calculate</url-pattern>
         <url-pattern>/InputData</url-pattern>
         <url-pattern>/CalCustomLoan</url-pattern>
+        <url-pattern>/Manage_user</url-pattern>
+        <url-pattern>/Profile</url-pattern>
+        <url-pattern>/</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
@@ -65,10 +68,6 @@
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Index</servlet-name>
-        <url-pattern>/Index</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>InputData</servlet-name>
         <url-pattern>/InputData</url-pattern>
     </servlet-mapping>
@@ -95,6 +94,11 @@
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Index</servlet-name>
+        <url-pattern>/Index</url-pattern>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

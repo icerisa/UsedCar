@@ -34,7 +34,7 @@ public class Login extends HttpServlet {
         if (loginResult) {
             HttpSession session = request.getSession(true);
             session.setAttribute("Account", a);
-            request.getServletContext().getRequestDispatcher("/Index").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/Index");
         } else {
             request.setAttribute("dangerMessage", "<strong>ล้มเหลว!</strong> การเข้าสู่ระบบล้มเหลว กรุณาตรวจสอบ Username และ Password");
             request.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);

@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 
 /**
  *
@@ -30,18 +32,25 @@ public class Profile extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Profile</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Profile at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        request.setCharacterEncoding("UTF-8");
+        HttpSession session = request.getSession(false);
+        Account a = (Account)session.getAttribute("Account");
+        a.setAccountName(request.getParameter("firstname"));
+        a.setAccountSurname(request.getParameter("surname"));
+        a.setAccountEmail(request.getParameter("email"));
+        a.setAccountPhone(request.getParameter("phone"));
+        boolean result = a.doUpdate();
+        String notiHead="Edit Profile Result", notiMessage="";
+        if(result){
+            notiMessage = "การแก้ไขข้อมูล สำเร็จ!";
+            session.setAttribute("Account", a); //Overwrite old Account
+        } else {
+            notiMessage = "การแก้ไขข้อมูล ล้มเหลว!";
         }
+        request.setAttribute("notiHead", notiHead);
+        request.setAttribute("notiMessage", notiMessage);
+        request.setAttribute("showNoti", "true");
+        getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,6 +66,7 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/profile.jsp").forward(request, response);
+        
     }
 
     /**

@@ -47,7 +47,7 @@ public class Manage_user extends HttpServlet {
                 break;
             case "createAccount":
                 notiHead = "Create Account Result";
-                Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", 0, false);
+                Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", false);
                 resultInt = a.doRegister(request.getParameter("passwordRetry"));
                 if (resultInt == Account.ResultCode.SUCCESS) {//Success
                     notiMessage = "การสร้างบัญชีผู้ใช้ สำเร็จ!";

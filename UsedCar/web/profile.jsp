@@ -1,3 +1,4 @@
+<%@page import="model.Account"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!doctype html>
 <html>
@@ -30,6 +31,7 @@
     </head>
     <body>
         <jsp:include page="menu.jsp" />
+        <jsp:include page="modal.jsp"/>
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
 
@@ -42,9 +44,8 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="azzure" id="wizard" >
-                            <form action="" method="">
+                            <form action="Profile" method="POST">
                                 <!--        You can switch ' data-color="azzure" '  with one of the next bright colors: "blue", "green", "orange", "red"          -->
-
                                 <div class="wizard-header">
                                     <h3 style="font-size: 22pt">
                                         <b>ข้อมูลส่วนตัว</b> <br>
@@ -53,32 +54,33 @@
                                 </div>
                                 <br>
                                 <div class="row">
+                                    <% Account account = (Account) session.getAttribute("Account");%>
                                     <div class="col-sm-10 col-sm-offset-1">
                                         <div class="form-group">
                                             <label>ชื่อบัญชีผู้ใช้งาน</label>
-                                            <input type="text" class="form-control" value="srisamorn.kha" readonly>
+                                            <input type="text" class="form-control" value="<%=account.getUserName()%>" readonly>
                                         </div>
                                         <div class="form-group">
                                             <label>ชื่อ</label>
-                                            <input type="text" class="form-control" value="ศรีสมร" >
+                                            <input type="text" class="form-control" name="firstname" value="<%=account.getAccountName()%>" >
                                         </div>
                                         <div class="form-group">
                                             <label>นามสกุล</label>
-                                            <input type="text" class="form-control" value="ขจรกลิ่น">
+                                            <input type="text" class="form-control" name="surname" value="<%=account.getAccountSurname()%>">
                                         </div>
                                         <div class="form-group">
                                             <label>E-Mail</label>
-                                            <input type="email" class="form-control" value="srisamorn@hotmail.com" >
+                                            <input type="email" class="form-control" name="email" value="<%=account.getAccountEmail()%>" >
                                         </div>
                                         <div class="form-group">
                                             <label>เบอร์โทรศัพท์ติดต่อ</label>
-                                            <input type="tel" class="form-control" value="0818885555" >
+                                            <input type="tel" class="form-control" name="phone" maxlength="10" value="<%=account.getAccountPhone()%>" >
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="wizard-footer">
-                                    <center><input type='button' class='btn  btn-fill btn-info' name='confirm' value='ตกลง' /></center>
+                                    <center><input type='submit' class='btn  btn-fill btn-info' name='confirm' value='แก้ไข' /></center>
                                     <div class="clearfix"></div>
                                 </div>
                             </form>

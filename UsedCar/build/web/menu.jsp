@@ -6,7 +6,7 @@
 <header class="mdl-layout__header">
     <!-- Title -->
     <div class="mdl-layout__header-row">
-        <img class="img" src="img/KiBank.png" height="100%"></img>
+        <a href="Index"><img class="img" src="img/KiBank.png" height="100%"></img></a>
         <div class="mdl-layout-spacer"></div>
         <% Account account = (Account)session.getAttribute("Account");%>
         <!--Account Menu-->
@@ -23,7 +23,7 @@
             </li>
 
             <li class="mdl-menu__item mdl-list__item list__item--border-top mgg" >
-                <span class="mdl-list__item-primary-content" onclick="location.href = 'profile.jsp';">
+                <span class="mdl-list__item-primary-content" onclick="location.href = 'Profile';">
                     <span class="mdl-list__item-avatar" style="background-color:#e53935">
                         <i class="material-icons" style = "margin:20%">perm_identity</i>
                     </span>
