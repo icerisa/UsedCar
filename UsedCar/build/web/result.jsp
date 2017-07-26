@@ -60,7 +60,7 @@
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">SubModel</td>
-                                    <td colspan="4">: <%=KKBook.getSubModelFromId(cal.getSub_modelId())%></td>
+                                    <td colspan="4">: <%=KKBook.getSubModelFromId(cal.getBookId())%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">ราคากลาง</td>

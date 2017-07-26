@@ -19,7 +19,7 @@ public class Calculator {
     int brandId; 
     String model;
     int year;
-    int sub_modelId;
+    int bookId;
     long middle_price;
     int ncbType;
     int income;
@@ -37,7 +37,7 @@ public class Calculator {
         this.model = model;
         this.year = year;
         this.month = month;
-        this.sub_modelId = sub_model;
+        this.bookId = sub_model;
         this.middle_price = middle_price;
         this.ncbType = NCBType;
         this.occupation = occupation;
@@ -77,8 +77,8 @@ public class Calculator {
         return year;
     }
 
-    public int getSub_modelId() {
-        return sub_modelId;
+    public int getBookId() {
+        return bookId;
     }
 
     public long getMiddle_price() {
@@ -115,7 +115,7 @@ public class Calculator {
     
     @Override
     public String toString() {
-        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + sub_modelId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", month=" + month + ", occupation=" + occupation + ", guarantee=" + guarantee + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
+        return "Calculator{" + "gradeTent=" + gradeTent + ", brandId=" + brandId + ", model=" + model + ", year=" + year + ", sub_modelId=" + bookId + ", middle_price=" + middle_price + ", ncbType=" + ncbType + ", income=" + income + ", dept=" + dept + ", month=" + month + ", occupation=" + occupation + ", guarantee=" + guarantee + ", pdpg_used=" + pdpg_used + ", ncb=" + ncb + ", rate=" + rate + '}';
     }
 
     public void getAllData() {
@@ -125,9 +125,29 @@ public class Calculator {
             pdpg.getData(this.gradeTent, this.ncbType, this.occupation, carAgeId);
             this.pdpg_used = pdpg;// find pdpg_used that match with information
             Rate rate = new Rate();
-            rate.getData(guarantee,Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(sub_modelId), pdpg.getMaxTerm());
+            rate.getData(guarantee,Brand.getBrandTypeFromId(brandId), year, KKBook.getAutoTypeFromId(bookId), pdpg.getMaxTerm());
             this.rate = rate;// find rate that match with information
         }
         this.ncb = new NCB(this.ncbType);
+    }
+    
+    public void saveTransaction(int accountId){        
+        try {
+            Connection con = DBConnector.getConnection();
+            String sql = "INSERT INTO `transaction`(`customerIncome`, `customerDebt`, `debtSecure`, `bookId`, `accountId`) VALUES (?,?,?,?,?)";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1, this.income);
+            pstm.setInt(2, this.dept);
+            pstm.setInt(3, this.guarantee);
+            pstm.setInt(4, this.bookId);
+            pstm.setInt(5, accountId);
+            int rs = pstm.executeUpdate();
+            if (rs > 0) {
+                // success
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }    
     }
 }

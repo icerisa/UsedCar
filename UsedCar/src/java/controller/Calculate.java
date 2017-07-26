@@ -11,6 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.Calculator;
 import model.Rate;
 
@@ -52,6 +54,9 @@ public class Calculate extends HttpServlet {
             cal.getAllData();
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
+            // ------- Transaction Work --------
+            HttpSession session = request.getSession(false);
+            cal.saveTransaction(((Account)session.getAttribute("Account")).getAccountId());
             request.setAttribute("Calculator", cal);
             if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
                 request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
