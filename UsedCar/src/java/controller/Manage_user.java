@@ -34,6 +34,7 @@ public class Manage_user extends HttpServlet {
         String target = (String) request.getParameter("target");
         String notiHead = "", notiMessage = "";
         boolean result = false;
+        int resultInt = 0; // for receive result that have more than succes and failed        
         switch (target) {
             case "resetPassword":
                 notiHead = "Reset Password Result";
@@ -47,11 +48,25 @@ public class Manage_user extends HttpServlet {
             case "createAccount":
                 notiHead = "Create Account Result";
                 Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", 0, false);
-                result = a.doRegister(request.getParameter("passwordRetry"));
-                if (result) {
+                resultInt = a.doRegister(request.getParameter("passwordRetry"));
+                if (resultInt == Account.ResultCode.SUCCESS) {//Success
                     notiMessage = "การสร้างบัญชีผู้ใช้ สำเร็จ!";
-                } else {
+                    result = true;
+                } else if (resultInt == Account.ResultCode.USERNAME_DUPLICATE) { // Error : Duplicate Username
+                    notiMessage = "การสร้างบัญชีผู้ใช้ ล้มเหลว! มี Username ดังกล่าวอยู่ในระบบอยู่แล้ว";
+                } else {// Other error
                     notiMessage = "การสร้างบัญชีผู้ใช้ ล้มเหลว!";
+                }
+                break;
+            case "deleteAccount":
+                notiHead = "Delete Account Result";
+                resultInt = Account.doDeleteAccount(request.getParameter("username"));
+                if (resultInt == Account.ResultCode.SUCCESS) {
+                    notiMessage = "การลบบัญชี สำเร็จ!";
+                } else if (resultInt == Account.ResultCode.USERNAME_NOT_FOUND) {
+                    notiMessage = "การลบบัญชี ล้มเหลว! ไม่มี Username ดังกล่าวอยู่ในระบบ";
+                } else {
+                    notiMessage = "การลบบัญชี ล้มเหลว!";
                 }
                 break;
         }

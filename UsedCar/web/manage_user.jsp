@@ -106,7 +106,7 @@
                                                         if ($('#resetPasswordForm input[name=password]').val() == $('#resetPasswordForm input[name=passwordRetry]').val()) {
                                                             $('#message').html('Matching').css('color', 'green');
                                                             resetMatch = true;
-                                                        } else {                                                            
+                                                        } else {
                                                             $('#message').html('Not Matching').css('color', 'red');
                                                             resetMatch = false;
                                                         }
@@ -114,7 +114,7 @@
                                                     });
 
                                                     function checkResetRequired() {
-                                                        if (resetMatch) {                                                            
+                                                        if (resetMatch) {
                                                             if ($("#resetPasswordForm input[name=username]").val() != "") {
                                                                 $("#resetPasswordForm input[type=submit]").prop('disabled', false);
                                                                 return;
@@ -158,7 +158,7 @@
                                                 if ($('#createAccountForm input[name=password]').val() == $('#createAccountForm input[name=passwordRetry]').val()) {
                                                     $('#createFormMessage').html('Matching').css('color', 'green');
                                                     createMatch = true;
-                                                } else {                                                    
+                                                } else {
                                                     $('#createFormMessage').html('Not Matching').css('color', 'red');
                                                     createMatch = false;
                                                 }
@@ -181,16 +181,27 @@
 
 
                                 <div class="tab-pane" id="delete">
-                                    <div class="row">
-                                        <h4 class="info-text"> ลบบัญชีผู้ใช้ </h4>
-                                        <div class="col-sm-10 col-sm-offset-1">
-                                            <div class="form-group">
-                                                <label>กรอกบัญชีผู้ใช้</label>
-                                                <input type="text" class="form-control" placeholder="บัญชีผู้ใช้">
+                                    <form action="Manage_user" method="POST" id='deleteAccountForm'>
+                                        <input type="hidden" name='target' value='deleteAccount'>
+                                        <div class="row">
+                                            <h4 class="info-text"> ลบบัญชีผู้ใช้ </h4>
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>กรอกบัญชีผู้ใช้</label>
+                                                    <input type="text" name="username" class="form-control" placeholder="บัญชีผู้ใช้">
+                                                </div>
+                                                <span>หากทำการลบบัญชี บัญชีจะไม่สามารถเข้าถึงได้อีกครั้ง กรุณาตรวจสอบอย่างละเอียดก่อนทำการลบ</span>
                                             </div>
-                                            <span>หากทำการลบบัญชี บัญชีจะไม่สามารถเข้าถึงได้อีกครั้ง กรุณาตรวจสอบอย่างละเอียดก่อนทำการลบ</span>
                                         </div>
-                                    </div>
+                                        <script> $("#deleteAccountForm input[name=username]").on('keyup', function(){
+                                            if($(this).val() !=""){
+                                                $("#deleteAccountForm input[type=submit]").prop('disabled', false)
+                                            }else{
+                                                $("#deleteAccountForm input[type=submit]").prop('disabled', true)
+                                            }
+                                        })</script>
+                                        <center><input type='submit' id='createSubmit'class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' disabled/></center>
+                                    </form>
                                 </div>
 
 

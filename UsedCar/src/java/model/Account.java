@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +25,8 @@ public class Account {
     String accountPhone;
     int gradeTentId;
     boolean admin;
-
+    // Result Code
+    public static class ResultCode{ public static final int UNKNOW_ERROR = 0, SUCCESS = 1, USERNAME_DUPLICATE = 2, USERNAME_NOT_FOUND = 3;}
     public Account() {
     }
 
@@ -98,8 +100,8 @@ public class Account {
         return result;
     }
 
-    public boolean doRegister(String password) {
-        boolean result = false;
+    public int doRegister(String password) {
+        int result = ResultCode.UNKNOW_ERROR; // UNKNOW ERROR FIRST
         try {
             Connection con = DBConnector.getConnection();
             String sql = "INSERT INTO `account`( `username`, `password`, `accountName`, `accountSurname`, `accountEmail`, `accountPhone`, `gradeTentId`, `userType`) "
@@ -115,10 +117,15 @@ public class Account {
             pstm.setInt(8, this.admin ? 0 : 1); //only if this user is admin then userType should be 0
             int rs = pstm.executeUpdate();
             if (rs > 0) {
-                result = true;
+                result = ResultCode.SUCCESS; // Success
             }
             con.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.out.println("Error code : " + e.getErrorCode());
+            if(e.getErrorCode()==1062){ // 1062 is duplicate error code
+                result = ResultCode.USERNAME_DUPLICATE; // Duplicate username
+            }
+        } catch(Exception e){
             System.out.println(e);
         }
         return result;
@@ -144,8 +151,8 @@ public class Account {
         return result;
     }
 
-    public static boolean doDeleteAccount(String username) {
-        boolean result = false;
+    public static int doDeleteAccount(String username) {
+        int result = ResultCode.UNKNOW_ERROR;//UNKNOW ERROR First
         try {
             Connection con = DBConnector.getConnection();
             String sql = "DELETE FROM `account` WHERE username=?";
@@ -153,9 +160,13 @@ public class Account {
             pstm.setString(1, username);
             int rs = pstm.executeUpdate();
             if (rs > 0) {
-                result = true;
+                result = ResultCode.SUCCESS; // success
+            } else if(rs == 0){
+                result = ResultCode.USERNAME_NOT_FOUND; // USERNAME_NOT_FOUND
             }
             con.close();
+        } catch (SQLException e){
+            System.out.println(e);
         } catch (Exception e) {
             System.out.println(e);
         }
