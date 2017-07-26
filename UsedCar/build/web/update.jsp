@@ -29,46 +29,8 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </head>
     <body>
-        <!-- jQuery -->
-        <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>        
-        <!-- BS JavaScript -->
-        <script type="text/javascript" src="js/bootstrap.js"></script>
         <jsp:include page="menu.jsp" />
-        <!-- Modal notification -->
-        <div class="modal fade" id="notiModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="notiHead"><%=request.getAttribute("notiHead")%></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="notiMessage"><%=request.getAttribute("notiMessage")%></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal comfirm -->
-        <div class="modal fade" id="conModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="conHead"></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="conMessage"></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="conCancel">ยกเลิก</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="conConfirm">ยืนยัน</button>                        
-                    </div>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="modal.jsp" />
         <!-- Modal Edit -->
         <div class="modal fade" id="editModal" role="dialog">
             <div class="modal-dialog">
@@ -190,20 +152,9 @@
             </div>
         </div>
         <script>
-            function showNoti() {
-                $("#notiModal").modal("toggle");
-            }
-            function showCon() {
-                $("#conModal").modal("toggle");
-            }
             function showEdit() {
                 $("#editModal").modal("toggle");
             }
-            <%String showNoti = (String) request.getAttribute("showNoti");
-                System.out.println("Alert : " + showNoti);
-                if (showNoti != null && Boolean.parseBoolean(showNoti)) {%>
-            showNoti();
-            <%}%>
         </script>
         <% ArrayList<pdpg_used> pdpg_useds = (ArrayList<pdpg_used>) request.getAttribute("pdpg_useds");%>
         <div class="brand">KKP USED Car</div>

@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Account;
 
 /**
  *
@@ -30,18 +31,34 @@ public class Manage_user extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Manage_user</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Manage_user at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String target = (String) request.getParameter("target");
+        String notiHead = "", notiMessage = "";
+        boolean result = false;
+        switch (target) {
+            case "resetPassword":
+                notiHead = "Reset Password Result";
+                result = Account.doResetPassword(request.getParameter("username"), request.getParameter("passwordRetry"));
+                if (result) {
+                    notiMessage = "การรีเซ็ตรหัสผ่าน สำเร็จ!";
+                } else {
+                    notiMessage = "การรีเซ็ตรหัสผ่าน ล้มเหลว!";
+                }
+                break;
+            case "createAccount":
+                notiHead = "Create Account Result";
+                Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", 0, false);
+                result = a.doRegister(request.getParameter("passwordRetry"));
+                if (result) {
+                    notiMessage = "การสร้างบัญชีผู้ใช้ สำเร็จ!";
+                } else {
+                    notiMessage = "การสร้างบัญชีผู้ใช้ ล้มเหลว!";
+                }
+                break;
         }
+        request.setAttribute("notiHead", notiHead);
+        request.setAttribute("notiMessage", notiMessage);
+        request.setAttribute("showNoti", "true");
+        getServletContext().getRequestDispatcher("/manage_user.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

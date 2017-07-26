@@ -28,8 +28,7 @@ public class Account {
     public Account() {
     }
 
-    public Account(int accountId, String userName, String accountName, String accountSurname, String accountEmail, String accountPhone, int gradeTentId, boolean admin) {
-        this.accountId = accountId;
+    public Account(String userName, String accountName, String accountSurname, String accountEmail, String accountPhone, int gradeTentId, boolean admin) {        
         this.userName = userName;
         this.accountName = accountName;
         this.accountSurname = accountSurname;

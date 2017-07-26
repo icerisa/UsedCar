@@ -41,6 +41,7 @@
 .login input[type="password"] {
   max-width:400px;
   width: 80%;
+  margin:1em;
   line-height:2.5em;
   font-size: 13pt;
   border:2px solid #f2f2f2;
@@ -67,10 +68,7 @@
 
 /*Media Querie*/
 @media only screen and (min-width : 150px) and (max-width : 530px){
-  .login-form h3 {
-    text-align:center;
-    margin:0;
-   }
+
   .login-button {
     margin-bottom:10px;
   }

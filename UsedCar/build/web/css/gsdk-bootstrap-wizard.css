@@ -983,28 +983,17 @@ label small {
 }
 
 @media screen and (min-width:768px) {
-  .footer {
-  position: absolute;
-    height: 55px;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-  background-color: #0d4889;
-  text-align: center;
-}
-
-.footer p{
-  font-size: 14pt;
-  color:white;
-}
+    
+    .footer p{
+        font-size: 14pt;
+        color:white;
+    }
 }
 
 @media (max-width: 768px) {
   .main .container {
     margin-bottom: 50px;
   }
-
 }
 
 @media (min-width: 768px) {
