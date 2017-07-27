@@ -57,6 +57,8 @@ public class Calculate extends HttpServlet {
             // ------- Transaction Work --------
             HttpSession session = request.getSession(false);
             cal.saveTransaction(((Account)session.getAttribute("Account")).getAccountId());
+            // ------- Transaction Work --------
+            System.out.println(cal);
             request.setAttribute("Calculator", cal);
             if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
                 request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);

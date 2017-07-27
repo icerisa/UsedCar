@@ -175,6 +175,8 @@
                                 <option value="อายุรถ">อายุรถ</option>
                                 <option value="LTV สูงสุด">LTV สูงสุด</option>
                                 <option value="Term ยาวสุด">Term ยาวสุด</option>
+                                <option value="DBR">DBR</option>
+                                <option value="IIR">IIR</option>
                                 <option value="ยกเว้นผู้ค้ำรายได้">ยกเว้นผู้ค้ำรายได้</option>
                                 <option value="ผู้ค้ำ">ผู้ค้ำ</option>
                             </select>
@@ -468,7 +470,7 @@
                                             if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
                                                 shouldShow = true;
                                             }
-                                            if (thread === "Occupation" || thread === "LTV สูงสุด" || thread === "อายุรถ")
+                                            if (thread === "Occupation" || thread === "LTV สูงสุด" || thread === "อายุรถ" || thread === "DBR" || thread === "IIR")
                                                 if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
                                                     shouldShow = true;
                                                 }

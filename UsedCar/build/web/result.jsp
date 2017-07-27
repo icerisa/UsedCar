@@ -10,12 +10,15 @@
     long middle_price = cal.getMiddle_price();
     boolean inputIncomeAndDept = false;
     DecimalFormat df = new DecimalFormat("##,###,###,###");
-    if(cal.getIncome() == 0 && cal.getDept() == 0){
+    int income = cal.getIncome(), dept = cal.getDept();
+    if (income > 0 && dept > 0) {
+        inputIncomeAndDept = true;
     }
 %>
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <link rel="apple-touch-icon" sizes="76x76" href="img/appleicon.png">
         <link rel="icon" type="image/png" href="img/favicon.png">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -88,7 +91,33 @@
                                 </tr>
                             </table>
                         </div>
+                        <% //Calculator
+                            int maxTerm = pdpg.getMaxTerm();
+                            int rowToShow = 5; // บรรทัดที่จะให้โชว์ค่า Default = 5
+                            float maxLtv = pdpg.getMaxLTV();
 
+                            float rate48 = cal.getRate().getRate48() / 100f;
+                            float rate60 = cal.getRate().getRate60() / 100f;
+                            float rate72 = cal.getRate().getRate72() / 100f;
+                            double[] loan = new double[rowToShow], loan48 = null, loan60 = null, loan72 = null;// ประกาศค่าใว้รอ
+                            int[] atleastIncome48 = null, atleastIncome60 = null, atleastIncome72 = null;
+                            int[] highestDept48 = null, highestDept60 = null, highestDept72 = null;
+                            if (maxTerm >= 48) {
+                                loan48 = new double[rowToShow];//ถ้า Term มากกว่า 48 ค่อย new double[6] ให้
+                                atleastIncome48 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                highestDept48 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
+                            }
+                            if (maxTerm >= 60) {
+                                loan60 = new double[rowToShow];//ถ้า Term มากกว่า 60 ค่อย new double[6] ให้
+                                atleastIncome60 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                highestDept60 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
+                            }
+                            if (maxTerm >= 72) {
+                                loan72 = new double[rowToShow];//ถ้า Term มากกว่า 72 ค่อย new double[6] ให้
+                                atleastIncome72 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
+                                highestDept72 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
+                            }
+                        %>
 
                         <table class="containerTable">
                             <thead>
@@ -98,33 +127,14 @@
                                 </tr>
                                 <tr>
                                     <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
-                                        <%  int maxTerm = pdpg.getMaxTerm();
-                                            int rowToShow = 5; // บรรทัดที่จะให้โชว์ค่า Default = 5
-                                            float maxLtv = pdpg.getMaxLTV();
-                                            
-                                            float rate48 = cal.getRate().getRate48() / 100f;
-                                            float rate60 = cal.getRate().getRate60() / 100f;
-                                            float rate72 = cal.getRate().getRate72() / 100f;
-                                            double[] loan = new double[rowToShow], loan48 = null, loan60 = null, loan72 = null;// ประกาศค่าใว้รอ
-                                            int[] atleastIncome48 = null, atleastIncome60 = null, atleastIncome72 = null;
-                                            int[] highestDept48 = null, highestDept60 = null, highestDept72 = null;
-
+                                        <%
                                             if (maxTerm >= 48) {
-                                                loan48 = new double[rowToShow];//ถ้า Term มากกว่า 48 ค่อย new double[6] ให้
-                                                atleastIncome48 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
-                                                highestDept48 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>48</h1></th>");
                                             }
                                             if (maxTerm >= 60) {
-                                                loan60 = new double[rowToShow];//ถ้า Term มากกว่า 60 ค่อย new double[6] ให้
-                                                atleastIncome60 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
-                                                highestDept60 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>60</h1></th>");
                                             }
                                             if (maxTerm >= 72) {
-                                                loan72 = new double[rowToShow];//ถ้า Term มากกว่า 72 ค่อย new double[6] ให้
-                                                atleastIncome72 = new int[rowToShow];// ประกาศ Array รายได้ขั้นต่ำ
-                                                highestDept72 = new int[rowToShow];// ประกาศ Array ให้ภาระหนี้สูงสุด
                                                 out.println("<th class='container2'><h1>72</h1></th>");
                                             }
                                         %>
@@ -134,36 +144,49 @@
                                 <%  for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
                                         float currentLtv = (maxLtv - (5 * i)) / 100f;
                                         loan[i] = currentLtv * middle_price;
+                                        String showData = "";
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(loan[i]) + "</td>");
                                         if (maxTerm >= 48) {
-                                            String showData = "-";
                                             if (loan48 != null) {
                                                 loan48[i] = (rate48 * loan[i] * (48 / 12) + loan[i]) / 48f;
-                                                if(true){
-                                                showData = "";
+                                                if (inputIncomeAndDept) {
+                                                    showData = ((loan48[i] + dept) / (float) income) <= 0.85f ? df.format(loan48[i]) : "-";
+                                                } else {
+                                                    showData = df.format(loan48[i]);
                                                 }
-                                            }                                            
-                                            out.println("<td id='loan-48-" + i + "' value='" + loan48[i] + "'>" + df.format(loan48[i]) + "</td>");
+                                            }
+                                            out.println("<td id='loan-48-" + i + "' value='" + loan48[i] + "'>" + showData + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (loan60 != null) {
                                                 loan60[i] = (rate60 * loan[i] * (60 / 12) + loan[i]) / 60f;
+                                                if (inputIncomeAndDept) {
+                                                    System.out.println((loan60[i] + dept) / (float) income);
+                                                    showData = ((loan60[i] + dept) / (float) income) <= 0.85f ? df.format(loan60[i]) : "-";
+                                                } else {
+                                                    showData = df.format(loan48[i]);
+                                                }
                                             }
-                                            out.println("<td id='loan-60-" + i + "' value='" + loan60[i] + "'>" + df.format(loan60[i]) + "</td>");
+                                            out.println("<td id='loan-60-" + i + "' value='" + loan60[i] + "'>" + showData + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (loan72 != null) {
                                                 loan72[i] = (rate72 * loan[i] * (72 / 12) + loan[i]) / 72f;
+                                                if (inputIncomeAndDept) {
+                                                    showData = ((loan72[i] + dept) / (float) income) <= 0.85f ? df.format(loan72[i]) : "-";
+                                                } else {
+                                                    showData = df.format(loan48[i]);
+                                                }
                                             }
-                                            out.println("<td id='loan-72 -" + i + "' value='" + loan72[i] + "'>" + df.format(loan72[i]) + "</td>");
+                                            out.println("<td id='loan-72 -" + i + "' value='" + loan72[i] + "'>" + showData + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
                             </tbody>
                         </table>
                         <hr class="tagline">
-                        <%if(cal.getIncome() == 0 || cal.getDept() == 0){%> 
+                        <%if (cal.getIncome() == 0 || cal.getDept() == 0) {%> 
                         <table class="containerTable">
                             <thead>
                                 <tr>
@@ -270,7 +293,23 @@
                                 <td>ระบุยอดที่ต้องการกู้</td>
                                 <td>:</td>
                                 <td>
-                                    <input type="number" class="want" id="want">
+                                    <input type="number" class="want" id="want" max="<%=loan[0]%>" min="0">
+                                    <script>
+                                        $("#want").on('keydown keyup', function (e) {
+//                                            alert($(this).val() + " > " + $(this).attr("max") + " result : " + ( parseInt($(this).val()) >  parseInt($(this).attr("max"))))
+                                            if (e.keyCode != 46 // delete
+                                                    && e.keyCode != 8 // backspace)
+                                                    ) {
+                                                if (parseInt($(this).val()) > parseInt($(this).attr("max"))) {
+                                                    e.preventDefault();
+                                                    $(this).val(parseInt($(this).attr("max")));
+                                                } else if (parseInt($(this).val()) < parseInt($(this).attr("min"))) {
+                                                    e.preventDefault();
+                                                    $(this).val(parseInt($(this).attr("min")));
+                                                }
+                                            }
+                                        })
+                                    </script>
                                 </td>
                                 <td>
                                     <button class="button_cal" onclick="doCalculate()">คำนวณ</button>

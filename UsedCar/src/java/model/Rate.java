@@ -107,8 +107,10 @@ public class Rate {
 
     @Override
     public String toString() {
-        return "Rate{" + "rateId=" + rateId + ", guarantee=" + guarantee + ", brandTypeId=" + brandTypeId + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + '}';
+        return "Rate{" + "rateId=" + rateId + ", brandTypeId=" + brandTypeId + ", guarantee=" + guarantee + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + ", rate48=" + rate48 + ", rate60=" + rate60 + ", rate72=" + rate72 + '}';
     }
+
+
     
     public void getData(int guarantee,int brandType,int carYear, int autoTypeId, int term){
         System.out.println(guarantee + " : " +brandType + " : " + carYear + " : " + autoTypeId);
