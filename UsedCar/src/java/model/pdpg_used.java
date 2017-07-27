@@ -21,7 +21,7 @@ public class pdpg_used {
     String NCB_Name;
     String occupation;
     int carAgeId;
-    float maxLTV;
+    int maxLTV;
     int maxTerm;
     int DBR;
     int IIR;
@@ -95,11 +95,11 @@ public class pdpg_used {
         this.carAgeId = carAgeId;
     }
 
-    public float getMaxLTV() {
+    public int getMaxLTV() {
         return maxLTV;
     }
 
-    public void setMaxLTV(float maxLTV) {
+    public void setMaxLTV(int maxLTV) {
         this.maxLTV = maxLTV;
     }
 
@@ -149,7 +149,7 @@ public class pdpg_used {
                 this.NCB_Name = rs.getString("NCB_Name");
                 this.occupation = rs.getString("occupation");
                 this.carAgeId = rs.getInt("ageId");
-                this.maxLTV = rs.getFloat("maxLtv");
+                this.maxLTV = rs.getInt("maxLtv");
                 this.maxTerm = rs.getInt("maxTerm");
                 this.DBR = rs.getInt("DBR");
                 this.IIR = rs.getInt("IIR");
@@ -195,7 +195,7 @@ public class pdpg_used {
                 pdpg.setNCB_Name(rs.getString("NCB_Name"));
                 pdpg.setOccupation(rs.getString("occupation"));
                 pdpg.setCarAgeId(rs.getInt("ageId"));
-                pdpg.setMaxLTV(rs.getFloat("maxLtv"));
+                pdpg.setMaxLTV(rs.getInt("maxLtv"));
                 pdpg.setMaxTerm(rs.getInt("maxTerm"));
                 pdpg.setDBR(rs.getInt("DBR"));
                 pdpg.setIIR(rs.getInt("IIR"));
@@ -210,7 +210,7 @@ public class pdpg_used {
         return pdpg_useds;
     }
 
-    public static boolean addPDPG_Used(int gradeTentId, int NCB_Type, String NCB_Name, String occupation, int ageId, float maxLTV, float maxTerm, float DBR, float IIR, long conditionExcept, String description) {
+    public static boolean addPDPG_Used(int gradeTentId, int NCB_Type, String NCB_Name, String occupation, int ageId, int maxLTV, int maxTerm, int DBR, int IIR, long conditionExcept, String description) {
         boolean result = false;
         try {
             Connection con = DBConnector.getConnection();
@@ -222,10 +222,10 @@ public class pdpg_used {
             pstm.setString(3, NCB_Name);
             pstm.setString(4, occupation);
             pstm.setInt(5, ageId);
-            pstm.setFloat(6, maxLTV);
-            pstm.setFloat(7, maxTerm);
-            pstm.setFloat(8, DBR);
-            pstm.setFloat(9, IIR);
+            pstm.setInt(6, maxLTV);
+            pstm.setInt(7, maxTerm);
+            pstm.setInt(8, DBR);
+            pstm.setInt(9, IIR);
             pstm.setLong(10, conditionExcept);
             pstm.setString(11, description);
             int rs = pstm.executeUpdate();
@@ -239,7 +239,7 @@ public class pdpg_used {
         return result;
     }
 
-    public static boolean updatePDPG_Used(int dataId,int gradeTentId, int NCB_Type, String NCB_Name, String occupation, int ageId, float maxLTV, float maxTerm, float DBR, float IIR, long conditionExcept, String description) {
+    public static boolean updatePDPG_Used(int dataId,int gradeTentId, int NCB_Type, String NCB_Name, String occupation, int ageId, int maxLTV, int maxTerm, int DBR, int IIR, long conditionExcept, String description) {
         boolean result = false;
         try {
             Connection con = DBConnector.getConnection();
@@ -252,10 +252,10 @@ public class pdpg_used {
             pstm.setString(3, NCB_Name);
             pstm.setString(4, occupation);
             pstm.setInt(5, ageId);
-            pstm.setFloat(6, maxLTV);
-            pstm.setFloat(7, maxTerm);
-            pstm.setFloat(8, DBR);
-            pstm.setFloat(9, IIR);
+            pstm.setInt(6, maxLTV);
+            pstm.setInt(7, maxTerm);
+            pstm.setInt(8, DBR);
+            pstm.setInt(9, IIR);
             pstm.setLong(10, conditionExcept);
             pstm.setString(11, description);
             pstm.setInt(12, dataId);

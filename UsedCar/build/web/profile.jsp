@@ -62,15 +62,15 @@
                                         </div>
                                         <div class="form-group">
                                             <label>ชื่อ</label>
-                                            <input type="text" class="form-control" name="firstname" value="<%=account.getAccountName()%>" >
+                                            <input type="text" class="form-control" name="firstname" maxlength="20" value="<%=account.getAccountName()%>" >
                                         </div>
                                         <div class="form-group">
                                             <label>นามสกุล</label>
-                                            <input type="text" class="form-control" name="surname" value="<%=account.getAccountSurname()%>">
+                                            <input type="text" class="form-control" name="surname" maxlength="50"  value="<%=account.getAccountSurname()%>">
                                         </div>
                                         <div class="form-group">
                                             <label>E-Mail</label>
-                                            <input type="email" class="form-control" name="email" value="<%=account.getAccountEmail()%>" >
+                                            <input type="email" class="form-control" name="email" maxlength="50" value="<%=account.getAccountEmail()%>" >
                                         </div>
                                         <div class="form-group">
                                             <label>เบอร์โทรศัพท์ติดต่อ</label>

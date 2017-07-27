@@ -37,11 +37,11 @@ public class KKPUsedControl extends HttpServlet {
         int NCB_Type = Integer.parseInt(request.getParameter("NCBType"));
         String occupation = request.getParameter("occupation");
         int carAgeId = Integer.parseInt(request.getParameter("carAge"));
-        float maxLTV = Float.parseFloat(request.getParameter("maxLTV"));
-        float maxTerm = Float.parseFloat(request.getParameter("maxTerm"));
+        int maxLTV = Integer.parseInt(request.getParameter("maxLTV"));
+        int maxTerm = Integer.parseInt(request.getParameter("maxTerm"));
         String guarantee = request.getParameter("guarantee");
-        float DBR = Float.parseFloat(request.getParameter("DBR"));
-        float IIR = Float.parseFloat(request.getParameter("IIR"));
+        int DBR = Integer.parseInt(request.getParameter("DBR"));
+        int IIR = Integer.parseInt(request.getParameter("IIR"));
         long exceptIncome = 0;
         if (Integer.parseInt(guarantee) == 0) {// ถ้ายกเว้นผู้ค้ำประกันได้
             //ยกเว้นผู้ค้ำประกันได้ ถ้ารายได้มากกว่า 30,000 บาท หรือ ปรับ LTV<=90% เทอมไม่เกิน 72	            
@@ -120,11 +120,11 @@ public class KKPUsedControl extends HttpServlet {
             int NCB_Type = Integer.parseInt(request.getParameter("NCBType"));
             String occupation = request.getParameter("occupation");
             int carAgeId = Integer.parseInt(request.getParameter("carAge"));
-            float maxLTV = Float.parseFloat(request.getParameter("maxLTV"));
-            float maxTerm = Float.parseFloat(request.getParameter("maxTerm"));
+            int maxLTV = Integer.parseInt(request.getParameter("maxLTV"));
+            int maxTerm = Integer.parseInt(request.getParameter("maxTerm"));
             String guarantee = request.getParameter("guarantee");
-            float DBR = Float.parseFloat(request.getParameter("DBR"));
-            float IIR = Float.parseFloat(request.getParameter("IIR"));
+            int DBR = Integer.parseInt(request.getParameter("DBR"));
+            int IIR = Integer.parseInt(request.getParameter("IIR"));
             long exceptIncome = Long.parseLong(request.getParameter("exceptIncome"));
             String NCB_Name = NCB.getNCBNameFromType(NCB_Type);
             boolean result = pdpg_used.updatePDPG_Used(targetId, gradeTentId, NCB_Type, NCB_Name, occupation, carAgeId, maxLTV, maxTerm, DBR, IIR, exceptIncome, guarantee);
