@@ -52,6 +52,7 @@ public class Calculate extends HttpServlet {
             int guarantee = Integer.parseInt(request.getParameter("guarantee"));
             Calculator cal = new Calculator(gradeTent, brandId, model, year, month, sub_model, middle_price, NCB, occupation, income, dept, guarantee);
             cal.getAllData();
+            cal.doCalculate(5);//Calculate for 5 rows
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
             // ------- Transaction Work --------
