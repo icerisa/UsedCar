@@ -181,7 +181,7 @@
                             </tbody>
                         </table>
                         <hr class="tagline">
-                        <%if (cal.getIncome() == 0 || cal.getDept() == 0) {%> 
+                        <%if (cal.getIncome() == 0) {%> 
                         <table class="containerTable">
                             <thead>
                                 <tr>
