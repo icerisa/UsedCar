@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2017 at 07:54 AM
+-- Generation Time: Jul 28, 2017 at 05:25 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -34,7 +34,7 @@ CREATE TABLE `account` (
   `accountSurname` varchar(50) COLLATE utf8_bin NOT NULL,
   `accountEmail` varchar(50) COLLATE utf8_bin NOT NULL,
   `accountPhone` varchar(10) COLLATE utf8_bin NOT NULL,
-  `userType` int(1) NOT NULL DEFAULT '1'
+  `userType` int(1) NOT NULL DEFAULT '1' COMMENT '0 = Admin , 1 = User'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -42,8 +42,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`accountId`, `username`, `password`, `accountName`, `accountSurname`, `accountEmail`, `accountPhone`, `userType`) VALUES
-(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', 'Admin', 'admin@admin.admin', '08admin', 0),
-(2, 'user', '827ccb0eea8a706c4c34a16891f84e7b', 'user', 'normal', 'user@user.user', '08user', 1);
+(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', 'Admin', 'admin@admin.admin', '0800000000', 0),
+(2, 'user', '827ccb0eea8a706c4c34a16891f84e7b', 'user', 'normal', 'user@user.user', '0810000000', 1);
 
 -- --------------------------------------------------------
 
@@ -13641,7 +13641,36 @@ CREATE TABLE `transaction` (
 --
 
 INSERT INTO `transaction` (`transactionId`, `customerIncome`, `customerDebt`, `debtSecure`, `bookId`, `accountId`, `dateTime`) VALUES
-(1, 70000, 13000, '1', 10777, 11, '2017-07-27 03:18:23');
+(1, 70000, 13000, '1', 10777, 11, '2017-07-27 03:18:23'),
+(2, 70000, 20000, '0', 1283, 1, '2017-07-28 18:16:42'),
+(3, 70000, 20000, '0', 1283, 1, '2017-07-28 18:18:17'),
+(4, 70000, 20000, '0', 1283, 1, '2017-07-28 18:22:46'),
+(5, 70000, 20000, '0', 1283, 1, '2017-07-28 18:26:20'),
+(6, 70000, 20000, '0', 1283, 1, '2017-07-28 18:27:08'),
+(7, 70000, 20000, '0', 1283, 1, '2017-07-28 18:29:01'),
+(8, 70000, 20000, '0', 1283, 1, '2017-07-28 19:03:27'),
+(9, 70000, 0, '0', 1283, 1, '2017-07-28 19:03:43'),
+(10, 70000, 0, '0', 1283, 1, '2017-07-28 19:07:03'),
+(11, 70000, 20000, '0', 1283, 1, '2017-07-28 19:20:44'),
+(12, 70000, 20000, '0', 1283, 1, '2017-07-28 19:35:41'),
+(13, 70000, 20000, '0', 1283, 1, '2017-07-28 19:35:48'),
+(14, 70000, 20000, '0', 1283, 1, '2017-07-28 19:36:45'),
+(15, 70000, 20000, '0', 1283, 1, '2017-07-28 19:39:02'),
+(16, 70000, 20000, '0', 1283, 1, '2017-07-28 19:43:29'),
+(17, 70000, 20000, '0', 1283, 1, '2017-07-28 19:45:24'),
+(18, 70000, 20000, '0', 1283, 1, '2017-07-28 19:48:37'),
+(19, 70000, 20000, '0', 1283, 1, '2017-07-28 20:03:18'),
+(20, 70000, 20000, '0', 1283, 1, '2017-07-28 20:16:51'),
+(21, 70000, 20000, '0', 1283, 1, '2017-07-28 20:18:48'),
+(22, 70000, 20000, '0', 1283, 1, '2017-07-28 20:19:17'),
+(23, 70000, 20000, '0', 1283, 1, '2017-07-28 20:20:13'),
+(24, 70000, 20000, '0', 1283, 1, '2017-07-28 20:20:49'),
+(25, 70000, 20000, '0', 1283, 1, '2017-07-28 20:22:09'),
+(26, 70000, 20000, '0', 1283, 1, '2017-07-28 20:22:37'),
+(27, 70000, 20000, '0', 1283, 1, '2017-07-28 20:22:55'),
+(28, 70000, 20000, '0', 1283, 1, '2017-07-28 20:26:43'),
+(29, 70000, 20000, '0', 1283, 1, '2017-07-28 20:26:58'),
+(30, 70000, 20000, '0', 1283, 1, '2017-07-28 20:28:02');
 
 --
 -- Indexes for dumped tables
@@ -13742,7 +13771,7 @@ ALTER TABLE `rate`
 -- AUTO_INCREMENT for table `transaction`
 --
 ALTER TABLE `transaction`
-  MODIFY `transactionId` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `transactionId` int(7) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

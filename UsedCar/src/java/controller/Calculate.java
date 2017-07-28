@@ -45,8 +45,10 @@ public class Calculate extends HttpServlet {
             String occupation = request.getParameter("occupation");
             int income = 0;
             int dept = 0;
-            if (!incomeRaw.isEmpty() && !deptRaw.isEmpty()) {
+            if (!incomeRaw.isEmpty()) {
                 income = Integer.parseInt(incomeRaw);
+            }
+            if(!deptRaw.isEmpty()){
                 dept = Integer.parseInt(deptRaw);
             }
             int guarantee = Integer.parseInt(request.getParameter("guarantee"));

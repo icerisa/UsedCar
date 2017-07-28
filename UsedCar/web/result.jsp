@@ -363,7 +363,7 @@
                                                 url: 'CalCustomLoan',
                                                 success: function (data) {
                                                     if (data == "Input Error") {
-                                                        $("#calMessage").html("ยอดที่ท่านต้องการกู้ไม่เข้าเงื่อนไขของธนาคาร").css('color', 'red');;
+                                                        $("#calMessage").html("ยอดที่ท่านต้องการกู้ไม่เข้าเงื่อนไขของธนาคาร").css({'color': 'red' , "font-size":"14pt"});;
                                                         $('#customLoan').html("");
                                                     } else {
                                                         $("#calMessage").html("");
