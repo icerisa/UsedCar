@@ -299,19 +299,19 @@
                                         double highestDept72 = 0;
                                         if (maxTerm >= 48) {
                                             if (showDataLoan[i][0] > 0) {
-                                                highestDept48 = income*0.85f-showDataLoan[i][0];
+                                                highestDept48 = income * 0.85f - showDataLoan[i][0];
                                             }
                                             out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + df.format(highestDept48) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (showDataLoan[i][1] > 0) {
-                                                highestDept60 = income*0.85f-showDataLoan[i][1];
+                                                highestDept60 = income * 0.85f - showDataLoan[i][1];
                                             }
                                             out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + df.format(highestDept60) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (showDataLoan[i][2] > 0) {
-                                                highestDept72 = income*0.85f-showDataLoan[i][2];
+                                                highestDept72 = income * 0.85f - showDataLoan[i][2];
                                             }
                                             out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + df.format(highestDept72) + "</td>");
                                         }
@@ -332,7 +332,7 @@
                                 </td>
                             </tr>
                         </table>
-
+                        <span id="calMessage"></span>
                         <table class="containerTable2">
                             <thead>
                                 <tr>
@@ -359,10 +359,16 @@
                                                 type: 'POST',
                                                 data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(),
                                                     rate48: $("#rate48").val(), rate60: $("#rate60").val(), rate72: $("#rate72").val(),
-                                                    income: <%=income%>, dept: <%=dept%>},
+                                                    income: <%=income%>, dept: <%=dept%>, maxLoan: <%=cal.getLoan(0)%>},
                                                 url: 'CalCustomLoan',
                                                 success: function (data) {
-                                                    $('#customLoan').html(data)
+                                                    if (data == "Input Error") {
+                                                        $("#calMessage").html("ยอดที่ท่านต้องการกู้ไม่เข้าเงื่อนไขของธนาคาร").css('color', 'red');;
+                                                        $('#customLoan').html("");
+                                                    } else {
+                                                        $("#calMessage").html("");
+                                                        $('#customLoan').html(data)
+                                                    }
                                                 }
                                             })
                                         }
