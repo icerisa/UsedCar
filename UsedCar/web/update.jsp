@@ -351,8 +351,8 @@
                                             out.println("<td data-th='ผู้ค้ำ'>" + pdpg.getDescription() + "</td>");
                                             out.println("<td data-th='action'>");
                                             out.println("<div style=\"text-align:right;\" >");
-                                            out.println("<i onClick='deleteData($(this).attr(\"data-id\"))' class=\"fa fa-trash\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
-                                            out.println("<i onClick='editRow($(this).attr(\"data-id\"))' class=\"fa fa-pencil\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
+                                            out.println("<i style=\"cursor:pointer\" onClick='deleteData($(this).attr(\"data-id\"))' class=\"fa fa-trash\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
+                                            out.println("<i style=\"cursor:pointer\" onClick='editRow($(this).attr(\"data-id\"))' class=\"fa fa-pencil\" aria-hidden=\"true\" data-id='" + pdpg.getPdpgId() + "'></i>");
                                             out.println("</div>");
                                             out.println("</td>");
                                             out.println("</tr>");
