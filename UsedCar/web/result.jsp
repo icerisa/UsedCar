@@ -93,7 +93,7 @@
                         </div>
                         <% //Calculator
                             int maxTerm = pdpg.getMaxTerm();
-                            int rowToShow = cal.getRowToShow();                            
+                            int rowToShow = cal.getRowToShow();
                         %>
 
                         <table class="containerTable">
@@ -118,7 +118,8 @@
                                 </tr>
                             </thead>                            
                             <tbody>
-                                <%  for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
+                                <%  int[][] showDataLoan = new int[3][3];// [row][column]
+                                    for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
                                         String showData = "-";
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
@@ -136,7 +137,7 @@
                                                     showData = df.format(loan48);
                                                 } else {
                                                     showData = "-";
-                                                }                                                
+                                                }
                                             } else {
                                                 showData = df.format(loan48);
                                             }
@@ -153,7 +154,7 @@
                                                     showData = df.format(loan60);
                                                 } else {
                                                     showData = "-";
-                                                }                                                
+                                                }
                                             } else {
                                                 showData = df.format(loan60);
                                             }
@@ -170,7 +171,7 @@
                                                     showData = df.format(loan72);
                                                 } else {
                                                     showData = "-";
-                                                }                                                
+                                                }
                                             } else {
                                                 showData = df.format(loan72);
                                             }
@@ -211,7 +212,7 @@
                                         double atleastIncome48 = cal.getAtleastIncome48(i);
                                         double atleastIncome60 = cal.getAtleastIncome60(i);
                                         double atleastIncome72 = cal.getAtleastIncome72(i);
-                                        if (maxTerm >= 48) {                                            
+                                        if (maxTerm >= 48) {
                                             out.println("<td id='income-48-" + i + "' value='" + atleastIncome48 + "'>" + df.format(atleastIncome48) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
@@ -266,31 +267,58 @@
                                         out.println("</tr>");
                                     }%>
                             </tbody>
-                        </table>                        
+                        </table>
                         <hr class="tagline">
+                        <%} else { //กรอกรายได้ แต่ไม่กรอกหนี้%>
+                        <table class="containerTable">
+                            <thead>
+                                <tr>
+                                    <th class="nope"></th>
+                                    <th class="container3 nope" colspan="3"><h1>ภาระหนี้สูงสุดต่อเดือน</h1></th>
+                                </tr>
+                                <tr>
+                                    <th class="no"><h1>ยอดที่ต้องการกู้</h1></th>
+                                        <%
+                                            if (maxTerm >= 48) {
+                                                out.println("<th class='container2'><h1>48</h1></th>");
+                                            }
+                                            if (maxTerm >= 60) {
+                                                out.println("<th class='container2'><h1>60</h1></th>");
+                                            }
+                                            if (maxTerm >= 72) {
+                                                out.println("<th class='container2'><h1>72</h1></th>");
+                                            }
+                                        %>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for (int i = 0; i < rowToShow; i++) { // print 6 row
+                                        out.println("<tr>");
+                                        out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
+                                        double highestDept48 = cal.getHighestDept48(i);
+                                        double highestDept60 = cal.getHighestDept60(i);
+                                        double highestDept72 = cal.getHighestDept72(i);
+                                        if (maxTerm >= 48) {
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + df.format(highestDept48) + "</td>");
+                                        }
+                                        if (maxTerm >= 60) {
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + df.format(highestDept60) + "</td>");
+                                        }
+                                        if (maxTerm >= 72) {
+
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + df.format(highestDept72) + "</td>");
+                                        }
+                                        out.println("</tr>");
+                                    }%>
+                            </tbody>
+                        </table>
                         <%}%>
                         <table class="alignP">
                             <tr>
                                 <td>ระบุยอดที่ต้องการกู้</td>
                                 <td>:</td>
                                 <td>
-                                    <input type="number" class="want" id="want" max="<%=cal.getLoan(0)%>" min="0">
-                                    <script>
-                                        $("#want").on('keydown keyup', function (e) {
-//                                            alert($(this).val() + " > " + $(this).attr("max") + " result : " + ( parseInt($(this).val()) >  parseInt($(this).attr("max"))))
-                                            if (e.keyCode != 46 // delete
-                                                    && e.keyCode != 8 // backspace)
-                                                    ) {
-                                                if (parseInt($(this).val()) > parseInt($(this).attr("max"))) {
-                                                    e.preventDefault();
-                                                    $(this).val(parseInt($(this).attr("max")));
-                                                } else if (parseInt($(this).val()) < parseInt($(this).attr("min"))) {
-                                                    e.preventDefault();
-                                                    $(this).val(parseInt($(this).attr("min")));
-                                                }
-                                            }
-                                        })
-                                    </script>
+                                    <input type="number" class="want" id="want" min="0">                                    
                                 </td>
                                 <td>
                                     <button class="button_cal" onclick="doCalculate()">คำนวณ</button>
@@ -322,7 +350,9 @@
                                         function doCalculate() {
                                             $.ajax({
                                                 type: 'POST',
-                                                data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(), rate48: $("#rate48").val(), rate60: $("#rate60").val(), rate72: $("#rate72").val()},
+                                                data: {loanTotal: $("#want").val(), maxTerm: $("#maxTerm").val(),
+                                                    rate48: $("#rate48").val(), rate60: $("#rate60").val(), rate72: $("#rate72").val(),
+                                                    income: <%=income%>, dept: <%=dept%>},
                                                 url: 'CalCustomLoan',
                                                 success: function (data) {
                                                     $('#customLoan').html(data)

@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Calculator;
 
-
 public class CalCustomLoan extends HttpServlet {
 
     /**
@@ -29,77 +28,104 @@ public class CalCustomLoan extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        System.out.println("Pass");
         long want = Long.parseLong(request.getParameter("loanTotal"));
         int maxTerm = Integer.parseInt(request.getParameter("maxTerm"));
-        float rate48 = Float.parseFloat(request.getParameter("rate48"));
-        float rate60 = Float.parseFloat(request.getParameter("rate60"));
-        float rate72 = Float.parseFloat(request.getParameter("rate72"));
+        int income = Integer.parseInt(request.getParameter("income"));
+        int dept = Integer.parseInt(request.getParameter("dept"));
+        float rate48 = Float.parseFloat(request.getParameter("rate48")) / 100f;
+        float rate60 = Float.parseFloat(request.getParameter("rate60")) / 100f;
+        float rate72 = Float.parseFloat(request.getParameter("rate72")) / 100f;
         System.out.println(want);
         System.out.println(maxTerm);
         PrintWriter out = response.getWriter();
-        float[] loanCal=new float[3],incomeCal = new float[3];
+        float[] loanCal = new float[3], atleastIncomeCal = new float[3];
         int[] deptCal = new int[3];
         DecimalFormat df = new DecimalFormat("##,###,###,###");
-        //----------------------- ค่างวดต่อเดือน
+        //-------------- การคำนวณ
+        if (maxTerm >= 48) {
+            //ค่างวดต่อเดือน
+            loanCal[0] = (rate48 * want * (48 / 12) + want) / 48f;
+            //รายได้ขั้นต่ำ
+            atleastIncomeCal[0] = loanCal[0] * 2;
+            //ภาระหนี้สูงสุด
+            deptCal[0] = (int) (atleastIncomeCal[0] * 0.85f - loanCal[0]);
+            deptCal[0] = (deptCal[0] * 1000) / 100000 * 100; // ปัดเศษหลักร้อยลง
+        }
+        if (maxTerm >= 60) {
+            //ค่างวดต่อเดือน
+            loanCal[1] = (rate60 * want * (60 / 12) + want) / 60f;
+            //รายได้ขั้นต่ำ
+            atleastIncomeCal[1] = loanCal[1] * 2;
+            //ภาระหนี้สูงสุด
+            deptCal[1] = (int) (atleastIncomeCal[1] * 0.85f - loanCal[1]);
+            deptCal[1] = (deptCal[1] * 1000) / 100000 * 100; // ปัดเศษหลักร้อยลง
+        }
+        if (maxTerm >= 72) {
+            //ค่างวดต่อเดือน
+            loanCal[2] = (rate72 * want * (72 / 12) + want) / 72f;
+            //รายได้ขั้นต่ำ
+            atleastIncomeCal[2] = loanCal[2] * 2;
+            //ภาระหนี้สูงสุด
+            deptCal[2] = (int) (atleastIncomeCal[2] * 0.85f - loanCal[2]);
+            deptCal[2] = (deptCal[2] * 1000) / 100000 * 100; // ปัดเศษหลักร้อยลง
+        }
+        System.out.println("Loan : " + loanCal[0] + " " + loanCal[1] + " " + loanCal[2]);
+        //-------------- การคำนวณ
+        //----------------------- การแสดงผล ค่างวดต่อเดือน
+        System.out.println("Income : " + income);
+        System.out.println("Dept : " + dept);
+        float loanToShow[] = new float[3];
+        for (int i = 0; i < 3; i++) {
+            loanToShow[i] = loanCal[i];
+            if (income != 0) { //ถ้า Income ไม่ใช่ 0
+                if (income >= atleastIncomeCal[i]) {//รายได้ที่กรอก มากกว่ารายได้ขั้นต่ำ
+                    if ((loanCal[i] + dept) / ((float) income) > 0.85f) {// ถ้าหนี้ รวมกับค่างวดหารรายได้เยอะกว่า 0.85
+                        if (dept > deptCal[0]) {//หนี้ที่กรอกมากกว่าภาระหนี้สูงสุด
+                            loanToShow[i] = 0;
+                        }
+                    }
+                } else { //รายได้น้อยกว่าราได้ขั้นต่ำ
+                    loanToShow[i] = 0;
+                }
+            }
+        }
         out.println("<tr id=\"loanCalResult\">");
-        out.println("<td class=\"container3\"><span class=\"sizeme\">ค่างวดต่อเดือน </span></td>");        
-        if(maxTerm>=48){
-            loanCal[0] = (rate48 * want * (48 / 12) + want) / 48f;            
+        out.println("<td class=\"container3\"><span class=\"sizeme\">ค่างวดต่อเดือน </span></td>");
+        for (int i = 0; i < 3; i++) {
+            out.println("<td>" + df.format(loanToShow[i]) + "</td>");
         }
-        if(maxTerm>=60){
-            loanCal[1] = (rate60 * want * (60 / 12) + want) / 60f;            
-        }
-        if(maxTerm>=72){
-            loanCal[2] = (rate72 * want * (72 / 12) + want) / 72f;            
-        }
-        out.println("<td>" +df.format(loanCal[0])+"</td>");
-        out.println("<td>" +df.format(loanCal[1])+"</td>");
-        out.println("<td>" +df.format(loanCal[2])+"</td>");
         out.println("</tr>");
-        //----------------------- รายได้ขั้นต่ำต่อเดือน
-        out.println("<tr id=\"atleastIncomeCalResult\">");
-        out.print("<td class=\"container3\"><span class=\"sizeme\">รายได้ขั้นต่ำต่อเดือน </span></td>");
-        if(maxTerm>=48){
-            incomeCal[0] = loanCal[0]*2;         
+        if (income == 0) { //ไม่กรอกรายได้
+            //----------------------- การแสดงผล รายได้ขั้นต่ำต่อเดือน
+            out.println("<tr id=\"atleastIncomeCalResult\">");
+            out.print("<td class=\"container3\"><span class=\"sizeme\">รายได้ขั้นต่ำต่อเดือน </span></td>");
+            for(int i=0;i <3;i++){
+                out.println("<td>" + df.format(atleastIncomeCal[i]) + "</td>");    
+            }            
+            out.println("</tr>");
+            //--------------------- การแสดงผลภาระหนี้สูงสุดต่อเดือน
+            out.println("<tr id=\"highestDeptCalResult\">");
+            out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
+            for (int i = 0; i < 3; i++) {
+                out.println("<td>" + df.format(deptCal[i]) + "</td>");
+            }
+            out.println("</tr>");
+        } else { //กรอกรายได้
+            if (dept == 0) {//ไม่กรอกหนี้
+                float[] deptCalNoInput = new float[3];
+                for (int i = 0; i < 3; i++) {
+                    deptCalNoInput[i] = income * 0.85f - loanCal[i];
+                }
+                //--------------------- การแสดงผลภาระหนี้สูงสุดต่อเดือนต่อเมื่อไม่ได้กรอกหนี้
+                out.println("<tr id=\"highestDeptCalResult\">");
+                out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
+                for (int i = 0; i < 3; i++) {
+                    out.println("<td>" + df.format(deptCalNoInput[i]) + "</td>");
+                }
+                out.println("</tr>");
+            }
         }
-        if(maxTerm>=60){
-            incomeCal[1] = loanCal[1]*2;         
-        }
-        if(maxTerm>=72){
-            incomeCal[2] = loanCal[2]*2;           
-        }
-        out.println("<td>" +df.format(incomeCal[0])+"</td>");
-        out.println("<td>" +df.format(incomeCal[1])+"</td>");
-        out.println("<td>" +df.format(incomeCal[2])+"</td>");
-        out.println("</tr>");
-        //--------------------- ภาระหนี้สูงสุดต่อเดือน
-        out.println("<tr id=\"highestDeptCalResult\">");
-        out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
-        if(maxTerm>=48){
-            deptCal[0] = (int)(incomeCal[0]*0.85f - loanCal[0]);
-            deptCal[0] = (deptCal[0]*1000)/100000*100; // ปัดเศษหลักร้อยลง
-        }
-        if(maxTerm>=60){
-            deptCal[1] = (int)(incomeCal[1]*0.85f - loanCal[1]);
-            deptCal[1] = (deptCal[1]*1000)/100000*100; // ปัดเศษหลักร้อยลง
-        }
-        if(maxTerm>=72){
-            deptCal[2] = (int)(incomeCal[2]*0.85f - loanCal[2]);
-            deptCal[2] = (deptCal[2]*1000)/100000*100; // ปัดเศษหลักร้อยลง
-        }
-        out.println("<td>" +df.format(deptCal[0])+"</td>");
-        out.println("<td>" +df.format(deptCal[1])+"</td>");
-        out.println("<td>" +df.format(deptCal[2])+"</td>");
-        out.println("</tr>");
 
-//                                <tr id="highestDeptCalResult">
-//                                    <td class="container3"><span class="sizeme">ภาระหนี้สูงสุดต่อเดือน </span></td>
-//                                    <td>13,000 </td>
-//                                    <td>12,000 </td>
-//                                    <td>11,000 </td>
-//                                </tr>
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
