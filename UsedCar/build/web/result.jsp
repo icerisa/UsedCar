@@ -118,9 +118,8 @@
                                 </tr>
                             </thead>                            
                             <tbody>
-                                <%  int[][] showDataLoan = new int[3][3];// [row][column]
-                                    for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row
-                                        String showData = "-";
+                                <%  double[][] showDataLoan = new double[rowToShow][3];// [row][column]
+                                    for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row                                        
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
                                         double loan48 = cal.getLoan48(i);//ค่างวดต่อเดือนสำหรับ 48 Term
@@ -130,52 +129,52 @@
                                             if (inputIncomeAndDept) {
                                                 //showData = df.format(loan48[i]) : "-";
                                                 if (income < cal.getAtleastIncome48(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
-                                                    showData = "-";
+                                                    showDataLoan[i][0] = 0;
                                                 } else if (((loan48 + dept) / (float) income) <= 0.85f) {
-                                                    showData = df.format(loan48);
+                                                    showDataLoan[i][0] = loan48;
                                                 } else if (dept <= cal.getHighestDept48(i)) { // คำนวนแล้วมากกว่า 0.85 แต่ยอดน้อยกว่าหนี้สูสงุด
-                                                    showData = df.format(loan48);
+                                                    showDataLoan[i][0] = loan48;
                                                 } else {
-                                                    showData = "-";
+                                                    showDataLoan[i][0] = 0;
                                                 }
                                             } else {
-                                                showData = df.format(loan48);
+                                                showDataLoan[i][0] = loan48;
                                             }
-                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" + showData + "</td>");
+                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" + df.format(showDataLoan[i][0]) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (inputIncomeAndDept) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome60(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
-                                                    showData = "-";
+                                                    showDataLoan[i][1] = 0;
                                                 } else if (((loan60 + dept) / (float) income) <= 0.85f) {
-                                                    showData = df.format(loan60);
+                                                    showDataLoan[i][1] = loan60;
                                                 } else if (dept <= cal.getHighestDept60(i)) { // คำนวนแล้วมากกว่า 0.85 แต่ยอดน้อยกว่าหนี้สูสงุด
-                                                    showData = df.format(loan60);
+                                                    showDataLoan[i][1] = loan60;
                                                 } else {
-                                                    showData = "-";
+                                                    showDataLoan[i][1] = 0;
                                                 }
                                             } else {
-                                                showData = df.format(loan60);
+                                                showDataLoan[i][1] = loan60;
                                             }
-                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + showData + "</td>");
+                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + df.format(showDataLoan[i][1]) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (inputIncomeAndDept) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome72(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
-                                                    showData = "-";
+                                                    showDataLoan[i][2] = 0;
                                                 } else if (((loan72 + dept) / (float) income) <= 0.85f) {
-                                                    showData = df.format(loan72);
+                                                    showDataLoan[i][2] = loan72;
                                                 } else if (dept <= cal.getHighestDept72(i)) { // คำนวนแล้วมากกว่า 0.85 แต่ยอดน้อยกว่าหนี้สูสงุด
-                                                    showData = df.format(loan72);
+                                                    showDataLoan[i][2] = loan72;
                                                 } else {
-                                                    showData = "-";
+                                                    showDataLoan[i][2] = 0;
                                                 }
                                             } else {
-                                                showData = df.format(loan72);
+                                                showDataLoan[i][2] = loan72;
                                             }
-                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + showData + "</td>");
+                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + df.format(showDataLoan[i][2]) + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
@@ -295,17 +294,25 @@
                                 <%for (int i = 0; i < rowToShow; i++) { // print 6 row
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
-                                        double highestDept48 = cal.getHighestDept48(i);
-                                        double highestDept60 = cal.getHighestDept60(i);
-                                        double highestDept72 = cal.getHighestDept72(i);
+                                        double highestDept48 = 0;
+                                        double highestDept60 = 0;
+                                        double highestDept72 = 0;
                                         if (maxTerm >= 48) {
+                                            if (showDataLoan[i][0] > 0) {
+                                                highestDept48 = income*0.85f-showDataLoan[i][0];
+                                            }
                                             out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + df.format(highestDept48) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
+                                            if (showDataLoan[i][1] > 0) {
+                                                highestDept60 = income*0.85f-showDataLoan[i][1];
+                                            }
                                             out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + df.format(highestDept60) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
-
+                                            if (showDataLoan[i][2] > 0) {
+                                                highestDept72 = income*0.85f-showDataLoan[i][2];
+                                            }
                                             out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + df.format(highestDept72) + "</td>");
                                         }
                                         out.println("</tr>");
