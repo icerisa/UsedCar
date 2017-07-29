@@ -7,13 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Calculator cal = (Calculator) request.getAttribute("Calculator");
     pdpg_used pdpg = cal.getPdpg_used();
-    long middle_price = cal.getMiddle_price();
-    boolean inputIncomeAndDept = false;
+    long middle_price = cal.getMiddle_price();    
     DecimalFormat df = new DecimalFormat("##,###,###,###");
-    int income = cal.getIncome(), dept = cal.getDept();
-    if (income > 0 && dept > 0) {
-        inputIncomeAndDept = true;
-    }
+    int income = cal.getIncome(), dept = cal.getDept();   
+    
 %>
 <!DOCTYPE html>
 <html>
@@ -126,9 +123,9 @@
                                         double loan60 = cal.getLoan60(i);//ค่างวดต่อเดือนสำหรับ 60 Term
                                         double loan72 = cal.getLoan72(i);//ค่างวดต่อเดือนสำหรับ 72 Term
                                         if (maxTerm >= 48) {
-                                            if (inputIncomeAndDept) {
+                                            if (income > 0) {
                                                 //showData = df.format(loan48[i]) : "-";
-                                                if (income < cal.getAtleastIncome48(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
+                                                if (income < cal.getAtleastIncome48(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ                                                    
                                                     showDataLoan[i][0] = 0;
                                                 } else if (((loan48 + dept) / (float) income) <= 0.85f) {
                                                     showDataLoan[i][0] = loan48;
@@ -143,7 +140,7 @@
                                             out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" + df.format(showDataLoan[i][0]) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
-                                            if (inputIncomeAndDept) {
+                                            if (income>0) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome60(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
                                                     showDataLoan[i][1] = 0;
@@ -160,7 +157,7 @@
                                             out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + df.format(showDataLoan[i][1]) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
-                                            if (inputIncomeAndDept) {
+                                            if (income>0) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome72(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
                                                     showDataLoan[i][2] = 0;
@@ -268,7 +265,7 @@
                             </tbody>
                         </table>
                         <hr class="tagline">
-                        <%} else { //กรอกรายได้ แต่ไม่กรอกหนี้%>
+                        <%} else if(cal.getDept() == 0){ //กรอกรายได้ แต่ไม่กรอกหนี้%>
                         <table class="containerTable">
                             <thead>
                                 <tr>
@@ -291,7 +288,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <%for (int i = 0; i < rowToShow; i++) { // print 6 row
+                                <%for (int i = 0; i < rowToShow; i++) {
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
                                         double highestDept48 = 0;
