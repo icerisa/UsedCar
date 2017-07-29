@@ -190,7 +190,7 @@
                                     <td>รายได้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="income">
+                                        <input type="number" name="income" min="0">
                                     </td>
                                 </tr>
 
@@ -198,7 +198,7 @@
                                     <td>ภาระหนี้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="debt">
+                                        <input type="number" name="debt" min="0">
                                     </td>
                                 </tr>
 

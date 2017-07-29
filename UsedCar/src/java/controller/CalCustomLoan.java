@@ -92,7 +92,7 @@ public class CalCustomLoan extends HttpServlet {
             out.println("<tr id=\"loanCalResult\">");
             out.println("<td class=\"container3\"><span class=\"sizeme\">ค่างวดต่อเดือน </span></td>");
             for (int i = 0; i < 3; i++) {
-                out.println("<td>" + df.format(loanToShow[i]) + "</td>");
+                out.println("<td>" + (loanToShow[i]!=0?df.format(loanToShow[i]):"-") + "</td>");
             }
             out.println("</tr>");
             if (income == 0) { //ไม่กรอกรายได้
@@ -100,33 +100,34 @@ public class CalCustomLoan extends HttpServlet {
                 out.println("<tr id=\"atleastIncomeCalResult\">");
                 out.print("<td class=\"container3\"><span class=\"sizeme\">รายได้ขั้นต่ำต่อเดือน </span></td>");
                 for (int i = 0; i < 3; i++) {
-                    out.println("<td>" + df.format(atleastIncomeCal[i]) + "</td>");
+                    out.println("<td>" + (atleastIncomeCal[i]!=0?df.format(atleastIncomeCal[i]):"-") + "</td>");
                 }
                 out.println("</tr>");
                 //--------------------- การแสดงผลภาระหนี้สูงสุดต่อเดือน
                 out.println("<tr id=\"highestDeptCalResult\">");
                 out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
                 for (int i = 0; i < 3; i++) {
-                    out.println("<td>" + df.format(deptCal[i]) + "</td>");
+                    out.println("<td>" + (deptCal[i]!=0?df.format(deptCal[i]):"-") + "</td>");
                 }
                 out.println("</tr>");
             } else { //กรอกรายได้
                 if (dept == 0) {//ไม่กรอกหนี้
                     float[] deptCalNoInput = new float[3];
                     for (int i = 0; i < 3; i++) {
-                        deptCalNoInput[i] = income * 0.85f - loanCal[i];
+                        if(loanToShow[i]!=0)
+                            deptCalNoInput[i] = income * 0.85f - loanCal[i];
                     }
                     //--------------------- การแสดงผลภาระหนี้สูงสุดต่อเดือนต่อเมื่อไม่ได้กรอกหนี้
                     out.println("<tr id=\"highestDeptCalResult\">");
                     out.println("<td class=\"container3\"><span class=\"sizeme\">ภาระหนี้สูงสุดต่อเดือน </span></td>");
                     for (int i = 0; i < 3; i++) {
-                        out.println("<td>" + df.format(deptCalNoInput[i]) + "</td>");
+                        out.println("<td>" + (deptCalNoInput[i]!=0?df.format(deptCalNoInput[i]):"-") + "</td>");
                     }
                     out.println("</tr>");
                 }
             }
         } else {            
-            out.print("Input Error");            
+            out.print("Input Error");
         }
 
     }

@@ -56,7 +56,7 @@
                                     <td class="colorTopic">Model</td>
                                     <td>: <%=cal.getModel()%></td>
                                     <td class="colorTopic">Month</td>
-                                    <td>: <%=cal.getMonth()%></td>
+                                    <td>: <%=(cal.getMonth()!=0?cal.getMonth():"-")%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">SubModel</td>
@@ -78,9 +78,9 @@
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">รายได้ต่อเดือน</td>
-                                    <td>: <%=df.format(cal.getIncome())%></td>
+                                    <td>: <%=income!=0?df.format(income):"-"%></td>
                                     <td class="colorTopic">ภาระหนี้ต่อเดือน</td>
-                                    <td colspan="4">: <%=df.format(cal.getDept())%></td>
+                                    <td colspan="4">: <%=dept!=0?df.format(dept):"-"%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">การยกเว้นผู้ค้ำประกัน</td>
@@ -137,7 +137,7 @@
                                             } else {
                                                 showDataLoan[i][0] = loan48;
                                             }
-                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" + df.format(showDataLoan[i][0]) + "</td>");
+                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" +(showDataLoan[i][0]!=0?df.format(showDataLoan[i][0]):"-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (income>0) {
@@ -154,7 +154,7 @@
                                             } else {
                                                 showDataLoan[i][1] = loan60;
                                             }
-                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + df.format(showDataLoan[i][1]) + "</td>");
+                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + (showDataLoan[i][1]!=0?df.format(showDataLoan[i][1]):"-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (income>0) {
@@ -171,7 +171,7 @@
                                             } else {
                                                 showDataLoan[i][2] = loan72;
                                             }
-                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + df.format(showDataLoan[i][2]) + "</td>");
+                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + (showDataLoan[i][2]!=0?df.format(showDataLoan[i][2]):"-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
@@ -251,14 +251,14 @@
                                         double highestDept60 = cal.getHighestDept60(i);
                                         double highestDept72 = cal.getHighestDept72(i);
                                         if (maxTerm >= 48) {
-                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + df.format(highestDept48) + "</td>");
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48!=0?df.format(highestDept48):"-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
-                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + df.format(highestDept60) + "</td>");
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60!=0?df.format(highestDept60):"-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
 
-                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + df.format(highestDept72) + "</td>");
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72!=0?df.format(highestDept72):"-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
@@ -298,19 +298,19 @@
                                             if (showDataLoan[i][0] > 0) {
                                                 highestDept48 = income * 0.85f - showDataLoan[i][0];
                                             }
-                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + df.format(highestDept48) + "</td>");
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48!=0?df.format(highestDept48):"-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (showDataLoan[i][1] > 0) {
                                                 highestDept60 = income * 0.85f - showDataLoan[i][1];
                                             }
-                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + df.format(highestDept60) + "</td>");
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60!=0?df.format(highestDept60):"-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (showDataLoan[i][2] > 0) {
                                                 highestDept72 = income * 0.85f - showDataLoan[i][2];
                                             }
-                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + df.format(highestDept72) + "</td>");
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72!=0?df.format(highestDept72):"-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>

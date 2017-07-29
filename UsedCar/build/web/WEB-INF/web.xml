@@ -9,14 +9,17 @@
         <url-pattern>/index.jsp</url-pattern>
         <url-pattern>/manage_user.jsp</url-pattern>
         <url-pattern>/menu.jsp</url-pattern>
+        <url-pattern>/modal.jsp</url-pattern>
         <url-pattern>/profile.jsp</url-pattern>
         <url-pattern>/result.jsp</url-pattern>
         <url-pattern>/update.jsp</url-pattern>
+        <url-pattern>/CalCustomLoan</url-pattern>
         <url-pattern>/Calculate</url-pattern>
         <url-pattern>/InputData</url-pattern>
-        <url-pattern>/CalCustomLoan</url-pattern>
+        <url-pattern>/KKPUsedControl</url-pattern>
         <url-pattern>/Manage_user</url-pattern>
         <url-pattern>/Profile</url-pattern>
+        <url-pattern>/Update</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
