@@ -6,7 +6,7 @@
 <header class="mdl-layout__header">
     <!-- Title -->
     <div class="mdl-layout__header-row">
-        <a href="Index"><img class="img" src="img/KiBank.png" height="100%"></img></a>
+        <a href="Index"><img class="img" src="img/KiBank.png" style="width:120%"></img></a>
         <div class="mdl-layout-spacer"></div>
         <% Account account = (Account)session.getAttribute("Account");%>
         <!--Account Menu-->
