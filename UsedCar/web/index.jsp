@@ -318,9 +318,7 @@
             )
 
         </script>
-        <div class="footer">
-            <p>Kiatnakin Bank</p>
-        </div>
+        <jsp:include page="/footer.jsp" />
     </body>
 
 </html>

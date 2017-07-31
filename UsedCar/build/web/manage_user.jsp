@@ -193,13 +193,13 @@
                                                 <span>หากทำการลบบัญชี บัญชีจะไม่สามารถเข้าถึงได้อีกครั้ง กรุณาตรวจสอบอย่างละเอียดก่อนทำการลบ</span>
                                             </div>
                                         </div>
-                                        <script> $("#deleteAccountForm input[name=username]").on('keyup', function(){
-                                            if($(this).val() !=""){
-                                                $("#deleteAccountForm input[type=submit]").prop('disabled', false)
-                                            }else{
-                                                $("#deleteAccountForm input[type=submit]").prop('disabled', true)
-                                            }
-                                        })</script>
+                                        <script> $("#deleteAccountForm input[name=username]").on('keyup', function () {
+                                                if ($(this).val() != "") {
+                                                    $("#deleteAccountForm input[type=submit]").prop('disabled', false)
+                                                } else {
+                                                    $("#deleteAccountForm input[type=submit]").prop('disabled', true)
+                                                }
+                                            })</script>
                                         <center><input type='submit' id='createSubmit'class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' disabled/></center>
                                     </form>
                                 </div>
@@ -219,10 +219,7 @@
 
     </div>
 
-    <div class="footer">
-        <p>Kiatnakin Bank</p>
-
-    </div>
+    <jsp:include page="/footer.jsp" />
 
 </body>
 

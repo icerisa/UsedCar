@@ -7,10 +7,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% Calculator cal = (Calculator) request.getAttribute("Calculator");
     pdpg_used pdpg = cal.getPdpg_used();
-    long middle_price = cal.getMiddle_price();    
+    long middle_price = cal.getMiddle_price();
     DecimalFormat df = new DecimalFormat("##,###,###,###");
-    int income = cal.getIncome(), dept = cal.getDept();   
-    
+    int income = cal.getIncome(), dept = cal.getDept();
+
 %>
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,7 @@
                                     <td class="colorTopic">Model</td>
                                     <td>: <%=cal.getModel()%></td>
                                     <td class="colorTopic">Month</td>
-                                    <td>: <%=(cal.getMonth()!=0?cal.getMonth():"-")%></td>
+                                    <td>: <%=(cal.getMonth() != 0 ? cal.getMonth() : "-")%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">SubModel</td>
@@ -78,9 +78,9 @@
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">รายได้ต่อเดือน</td>
-                                    <td>: <%=income!=0?df.format(income):"-"%></td>
+                                    <td>: <%=income != 0 ? df.format(income) : "-"%></td>
                                     <td class="colorTopic">ภาระหนี้ต่อเดือน</td>
-                                    <td colspan="4">: <%=dept!=0?df.format(dept):"-"%></td>
+                                    <td colspan="4">: <%=dept != 0 ? df.format(dept) : "-"%></td>
                                 </tr>
                                 <tr>
                                     <td class="colorTopic">การยกเว้นผู้ค้ำประกัน</td>
@@ -118,11 +118,9 @@
                                 <%  double[][] showDataLoan = new double[rowToShow][3];// [row][column]
                                     for (int i = 0; i < rowToShow; i++) { // คำนวณและแสดงค่าแต่ละ Row                                        
                                         out.println("<tr>");
-                                        out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
-                                        double loan48 = cal.getLoan48(i);//ค่างวดต่อเดือนสำหรับ 48 Term
-                                        double loan60 = cal.getLoan60(i);//ค่างวดต่อเดือนสำหรับ 60 Term
-                                        double loan72 = cal.getLoan72(i);//ค่างวดต่อเดือนสำหรับ 72 Term
+                                        out.println("<td " + (i == 0 ? "id='maxLoan'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");                                        
                                         if (maxTerm >= 48) {
+                                            double loan48 = cal.getLoan48(i);//ค่างวดต่อเดือนสำหรับ 48 Term
                                             if (income > 0) {
                                                 //showData = df.format(loan48[i]) : "-";
                                                 if (income < cal.getAtleastIncome48(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ                                                    
@@ -137,10 +135,11 @@
                                             } else {
                                                 showDataLoan[i][0] = loan48;
                                             }
-                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" +(showDataLoan[i][0]!=0?df.format(showDataLoan[i][0]):"-") + "</td>");
+                                            out.println("<td id='loan-48-" + i + "' value='" + loan48 + "'>" + (showDataLoan[i][0] != 0 ? df.format(showDataLoan[i][0]) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
-                                            if (income>0) {
+                                            double loan60 = cal.getLoan60(i);//ค่างวดต่อเดือนสำหรับ 60 Term
+                                            if (income > 0) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome60(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
                                                     showDataLoan[i][1] = 0;
@@ -154,10 +153,11 @@
                                             } else {
                                                 showDataLoan[i][1] = loan60;
                                             }
-                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + (showDataLoan[i][1]!=0?df.format(showDataLoan[i][1]):"-") + "</td>");
+                                            out.println("<td id='loan-60-" + i + "' value='" + loan60 + "'>" + (showDataLoan[i][1] != 0 ? df.format(showDataLoan[i][1]) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
-                                            if (income>0) {
+                                            double loan72 = cal.getLoan72(i);//ค่างวดต่อเดือนสำหรับ 72 Term
+                                            if (income > 0) {
                                                 //showData = df.format(loan60[i]) : "-";
                                                 if (income < cal.getAtleastIncome72(i)) { // ถ้ารายได้ที่ใส่เข้ามาน้อยกว่า รายได้ขั้นต่ำ
                                                     showDataLoan[i][2] = 0;
@@ -171,7 +171,7 @@
                                             } else {
                                                 showDataLoan[i][2] = loan72;
                                             }
-                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + (showDataLoan[i][2]!=0?df.format(showDataLoan[i][2]):"-") + "</td>");
+                                            out.println("<td id='loan-72-" + i + "' value='" + loan72 + "'>" + (showDataLoan[i][2] != 0 ? df.format(showDataLoan[i][2]) : "-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
@@ -205,16 +205,16 @@
                                 <%for (int i = 0; i < rowToShow; i++) { // print 6 row
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan-2'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
-                                        double atleastIncome48 = cal.getAtleastIncome48(i);
-                                        double atleastIncome60 = cal.getAtleastIncome60(i);
-                                        double atleastIncome72 = cal.getAtleastIncome72(i);
                                         if (maxTerm >= 48) {
+                                            double atleastIncome48 = cal.getAtleastIncome48(i);
                                             out.println("<td id='income-48-" + i + "' value='" + atleastIncome48 + "'>" + df.format(atleastIncome48) + "</td>");
                                         }
                                         if (maxTerm >= 60) {
+                                            double atleastIncome60 = cal.getAtleastIncome60(i);
                                             out.println("<td id='income-60-" + i + "' value='" + atleastIncome60 + "'>" + df.format(atleastIncome60) + "</td>");
                                         }
                                         if (maxTerm >= 72) {
+                                            double atleastIncome72 = cal.getAtleastIncome72(i);
                                             out.println("<td id='income-72 -" + i + "' value='" + atleastIncome72 + "'>" + df.format(atleastIncome72) + "</td>");
                                         }
                                         out.println("</tr>");
@@ -247,25 +247,24 @@
                                 <%for (int i = 0; i < rowToShow; i++) { // print 6 row
                                         out.println("<tr>");
                                         out.println("<td " + (i == 0 ? "id='maxLoan-3'" : "") + ">" + df.format(cal.getLoan(i)) + "</td>");
-                                        double highestDept48 = cal.getHighestDept48(i);
-                                        double highestDept60 = cal.getHighestDept60(i);
-                                        double highestDept72 = cal.getHighestDept72(i);
                                         if (maxTerm >= 48) {
-                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48!=0?df.format(highestDept48):"-") + "</td>");
+                                            double highestDept48 = cal.getHighestDept48(i);
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48 != 0 ? df.format(highestDept48) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
-                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60!=0?df.format(highestDept60):"-") + "</td>");
+                                            double highestDept60 = cal.getHighestDept60(i);
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60 != 0 ? df.format(highestDept60) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
-
-                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72!=0?df.format(highestDept72):"-") + "</td>");
+                                            double highestDept72 = cal.getHighestDept72(i);
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72 != 0 ? df.format(highestDept72) : "-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
                             </tbody>
                         </table>
                         <hr class="tagline">
-                        <%} else if(cal.getDept() == 0){ //กรอกรายได้ แต่ไม่กรอกหนี้%>
+                        <%} else if (cal.getDept() == 0) { //กรอกรายได้ แต่ไม่กรอกหนี้%>
                         <table class="containerTable">
                             <thead>
                                 <tr>
@@ -298,19 +297,19 @@
                                             if (showDataLoan[i][0] > 0) {
                                                 highestDept48 = income * 0.85f - showDataLoan[i][0];
                                             }
-                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48!=0?df.format(highestDept48):"-") + "</td>");
+                                            out.println("<td id='dept-48-" + i + "' value='" + highestDept48 + "'>" + (highestDept48 != 0 ? df.format(highestDept48) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 60) {
                                             if (showDataLoan[i][1] > 0) {
                                                 highestDept60 = income * 0.85f - showDataLoan[i][1];
                                             }
-                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60!=0?df.format(highestDept60):"-") + "</td>");
+                                            out.println("<td id='dept-60-" + i + "' value='" + highestDept60 + "'>" + (highestDept60 != 0 ? df.format(highestDept60) : "-") + "</td>");
                                         }
                                         if (maxTerm >= 72) {
                                             if (showDataLoan[i][2] > 0) {
                                                 highestDept72 = income * 0.85f - showDataLoan[i][2];
                                             }
-                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72!=0?df.format(highestDept72):"-") + "</td>");
+                                            out.println("<td id='dept-72 -" + i + "' value='" + highestDept72 + "'>" + (highestDept72 != 0 ? df.format(highestDept72) : "-") + "</td>");
                                         }
                                         out.println("</tr>");
                                     }%>
@@ -360,7 +359,8 @@
                                                 url: 'CalCustomLoan',
                                                 success: function (data) {
                                                     if (data == "Input Error") {
-                                                        $("#calMessage").html("ยอดที่ท่านต้องการกู้ไม่เข้าเงื่อนไขของธนาคาร").css({'color': 'red' , "font-size":"14pt"});;
+                                                        $("#calMessage").html("ยอดที่ท่านต้องการกู้ไม่เข้าเงื่อนไขของธนาคาร").css({'color': 'red', "font-size": "14pt"});
+                                                        ;
                                                         $('#customLoan').html("");
                                                     } else {
                                                         $("#calMessage").html("");
@@ -394,9 +394,6 @@
 
         </div>
 
-        <div class="footer">
-            <p>Kiatnakin Bank</p>
-
-        </div>
+        <jsp:include page="/footer.jsp" />
     </body>
 </html>
