@@ -47,6 +47,7 @@
                 </div>
             </div>
         </div>
+        <!-- Modal notifiaction -->
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
 
@@ -98,23 +99,35 @@
                                                     <abel>ยืนยันรหัสผ่าน</label>
                                                         <input type="password" id='resetConfirmPassword' name='passwordRetry' class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง"  >
                                                         <div id='message'></div>
+                                                        <div id='messagePassword'></div>
                                                 </div>
                                                 <script>
-                                                    let resetMatch = false;
+                                                    let passwordResetMatch = false;
+                                                    let passwordLegth = false;
                                                     $("#resetPasswordForm input[name=username]").on('keyup', checkResetRequired)
                                                     $('#resetPasswordForm input[name=password],#resetPasswordForm input[name=passwordRetry]').on('keyup', function () {
-                                                        if ($('#resetPasswordForm input[name=password]').val() == $('#resetPasswordForm input[name=passwordRetry]').val()) {
-                                                            $('#message').html('Matching').css('color', 'green');
-                                                            resetMatch = true;
+                                                        if($(this).val !==''){
+                                                            if ($('#resetPasswordForm input[name=password]').val() === $('#resetPasswordForm input[name=passwordRetry]').val()) {
+                                                                $('#message').html('Matching').css('color', 'green');
+                                                                passwordResetMatch = true;
+                                                            } else {
+                                                                $('#message').html('Not Matching').css('color', 'red');
+                                                                passwordResetMatch = false;
+                                                            }
+                                                        }
+                                                        //check length atlest 8 chatacter
+                                                        if ($(this).val().length < 8) {
+                                                            $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red');
+                                                            passwordResetMatch = false;
                                                         } else {
-                                                            $('#message').html('Not Matching').css('color', 'red');
-                                                            resetMatch = false;
+                                                            $('#messagePassword').html('');
+                                                            passwordResetMatch = true;
                                                         }
                                                         checkResetRequired();
                                                     });
 
                                                     function checkResetRequired() {
-                                                        if (resetMatch) {
+                                                        if (passwordResetMatch && passwordLegth) {
                                                             if ($("#resetPasswordForm input[name=username]").val() != "") {
                                                                 $("#resetPasswordForm input[type=submit]").prop('disabled', false);
                                                                 return;
@@ -152,21 +165,21 @@
                                             </div>
                                         </div>
                                         <script>
-                                            let createMatch = false;
+                                            let passwordCreateMatch = false;
                                             $("#createAccountForm input[name=username]").on('keyup', checkCreateRequired)
                                             $('#createAccountForm input[name=password], #createAccountForm input[name=passwordRetry]').on('keyup', function () {
                                                 if ($('#createAccountForm input[name=password]').val() == $('#createAccountForm input[name=passwordRetry]').val()) {
                                                     $('#createFormMessage').html('Matching').css('color', 'green');
-                                                    createMatch = true;
+                                                    passwordCreateMatch = true;
                                                 } else {
                                                     $('#createFormMessage').html('Not Matching').css('color', 'red');
-                                                    createMatch = false;
+                                                    passwordCreateMatch = false;
                                                 }
                                                 checkCreateRequired();
                                             });
 
                                             function checkCreateRequired() {
-                                                if (createMatch) {
+                                                if (passwordCreateMatch) {
                                                     if ($("#createAccountForm input[name=username]").val() != "") {
                                                         $("#createAccountForm input[type=submit]").prop('disabled', false);
                                                         return;
