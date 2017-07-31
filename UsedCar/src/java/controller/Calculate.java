@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Calculator;
 import model.Rate;
+import model.SaveInputData;
 
 public class Calculate extends HttpServlet {
 
@@ -62,7 +63,7 @@ public class Calculate extends HttpServlet {
             cal.saveTransaction(((Account)session.getAttribute("Account")).getAccountId());
             // ------- Transaction Work --------
             // ------- Save input data ---------            
-            InputData inputData = new InputData(gradeTent,brandId,model,year,month,sub_model,middle_price,NCB, occupation, income,dept,guarantee);
+            SaveInputData inputData = new SaveInputData(gradeTent,brandId,model,year,month,sub_model,middle_price,NCB, occupation, income,dept,guarantee);
             session.setAttribute("InputData", inputData);
             // ------- Save input data ---------
             System.out.println(cal);

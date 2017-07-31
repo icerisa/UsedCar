@@ -9,7 +9,7 @@ package model;
  *
  * @author yacth_Mon
  */
-public class InputData {
+public class SaveInputData {
     int gradeTent; //
     int brandId; //
     String model;
@@ -23,10 +23,10 @@ public class InputData {
     int dept;
     int guarantee;//
 
-    public InputData() {
+    public SaveInputData() {
     }
 
-    public InputData(int gradeTent, int brand, String model, int year, int month, int subModel, long middlePrice, int NCB, String occupation, int income, int dept, int guarantee) {
+    public SaveInputData(int gradeTent, int brand, String model, int year, int month, int subModel, long middlePrice, int NCB, String occupation, int income, int dept, int guarantee) {
         this.gradeTent = gradeTent;
         this.brandId = brand;
         this.model = model;
