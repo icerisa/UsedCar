@@ -95,6 +95,26 @@ public class Account {
         this.admin = admin;
     }
 
+    public boolean confirmPassword(String password){
+       boolean result = false;
+        String passwordEncrypt = md5(password);
+        try {
+            Connection con = DBConnector.getConnection();
+            String sql = "SELECT * FROM account WHERE id=? AND password=?";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setInt(1, this.accountId);
+            pstm.setString(2, passwordEncrypt);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()) {
+                result = true;
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result;
+    }
+    
     public boolean doLogin(String username, String password) {
         boolean result = false;
         String passwordEncrypt = md5(password);
@@ -216,7 +236,7 @@ public class Account {
         }
         return result;
     }
-
+    
     public static String md5(String data) {
         MessageDigest md;
         try {
