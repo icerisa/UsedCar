@@ -204,6 +204,16 @@
                                                 }
                                                 $("#createAccountForm input[type=submit]").prop('disabled', true)
                                             }
+                                            
+                                            $("#createAccountForm").submit(function(event){
+                                               $("#createAccountForm :input").each(function(){
+                                                   if($(this).attr('type') !== "submit"){
+                                                       if($(this).val()===""){
+                                                           $(this).val("-"); // assign - for empty input
+                                                       }
+                                                   }
+                                               })
+                                            });
                                         </script>
                                         <center><input type='submit' id='createSubmit'class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' disabled/></center>
                                     </form>

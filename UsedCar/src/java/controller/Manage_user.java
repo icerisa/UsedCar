@@ -47,8 +47,9 @@ public class Manage_user extends HttpServlet {
                 }
                 break;
             case "createAccount":
-                notiHead = "Create Account Result";
-                Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", false);
+                notiHead = "Create Account Result";                
+                Account a = new Account(request.getParameter("username"), request.getParameter("firstname"), request.getParameter("surname"),
+                        request.getParameter("email"), request.getParameter("phone"), Integer.parseInt(request.getParameter("userType"))==0?true:false);
                 resultInt = a.doRegister(request.getParameter("passwordRetry"));
                 if (resultInt == Account.ResultCode.SUCCESS) {//Success
                     notiMessage = "การสร้างบัญชีผู้ใช้ สำเร็จ!";
@@ -62,7 +63,7 @@ public class Manage_user extends HttpServlet {
             case "deleteAccount":
                 notiHead = "Delete Account Result";
                 Account currentAccount = (Account)request.getSession().getAttribute("Account");
-                String confirmPassword = request.getParameter("confirmPassword");                
+                String confirmPassword = request.getParameter("confirmPassword");
                 if(currentAccount.confirmPassword(confirmPassword)){
                     resultInt = Account.doDeleteAccount(request.getParameter("username"));
                     if (resultInt == Account.ResultCode.SUCCESS) {
