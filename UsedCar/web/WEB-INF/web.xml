@@ -13,6 +13,7 @@
         <url-pattern>/profile.jsp</url-pattern>
         <url-pattern>/result.jsp</url-pattern>
         <url-pattern>/update.jsp</url-pattern>
+        <url-pattern>/Index</url-pattern>
         <url-pattern>/CalCustomLoan</url-pattern>
         <url-pattern>/Calculate</url-pattern>
         <url-pattern>/InputData</url-pattern>
