@@ -19,8 +19,6 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.min1.css" rel="stylesheet" />
         <link href="${pageContext.request.contextPath}/css/gsdk-bootstrap-wizard.css" rel="stylesheet" />
 
-        <!--        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
-
         <script src="js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="${pageContext.request.contextPath}/css/demo.css" rel="stylesheet" />        
@@ -85,7 +83,7 @@
                                                 </div>
                                                 <script>
                                                     let passwordResetMatch = false;
-                                                    let passwordLegth = false;
+                                                    let passwordResetLegth = false;
                                                     $("#resetPasswordForm input[name=username]").on('keyup', checkResetRequired)
                                                     $('#resetPasswordForm input[name=password],#resetPasswordForm input[name=passwordRetry]').on('keyup', function () {
                                                         if ($(this).val() !== '') {
@@ -102,16 +100,16 @@
                                                         //check length atlest 8 chatacter
                                                         if ($(this).val().length < 8) {
                                                             $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red').show();
-                                                            passwordResetMatch = false;
+                                                            passwordResetLegth = false;
                                                         } else {
                                                             $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'green').show().fadeOut(1000);
-                                                            passwordResetMatch = true;
+                                                            passwordResetLegth = true;
                                                         }
                                                         checkResetRequired();
                                                     });
 
                                                     function checkResetRequired() {
-                                                        if (passwordResetMatch && passwordLegth) {
+                                                        if (passwordResetMatch && passwordResetLegth) {
                                                             if ($("#resetPasswordForm input[name=username]").val() != "") {
                                                                 $("#resetPasswordForm input[type=submit]").prop('disabled', false);
                                                                 return;
@@ -136,6 +134,30 @@
                                                 <div class="form-group">
                                                     <label>กรอกบัญชีผู้ใช้</label>
                                                     <input type="text" i name="username" class="form-control" placeholder="บัญชีผู้ใช้">
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>ประเภทบัญชี</label>
+                                                    <select name="userType">
+                                                        <option value="1">Dealer</option>
+                                                        <option value="0">Admin</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>ชื่อ</label>
+                                                    <input type="text" class="form-control" name="firstname" maxlength="20" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>นามสกุล</label>
+                                                    <input type="text" class="form-control" name="surname" maxlength="50"  value="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>E-Mail</label>
+                                                    <input type="email" class="form-control" name="email" maxlength="50" value="" >
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>เบอร์โทรศัพท์ติดต่อ</label>
+                                                    <input type="tel" class="form-control" name="phone" maxlength="10" value="" >
                                                 </div>
                                                 <div class="form-group">
                                                     <label>กรอกรหัสผ่าน</label>
@@ -145,19 +167,30 @@
                                                     <label>ยืนยันรหัสผ่าน</label>
                                                     <input type="password" name="passwordRetry" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง">
                                                     <div id='createFormMessage'></div>
+                                                    <div id='createFormMessageLength'></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <script>
                                             let passwordCreateMatch = false;
+                                            let passwordCreateLength = false;
                                             $("#createAccountForm input[name=username]").on('keyup', checkCreateRequired);
                                             $('#createAccountForm input[name=password], #createAccountForm input[name=passwordRetry]').on('keyup', function () {
                                                 if ($('#createAccountForm input[name=password]').val() === $('#createAccountForm input[name=passwordRetry]').val()) {
-                                                    $('#createFormMessage').html('Matching').css('color', 'green');
+                                                    $('#createFormMessage').html('Matching').css('color', 'green').show().fadeOut(1000);
                                                     passwordCreateMatch = true;
                                                 } else {
-                                                    $('#createFormMessage').html('Not Matching').css('color', 'red');
+                                                    $('#createFormMessage').html('Not Matching').css('color', 'red').show();
                                                     passwordCreateMatch = false;
+                                                }
+                                                //check length atlest 8 chatacter
+                                                if ($(this).val().length < 8) {
+                                                    $('#createFormMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red').show();
+                                                    passwordCreateLength = false;
+                                                } else {
+                                                    if(!passwordCreateLength)
+                                                        $('#createFormMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'green').show().fadeOut(1000);
+                                                    passwordCreateLength = true;
                                                 }
                                                 checkCreateRequired();
                                             });
