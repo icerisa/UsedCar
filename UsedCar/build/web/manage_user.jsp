@@ -29,25 +29,7 @@
 
     <body>
         <jsp:include page="menu.jsp" />        
-        <jsp:include page="modal.jsp" />
-        <!-- Modal notification -->
-        <div class="modal fade" id="notiModal" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title" id="notiHead"><%=request.getAttribute("notiHead")%></h4>
-                    </div>
-                    <div class="modal-body">
-                        <p id="notiMessage"><%=request.getAttribute("notiMessage")%></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal notifiaction -->
+        <jsp:include page="modal.jsp" />        
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
 
@@ -106,21 +88,23 @@
                                                     let passwordLegth = false;
                                                     $("#resetPasswordForm input[name=username]").on('keyup', checkResetRequired)
                                                     $('#resetPasswordForm input[name=password],#resetPasswordForm input[name=passwordRetry]').on('keyup', function () {
-                                                        if($(this).val !==''){
+                                                        if ($(this).val() !== '') {
                                                             if ($('#resetPasswordForm input[name=password]').val() === $('#resetPasswordForm input[name=passwordRetry]').val()) {
-                                                                $('#message').html('Matching').css('color', 'green');
+                                                                $('#message').html('Matching').css('color', 'green').show().fadeOut(1000);
                                                                 passwordResetMatch = true;
                                                             } else {
-                                                                $('#message').html('Not Matching').css('color', 'red');
+                                                                $('#message').html('Not Matching').css('color', 'red').show();
                                                                 passwordResetMatch = false;
                                                             }
+                                                        } else {
+                                                            $('#message').html('กรุณากรอกรหัสผ่าน').css('color', 'red').show();
                                                         }
                                                         //check length atlest 8 chatacter
                                                         if ($(this).val().length < 8) {
-                                                            $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red');
+                                                            $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red').show();
                                                             passwordResetMatch = false;
                                                         } else {
-                                                            $('#messagePassword').html('');
+                                                            $('#messagePassword').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'green').show().fadeOut(1000);
                                                             passwordResetMatch = true;
                                                         }
                                                         checkResetRequired();
@@ -166,9 +150,9 @@
                                         </div>
                                         <script>
                                             let passwordCreateMatch = false;
-                                            $("#createAccountForm input[name=username]").on('keyup', checkCreateRequired)
+                                            $("#createAccountForm input[name=username]").on('keyup', checkCreateRequired);
                                             $('#createAccountForm input[name=password], #createAccountForm input[name=passwordRetry]').on('keyup', function () {
-                                                if ($('#createAccountForm input[name=password]').val() == $('#createAccountForm input[name=passwordRetry]').val()) {
+                                                if ($('#createAccountForm input[name=password]').val() === $('#createAccountForm input[name=passwordRetry]').val()) {
                                                     $('#createFormMessage').html('Matching').css('color', 'green');
                                                     passwordCreateMatch = true;
                                                 } else {
@@ -180,7 +164,7 @@
 
                                             function checkCreateRequired() {
                                                 if (passwordCreateMatch) {
-                                                    if ($("#createAccountForm input[name=username]").val() != "") {
+                                                    if ($("#createAccountForm input[name=username]").val() !== "") {
                                                         $("#createAccountForm input[type=submit]").prop('disabled', false);
                                                         return;
                                                     }
@@ -202,17 +186,22 @@
                                                 <div class="form-group">
                                                     <label>กรอกบัญชีผู้ใช้</label>
                                                     <input type="text" name="username" class="form-control" placeholder="บัญชีผู้ใช้">
+                                                </div><div class="form-group">
+                                                    <label>ยืนยันรหัสผ่าน</label>
+                                                    <input type="password" name="confirmPassword" class="form-control" placeholder="กรุณายืนยันการลบด้วยพาสเวิร์ดของคุณเอง">
                                                 </div>
-                                                <span>หากทำการลบบัญชี บัญชีจะไม่สามารถเข้าถึงได้อีกครั้ง กรุณาตรวจสอบอย่างละเอียดก่อนทำการลบ</span>
+                                                <div>หากทำการลบบัญชี บัญชีจะไม่สามารถเข้าถึงได้อีกครั้ง กรุณาตรวจสอบอย่างละเอียดก่อนทำการลบ</div><br>
                                             </div>
                                         </div>
-                                        <script> $("#deleteAccountForm input[name=username]").on('keyup', function () {
-                                                if ($(this).val() != "") {
+                                        <script>
+                                            $("#deleteAccountForm input[name=username]").on('keyup', function () {
+                                                if ($(this).val() !== "") {
                                                     $("#deleteAccountForm input[type=submit]").prop('disabled', false)
                                                 } else {
                                                     $("#deleteAccountForm input[type=submit]").prop('disabled', true)
                                                 }
-                                            })</script>
+                                            })
+                                        </script>
                                         <center><input type='submit' id='createSubmit'class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' disabled/></center>
                                     </form>
                                 </div>
