@@ -100,7 +100,7 @@ public class Account {
         String passwordEncrypt = md5(password);
         try {
             Connection con = DBConnector.getConnection();
-            String sql = "SELECT * FROM account WHERE id=? AND password=?";
+            String sql = "SELECT * FROM account WHERE accountId=? AND password=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setInt(1, this.accountId);
             pstm.setString(2, passwordEncrypt);

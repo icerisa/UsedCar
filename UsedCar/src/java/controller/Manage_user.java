@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Account;
 
 /**
@@ -46,8 +47,9 @@ public class Manage_user extends HttpServlet {
                 }
                 break;
             case "createAccount":
-                notiHead = "Create Account Result";
-                Account a = new Account(request.getParameter("username"), "New user", "surname", "default email", "0800000000", false);
+                notiHead = "Create Account Result";                
+                Account a = new Account(request.getParameter("username"), request.getParameter("firstname"), request.getParameter("surname"),
+                        request.getParameter("email"), request.getParameter("phone"), Integer.parseInt(request.getParameter("userType"))==0?true:false);
                 resultInt = a.doRegister(request.getParameter("passwordRetry"));
                 if (resultInt == Account.ResultCode.SUCCESS) {//Success
                     notiMessage = "การสร้างบัญชีผู้ใช้ สำเร็จ!";
@@ -60,13 +62,19 @@ public class Manage_user extends HttpServlet {
                 break;
             case "deleteAccount":
                 notiHead = "Delete Account Result";
-                resultInt = Account.doDeleteAccount(request.getParameter("username"));
-                if (resultInt == Account.ResultCode.SUCCESS) {
-                    notiMessage = "การลบบัญชี สำเร็จ!";
-                } else if (resultInt == Account.ResultCode.USERNAME_NOT_FOUND) {
-                    notiMessage = "การลบบัญชี ล้มเหลว! ไม่มี Username ดังกล่าวอยู่ในระบบ";
+                Account currentAccount = (Account)request.getSession().getAttribute("Account");
+                String confirmPassword = request.getParameter("confirmPassword");
+                if(currentAccount.confirmPassword(confirmPassword)){
+                    resultInt = Account.doDeleteAccount(request.getParameter("username"));
+                    if (resultInt == Account.ResultCode.SUCCESS) {
+                        notiMessage = "การลบบัญชี สำเร็จ!";
+                    } else if (resultInt == Account.ResultCode.USERNAME_NOT_FOUND) {
+                        notiMessage = "การลบบัญชี ล้มเหลว! ไม่มี Username ดังกล่าวอยู่ในระบบ";
+                    } else {
+                        notiMessage = "การลบบัญชี ล้มเหลว!";
+                    }
                 } else {
-                    notiMessage = "การลบบัญชี ล้มเหลว!";
+                    notiMessage = "การลบบัญชี ล้มเหลว! รหัสที่กรอกไม่ถูกต้อง";
                 }
                 break;
         }

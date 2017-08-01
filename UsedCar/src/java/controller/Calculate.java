@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.Calculator;
 import model.Rate;
+import model.SaveInputData;
 
 public class Calculate extends HttpServlet {
 
@@ -48,7 +49,7 @@ public class Calculate extends HttpServlet {
             if (!incomeRaw.isEmpty()) {
                 income = Integer.parseInt(incomeRaw);
             }
-            if(!deptRaw.isEmpty()){
+            if (!deptRaw.isEmpty()) {
                 dept = Integer.parseInt(deptRaw);
             }
             int guarantee = Integer.parseInt(request.getParameter("guarantee"));
@@ -57,11 +58,25 @@ public class Calculate extends HttpServlet {
             cal.doCalculate(5);//Calculate for 5 rows
 //        PrintWriter out = response.getWriter();
 //        out.print(cal); // Check value giving to cal
+//            System.out.println(cal);
             // ------- Transaction Work --------
             HttpSession session = request.getSession(false);
-            cal.saveTransaction(((Account)session.getAttribute("Account")).getAccountId());
+            cal.saveTransaction(((Account) session.getAttribute("Account")).getAccountId());
             // ------- Transaction Work --------
-            System.out.println(cal);
+            // ------- Save input data ---------
+            //gradeTent brandId model year month sub_model NCB [Raw]
+            String gradeTentRaw = request.getParameter("gradeTentRaw");
+            String brandIdRaw = request.getParameter("brandIdRaw");
+            String modelRaw = request.getParameter("modelRaw");
+            String yearRaw = request.getParameter("yearRaw");
+            String monthRaw = request.getParameter("monthRaw");
+            String sub_modelRaw = request.getParameter("sub_modelRaw");
+            String NCBRaw = request.getParameter("NCBRaw");
+            // gradeTent, brandId, model, year, month, subModel, middlePrice, NCB, occupation, income, dept, guarantee
+            SaveInputData saveInputData = new SaveInputData(gradeTentRaw,brandIdRaw,modelRaw,yearRaw,monthRaw,sub_modelRaw,middle_price,NCBRaw,occupation,income,dept,guarantee);
+            session.setAttribute("SaveInputData", saveInputData);
+            // ------- Save input data ---------
+
             request.setAttribute("Calculator", cal);
             if (cal != null || cal.getNcb() != null || cal.getRate() != null || cal.getPdpg_used() != null) {
                 request.getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
@@ -94,7 +109,7 @@ public class Calculate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect(getServletContext().getContextPath() + "/Index");
     }
 
     /**
