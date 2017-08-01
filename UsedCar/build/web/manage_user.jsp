@@ -134,7 +134,7 @@
                                                 <div class="form-group">
                                                     <label>กรอกบัญชีผู้ใช้</label>
                                                     <input type="text" i name="username" class="form-control" placeholder="บัญชีผู้ใช้">
-
+                                                    <div id='createFormUserMessage'></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>ประเภทบัญชี</label>
@@ -166,53 +166,77 @@
                                                 <div class="form-group">
                                                     <label>ยืนยันรหัสผ่าน</label>
                                                     <input type="password" name="passwordRetry" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง">
-                                                    <div id='createFormMessage'></div>
-                                                    <div id='createFormMessageLength'></div>
+                                                    <div id='createFormPasswordMessage'></div>
+                                                    <div id='createFormPasswordMessageLength'></div>
                                                 </div>
                                             </div>
                                         </div>
                                         <script>
+                                            let usernameCreateLength = false;
                                             let passwordCreateMatch = false;
                                             let passwordCreateLength = false;
-                                            $("#createAccountForm input[name=username]").on('keyup', checkCreateRequired);
+                                            
+                                            $("#createAccountForm input[name=username]").on('keyup', function () {
+                                                if ($(this).val().length < 8) {//check length atlest 8 chatacter
+                                                    $('#createFormUserMessage').html('Username ต้องจำนวนมากกว่า 8 ตัวอักษร').css('color', 'red').show();
+                                                    usernameCreateLength = false;
+                                                } else {
+                                                    if (!usernameCreateLength)
+                                                        $('#createFormUserMessage').html('Username ต้องจำนวนมากกว่า 8 ตัวอักษร').css('color', 'green').show().fadeOut(1000);
+                                                    usernameCreateLength = true;
+                                                }
+                                                checkCreateRequired();
+                                            });
+                                            
+                                            $("#createAccountForm input[name=username]").keypress(function (event) {
+                                                var ew = event.which;
+                                                if (48 <= ew && ew <= 57)
+                                                    return true;
+                                                if (65 <= ew && ew <= 90)
+                                                    return true;
+                                                if (97 <= ew && ew <= 122)
+                                                    return true;
+                                                return false;
+                                            }); //accept only english and number
+                                            
                                             $('#createAccountForm input[name=password], #createAccountForm input[name=passwordRetry]').on('keyup', function () {
                                                 if ($('#createAccountForm input[name=password]').val() === $('#createAccountForm input[name=passwordRetry]').val()) {
-                                                    $('#createFormMessage').html('Matching').css('color', 'green').show().fadeOut(1000);
+                                                    $('#createFormPasswordMessage').html('Matching').css('color', 'green').show().fadeOut(1000);
                                                     passwordCreateMatch = true;
                                                 } else {
-                                                    $('#createFormMessage').html('Not Matching').css('color', 'red').show();
+                                                    $('#createFormPasswordMessage').html('Not Matching').css('color', 'red').show();
                                                     passwordCreateMatch = false;
                                                 }
                                                 //check length atlest 8 chatacter
                                                 if ($(this).val().length < 8) {
-                                                    $('#createFormMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red').show();
+                                                    $('#createFormPasswordMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'red').show();
                                                     passwordCreateLength = false;
                                                 } else {
-                                                    if(!passwordCreateLength)
-                                                        $('#createFormMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'green').show().fadeOut(1000);
+                                                    if (!passwordCreateLength)
+                                                        $('#createFormPasswordMessageLength').html('รหัสผ่านต้องมากกว่า 8 ตัว').css('color', 'green').show().fadeOut(1000);
                                                     passwordCreateLength = true;
                                                 }
                                                 checkCreateRequired();
                                             });
 
                                             function checkCreateRequired() {
-                                                if (passwordCreateMatch) {
+                                                if (passwordCreateMatch && passwordCreateLength && usernameCreateLength) {
                                                     if ($("#createAccountForm input[name=username]").val() !== "") {
                                                         $("#createAccountForm input[type=submit]").prop('disabled', false);
                                                         return;
                                                     }
                                                 }
                                                 $("#createAccountForm input[type=submit]").prop('disabled', true)
-                                            }
-                                            
-                                            $("#createAccountForm").submit(function(event){
-                                               $("#createAccountForm :input").each(function(){
-                                                   if($(this).attr('type') !== "submit"){
-                                                       if($(this).val()===""){
-                                                           $(this).val("-"); // assign - for empty input
-                                                       }
-                                                   }
-                                               })
+                                            }                                            
+
+                                            $("#createAccountForm").submit(function (event) {
+                                                $("#createAccountForm :input").each(function () {
+                                                    if ($(this).attr('type') !== "submit") {
+                                                        if ($(this).val() === "") {
+                                                            $(this).val("-"); // assign - for empty input
+                                                        }
+                                                    }
+                                                });
                                             });
                                         </script>
                                         <center><input type='submit' id='createSubmit'class='btn  btn-fill btn-info' name='confirm' value='ยืนยัน' disabled/></center>
