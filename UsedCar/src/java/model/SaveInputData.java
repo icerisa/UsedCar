@@ -16,17 +16,17 @@ public class SaveInputData {
     String year;
     String month;
     String subModel;//
-    String middlePrice;
+    long middlePrice;
     String NCB;//
     String occupation;
-    String income;
-    String dept;
-    String guarantee;//
+    int income;
+    int dept;
+    int guarantee;//
 
     public SaveInputData() {
     }
 
-    public SaveInputData(String gradeTent, String brandId, String model, String year, String month, String subModel, String middlePrice, String NCB, String occupation, String income, String dept, String guarantee) {
+    public SaveInputData(String gradeTent, String brandId, String model, String year, String month, String subModel, long middlePrice, String NCB, String occupation, int income, int dept, int guarantee) {
         this.gradeTent = gradeTent;
         this.brandId = brandId;
         this.model = model;
@@ -89,11 +89,11 @@ public class SaveInputData {
         this.subModel = subModel;
     }
 
-    public String getMiddlePrice() {
+    public long getMiddlePrice() {
         return middlePrice;
     }
 
-    public void setMiddlePrice(String middlePrice) {
+    public void setMiddlePrice(long middlePrice) {
         this.middlePrice = middlePrice;
     }
 
@@ -113,27 +113,27 @@ public class SaveInputData {
         this.occupation = occupation;
     }
 
-    public String getIncome() {
+    public int getIncome() {
         return income;
     }
 
-    public void setIncome(String income) {
+    public void setIncome(int income) {
         this.income = income;
     }
 
-    public String getDept() {
+    public int getDept() {
         return dept;
     }
 
-    public void setDept(String dept) {
+    public void setDept(int dept) {
         this.dept = dept;
     }
 
-    public String getGuarantee() {
+    public int getGuarantee() {
         return guarantee;
     }
 
-    public void setGuarantee(String guarantee) {
+    public void setGuarantee(int guarantee) {
         this.guarantee = guarantee;
     }
 
