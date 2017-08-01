@@ -10,25 +10,25 @@ package model;
  * @author yacth_Mon
  */
 public class SaveInputData {
-    int gradeTent; //
-    int brandId; //
+    String gradeTent; //
+    String brandId; //
     String model;
-    int year;
-    int month;
-    int subModel;//
-    long middlePrice;
-    int NCB;//
+    String year;
+    String month;
+    String subModel;//
+    String middlePrice;
+    String NCB;//
     String occupation;
-    int income;
-    int dept;
-    int guarantee;//
+    String income;
+    String dept;
+    String guarantee;//
 
     public SaveInputData() {
     }
 
-    public SaveInputData(int gradeTent, int brand, String model, int year, int month, int subModel, long middlePrice, int NCB, String occupation, int income, int dept, int guarantee) {
+    public SaveInputData(String gradeTent, String brandId, String model, String year, String month, String subModel, String middlePrice, String NCB, String occupation, String income, String dept, String guarantee) {
         this.gradeTent = gradeTent;
-        this.brandId = brand;
+        this.brandId = brandId;
         this.model = model;
         this.year = year;
         this.month = month;
@@ -41,19 +41,19 @@ public class SaveInputData {
         this.guarantee = guarantee;
     }
 
-    public int getGradeTent() {
+    public String getGradeTent() {
         return gradeTent;
     }
 
-    public void setGradeTent(int gradeTent) {
+    public void setGradeTent(String gradeTent) {
         this.gradeTent = gradeTent;
     }
 
-    public int getBrandId() {
+    public String getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(int brandId) {
+    public void setBrandId(String brandId) {
         this.brandId = brandId;
     }
 
@@ -65,43 +65,43 @@ public class SaveInputData {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
-    public int getMonth() {
+    public String getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
+    public void setMonth(String month) {
         this.month = month;
     }
 
-    public int getSubModel() {
+    public String getSubModel() {
         return subModel;
     }
 
-    public void setSubModel(int subModel) {
+    public void setSubModel(String subModel) {
         this.subModel = subModel;
     }
 
-    public long getMiddlePrice() {
+    public String getMiddlePrice() {
         return middlePrice;
     }
 
-    public void setMiddlePrice(long middlePrice) {
+    public void setMiddlePrice(String middlePrice) {
         this.middlePrice = middlePrice;
     }
 
-    public int getNCB() {
+    public String getNCB() {
         return NCB;
     }
 
-    public void setNCB(int NCB) {
+    public void setNCB(String NCB) {
         this.NCB = NCB;
     }
 
@@ -113,29 +113,29 @@ public class SaveInputData {
         this.occupation = occupation;
     }
 
-    public int getIncome() {
+    public String getIncome() {
         return income;
     }
 
-    public void setIncome(int income) {
+    public void setIncome(String income) {
         this.income = income;
     }
 
-    public int getDept() {
+    public String getDept() {
         return dept;
     }
 
-    public void setDept(int dept) {
+    public void setDept(String dept) {
         this.dept = dept;
     }
 
-    public int getGuarantee() {
+    public String getGuarantee() {
         return guarantee;
     }
 
-    public void setGuarantee(int guarantee) {
+    public void setGuarantee(String guarantee) {
         this.guarantee = guarantee;
     }
-    
+
 
 }
