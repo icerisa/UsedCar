@@ -108,7 +108,9 @@
                                     <td>:</td>
                                     <td>
                                         <select id="brand" name="brandId">                                            
-                                            <% if (save == null) {
+                                            <% if (save == null) {%>
+                                            <option value="">choose option</option>
+                                            <%
                                                     ArrayList<Brand> brands = (ArrayList<Brand>) request.getAttribute("Brands");
                                                     for (Brand b : brands) {
                                                         out.println("<option value='" + b.getId() + "'>" + b.getBrandName() + "</option>");
