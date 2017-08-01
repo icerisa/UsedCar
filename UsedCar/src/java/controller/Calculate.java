@@ -62,9 +62,9 @@ public class Calculate extends HttpServlet {
             HttpSession session = request.getSession(false);
             cal.saveTransaction(((Account)session.getAttribute("Account")).getAccountId());
             // ------- Transaction Work --------
-            // ------- Save input data ---------            
-            SaveInputData inputData = new SaveInputData(gradeTent,brandId,model,year,month,sub_model,middle_price,NCB, occupation, income,dept,guarantee);
-            session.setAttribute("InputData", inputData);
+            // ------- Save input data ---------
+            SaveInputData saveInputData = new SaveInputData();
+            session.setAttribute("SaveInputData", saveInputData);
             // ------- Save input data ---------
             System.out.println(cal);
             request.setAttribute("Calculator", cal);
@@ -99,7 +99,7 @@ public class Calculate extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.sendRedirect(getServletContext().getContextPath()+"/Index");
     }
 
     /**

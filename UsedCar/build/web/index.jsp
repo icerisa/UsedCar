@@ -1,3 +1,4 @@
+<%@page import="model.SaveInputData"%>
 <%@page import="java.util.Map"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.ArrayList"%>
@@ -42,6 +43,9 @@
 
     <body>      
         <jsp:include page="/menu.jsp" />
+        <%
+            SaveInputData save = (SaveInputData) session.getAttribute("SaveInputData");
+        %>
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
@@ -86,9 +90,13 @@
                                 <td>:</td>
                                 <td>
                                     <select id="gradeTent" name="gradeTent">
-                                        <% Map<Integer, String> gradeTents = (Map<Integer, String>) request.getAttribute("GradeTents");
-                                            for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
-                                                out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
+                                        <% if (save == null) {
+                                                Map<Integer, String> gradeTents = (Map<Integer, String>) request.getAttribute("GradeTents");
+                                                for (Map.Entry<Integer, String> gradeTent : gradeTents.entrySet()) {
+                                                    out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
+                                                }
+                                            } else {
+
                                             }
                                         %>           
                                     </select>
@@ -100,12 +108,15 @@
                                     <td>
                                         <select id="brand" name="brandId">
                                             <option value="">choose options</option>
-                                            <!--                                            <option value="isuzu">Isuzu</option>
-                                                                                        <option value="jaguar">Jaguar</option>-->
-                                            <% ArrayList<Brand> brands = (ArrayList<Brand>) request.getAttribute("Brands");
-                                                for (Brand b : brands) {
-                                                    out.println("<option value='" + b.getId() + "'>" + b.getBrandName() + "</option>");
-                                                }%>
+                                            <% if (save == null) {
+                                                    ArrayList<Brand> brands = (ArrayList<Brand>) request.getAttribute("Brands");
+                                                    for (Brand b : brands) {
+                                                        out.println("<option value='" + b.getId() + "'>" + b.getBrandName() + "</option>");
+                                                    }
+                                                } else {
+
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -115,7 +126,12 @@
                                     <td>:</td>
                                     <td>
                                         <select id="model" name="model">
+                                            <% if (save == null) {%>
                                             <option value="">choose option</option>
+                                            <%} else {
+
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -124,7 +140,12 @@
                                     <td>:</td>
                                     <td>
                                         <select id="year" name="year">
+                                            <% if (save == null) {%>
                                             <option value="">choose option</option>
+                                            <%} else {
+
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -133,7 +154,12 @@
                                     <td>:</td>
                                     <td>
                                         <select id="month" name="month">
+                                            <% if (save == null) {%>
                                             <option value="">choose option</option>
+                                            <%} else {
+
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -143,7 +169,12 @@
                                     <td>:</td>
                                     <td>
                                         <select id="sub_model" name="sub_model">
+                                            <% if (save == null) {%>
                                             <option value="">choose option</option>
+                                            <%} else {
+
+                                                }
+                                            %>
                                         </select>
                                     </td>
                                 </tr>
@@ -152,8 +183,8 @@
                                     <td>ราคากลาง</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" value="-" name="middle_price_to_show" id="middle_price_to_show" readonly class="kk_mid">
-                                        <input type="hidden" value="-" name="middle_price" id="middle_price">
+                                        <input type="text" value="<%=save!=null?save.getMiddlePrice():"-"%>" name="middle_price_to_show" id="middle_price_to_show" readonly class="kk_mid">
+                                        <input type="hidden" value="<%=save!=null?save.getMiddlePrice():"-"%>" name="middle_price" id="middle_price">
                                     </td>
                                 </tr>
                             </table>
@@ -166,9 +197,13 @@
                                     <td>:</td>
                                     <td>
                                         <select name="NCB" >
-                                            <% Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
-                                                for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
-                                                    out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
+                                            <% if (save == null) {
+                                                    Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
+                                                    for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
+                                                        out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
+                                                    }
+                                                } else {
+
                                                 }
                                             %>
                                         </select>
@@ -180,8 +215,8 @@
                                     <td>:</td>
                                     <td>
                                         <select id="occupation" name="occupation">
-                                            <option value="Salary" >Salary</option>
-                                            <option value="Non Salary">Non Salary</option>
+                                            <option value="Salary" <%=save!=null?save.getOccupation().equals("Salary")?"select":"":""%>>Salary</option>
+                                            <option value="Non Salary" <%=save!=null?save.getOccupation().equals("Non Salary")?"select":"":""%> >Non Salary</option>
                                         </select> <br>                                        
                                     </td>
                                 </tr>
@@ -190,7 +225,7 @@
                                     <td>รายได้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="income" min="0">
+                                        <input type="number" name="income" min="0" value="<%=save!=null?save.getIncome():"0"%>">
                                     </td>
                                 </tr>
 
@@ -198,7 +233,7 @@
                                     <td>ภาระหนี้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="debt" min="0">
+                                        <input type="number" name="debt" min="0" value="<%=save!=null?save.getDept():"0"%>">
                                     </td>
                                 </tr>
 
@@ -207,8 +242,8 @@
                                     <td>:</td>
                                     <td>
                                         <select id="guarantee" name="guarantee">
-                                            <option value="1" >มี</option>
                                             <option value="0">ไม่มี</option>
+                                            <option value="1" >มี</option>                                            
                                         </select>  
                                     </td>
                                 </tr>
@@ -302,7 +337,7 @@
                         type: 'POST',
                         data: {target: "getMiddlePrice", pkOfSubModel: $('#sub_model').val()},
                         url: 'InputData',
-                        success: function (data) {                            
+                        success: function (data) {
                             $('#middle_price').val(data);
                             $('#middle_price_to_show').val(data.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,"));
                         }
@@ -315,7 +350,9 @@
                         $("#description").text("");
                 })
             }
-            )
+            );
+    
+    
 
         </script>
         <jsp:include page="/footer.jsp" />
