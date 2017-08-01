@@ -49,7 +49,7 @@
         <div class="brand">KKP USED Car</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
-            <form action="Calculate" method="get">
+            <form action="Calculate" method="POST" id="inputData">
                 <div class="row">
                     <div class="box">
                         <div class="col-lg-12 text-center">
@@ -96,10 +96,11 @@
                                                     out.println("<option value='" + gradeTent.getKey() + "'>" + gradeTent.getValue() + "</option>");
                                                 }
                                             } else {
-
+                                                out.println(save.getGradeTent());
                                             }
                                         %>           
                                     </select>
+                                    <input type="hidden" name="gradeTentRaw">
                                 </td>
                                 </tr>
                                 <tr>
@@ -114,10 +115,11 @@
                                                         out.println("<option value='" + b.getId() + "'>" + b.getBrandName() + "</option>");
                                                     }
                                                 } else {
-
+                                                    out.println(save.getBrandId());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="brandIdRaw">
                                     </td>
                                 </tr>
 
@@ -129,10 +131,11 @@
                                             <% if (save == null) {%>
                                             <option value="">choose option</option>
                                             <%} else {
-
+                                                    out.println(save.getModel());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="modelRaw">
                                     </td>
                                 </tr>
                                 <tr>
@@ -143,10 +146,11 @@
                                             <% if (save == null) {%>
                                             <option value="">choose option</option>
                                             <%} else {
-
+                                                    out.println(save.getYear());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="yearRaw">
                                     </td>
                                 </tr>
                                 <tr>
@@ -157,10 +161,11 @@
                                             <% if (save == null) {%>
                                             <option value="">choose option</option>
                                             <%} else {
-
+                                                    out.println(save.getMonth());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="monthRaw">
                                     </td>
                                 </tr>
 
@@ -172,10 +177,11 @@
                                             <% if (save == null) {%>
                                             <option value="">choose option</option>
                                             <%} else {
-
+                                                    out.println(save.getSubModel());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="sub_modelRaw">
                                     </td>
                                 </tr>
 
@@ -183,8 +189,8 @@
                                     <td>ราคากลาง</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="text" value="<%=save!=null?save.getMiddlePrice():"-"%>" name="middle_price_to_show" id="middle_price_to_show" readonly class="kk_mid">
-                                        <input type="hidden" value="<%=save!=null?save.getMiddlePrice():"-"%>" name="middle_price" id="middle_price">
+                                        <input type="text" value="<%=save != null ? save.getMiddlePrice() : "-"%>" name="middle_price_to_show" id="middle_price_to_show" readonly class="kk_mid">
+                                        <input type="hidden" value="<%=save != null ? save.getMiddlePrice() : "-"%>" name="middle_price" id="middle_price">
                                     </td>
                                 </tr>
                             </table>
@@ -196,17 +202,18 @@
                                     <td>ประวัติการชำระหนี้</td>
                                     <td>:</td>
                                     <td>
-                                        <select name="NCB" >
+                                        <select name="NCB" id="NCB">
                                             <% if (save == null) {
                                                     Map<Integer, String> NCBs = (Map<Integer, String>) request.getAttribute("NCBs");
                                                     for (Map.Entry<Integer, String> ncb : NCBs.entrySet()) {
                                                         out.println("<option value='" + ncb.getKey() + "'>" + ncb.getValue() + "</option>");
                                                     }
                                                 } else {
-
+                                                    out.println(save.getNCB());
                                                 }
                                             %>
                                         </select>
+                                        <input type="hidden" name="NCBRaw">
                                     </td>
                                 </tr>
 
@@ -215,8 +222,8 @@
                                     <td>:</td>
                                     <td>
                                         <select id="occupation" name="occupation">
-                                            <option value="Salary" <%=save!=null?save.getOccupation().equals("Salary")?"select":"":""%>>Salary</option>
-                                            <option value="Non Salary" <%=save!=null?save.getOccupation().equals("Non Salary")?"select":"":""%> >Non Salary</option>
+                                            <option value="Salary" <%=save != null ? save.getOccupation().equals("Salary") ? "selected" : "" : ""%>>Salary</option>
+                                            <option value="Non Salary" <%=save != null ? save.getOccupation().equals("Non Salary") ? "selected" : "" : ""%> >Non Salary</option>
                                         </select> <br>                                        
                                     </td>
                                 </tr>
@@ -225,7 +232,7 @@
                                     <td>รายได้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="income" min="0" value="<%=save!=null?save.getIncome():"0"%>">
+                                        <input type="number" name="income" min="0" value="<%=save != null ? save.getIncome() : "0"%>">
                                     </td>
                                 </tr>
 
@@ -233,7 +240,7 @@
                                     <td>ภาระหนี้ต่อเดือน</td>
                                     <td>:</td>
                                     <td>
-                                        <input type="number" name="debt" min="0" value="<%=save!=null?save.getDept():"0"%>">
+                                        <input type="number" name="debt" min="0" value="<%=save != null ? save.getDept() : "0"%>">
                                     </td>
                                 </tr>
 
@@ -242,8 +249,8 @@
                                     <td>:</td>
                                     <td>
                                         <select id="guarantee" name="guarantee">
-                                            <option value="0">ไม่มี</option>
-                                            <option value="1" >มี</option>                                            
+                                            <option value="0" <%=save!=null? save.getGuarantee()==0? "selected":"":""%>>ไม่มี</option>
+                                            <option value="1" <%=save!=null? save.getGuarantee()==1? "selected":"":""%>>มี</option>                                            
                                         </select>  
                                     </td>
                                 </tr>
@@ -277,8 +284,35 @@
             })
         </script> 
         <script>
+            //gradeTent brandId model year month sub_model NCB [Raw]
+            $("#inputData").submit(function () {
+                $('form#inputData :input').each(function () {
+                    if (["gradeTent", "brandId", "model", "year", "month", "sub_model", "NCB"].indexOf($(this).attr("name")) > -1) {
+                        //if name is in list then
+                        //find element from it name + Raw ex year will find yearRaw and put html code in it
+                        $('form#inputData input[name="' + $(this).attr("name") + 'Raw"]').val($(this).html());
+                    }
+                });
+            });
             $(document).ready(function () {
+                $('#gradeTent').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#gradeTent option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+                    });
+                })
+
                 $('#brand').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#brand option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+                    });
                     $.ajax({
                         type: 'POST',
                         data: {target: "getCarModel", brandId: $(this).val()},
@@ -294,6 +328,14 @@
                 })
 
                 $('#model').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#model option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+
+                    });
                     $.ajax({
                         type: 'POST',
                         data: {target: "getCarYear", carModel: $(this).val()},
@@ -308,6 +350,14 @@
                 })
 
                 $('#year').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#year option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+
+                    });
                     $.ajax({
                         type: 'POST',
                         data: {target: "getCarMonth", year: $(this).val(), carModel: $('#model').val(), brandId: $('#brand').val()},
@@ -321,6 +371,14 @@
                 })
 
                 $('#month').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#month option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+
+                    });
                     $.ajax({
                         type: 'POST',
                         data: {target: "getCarSubModel", year: $("#year").val(), carModel: $('#model').val(), month: $(this).val()},
@@ -333,6 +391,14 @@
                 })
 
                 $('#sub_model').change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#sub_model option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+
+                    });
                     $.ajax({
                         type: 'POST',
                         data: {target: "getMiddlePrice", pkOfSubModel: $('#sub_model').val()},
@@ -343,6 +409,18 @@
                         }
                     })
                 })
+
+                $("#NCB").change(function () {
+                    let selectedValue = $(this).val();
+                    $("select#NCB option").each(function () {
+                        if ($(this).val() !== selectedValue)
+                            $(this).attr("selected", false);
+                        else
+                            $(this).attr("selected", true);
+
+                    });
+                })
+
                 $('#occupation').change(function () {
                     if ($(this).val() === "Salary")
                         $("#description").text("");
@@ -351,8 +429,8 @@
                 })
             }
             );
-    
-    
+
+
 
         </script>
         <jsp:include page="/footer.jsp" />
