@@ -229,7 +229,7 @@
                                                 $("#createAccountForm input[type=submit]").prop('disabled', true)
                                             }                                            
 
-                                            $("#createAccountForm").submit(function (event) {
+                                            $("#createAccountForm").submit(function () {
                                                 $("#createAccountForm :input").each(function () {
                                                     if ($(this).attr('type') !== "submit") {
                                                         if ($(this).val() === "") {
