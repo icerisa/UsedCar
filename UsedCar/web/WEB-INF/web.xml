@@ -62,6 +62,14 @@
         <servlet-name>Profile</servlet-name>
         <servlet-class>controller.Profile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RateControl</servlet-name>
+        <servlet-class>controller.RateControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Manage_Rate</servlet-name>
+        <servlet-class>controller.Manage_Rate</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -101,6 +109,14 @@
     <servlet-mapping>
         <servlet-name>Index</servlet-name>
         <url-pattern>/Index</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RateControl</servlet-name>
+        <url-pattern>/RateControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Manage_Rate</servlet-name>
+        <url-pattern>/Manage_Rate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>180</session-timeout>
