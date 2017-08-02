@@ -26,7 +26,7 @@
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     </head>
     <body>
-        <%--<jsp:include page="menu.jsp" />--%>
+        <jsp:include page="menu.jsp" />
         <jsp:include page="modal.jsp" />
         <!-- Modal Edit -->
         <div class="modal fade" id="editModal" role="dialog">
@@ -38,6 +38,7 @@
                     </div>
                     <div class="modal-body" id="editBody">
                         <form action="RateControl" method="POST" id="editData"> <!--Method POST without target -->
+                            <input type='hidden' name='target' value='edit'>
                             <input type="hidden" name="dataId">
                             <div class="form-group">
                                 <table id="editTableData">
@@ -140,7 +141,8 @@
 
                         <div id="vn-info">
                             <div class="form_add">
-                                <form action="RateControl" method="GET">
+                                <form action="RateControl" method="POST">
+                                    <input type='hidden' name='target' value="add">
                                     <table class="addData" id="addData">
                                         <tr>
                                             <td>ผู้ค้ำประกัน</td>
@@ -166,7 +168,7 @@
                                             <td>Car Year</td>
                                             <td>:</td>
                                             <td id='addCarYear'>
-                                                <input type="number" min="0" name='carYear' required>
+                                                <input type="number" min="0" name='carYear' value='2000' required>
                                             </td>
                                         </tr>
                                         <tr>
@@ -195,7 +197,7 @@
                                             <td>Rate</td>
                                             <td>:</td>
                                             <td id='addRate'>
-                                                <input type="number" min="0" max="100" name='Rate' step='0.5'required>
+                                                <input type="number" min="0" max="100" name='rate' step='0.5'required>
                                             </td>
                                         </tr>
                                     </table>                                    
@@ -249,13 +251,13 @@
                                 $("#conConfirm").click(function () {
                                     $.ajax({
                                         type: 'POST', //send POST with target="delete"
-                                        data: {target: "delete", id: id},
+                                        data: {target: "delete", dataId: id},
                                         url: 'RateControl',
                                         success: function () {
                                             $("#notiHead").html("Action Result");
                                             $("#notiMessage").html("การลบข้อมูลสำเร็จ");
                                             $("#notiModal").on("hidden.bs.modal", function (e) {
-                                                window.location.href = "Update";
+                                                window.location.href = "Manage_Rate";
                                             });
                                             showNoti();
                                         }
