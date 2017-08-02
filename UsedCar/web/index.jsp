@@ -46,7 +46,7 @@
         <%
             SaveInputData save = (SaveInputData) session.getAttribute("SaveInputData");
         %>
-        <div class="brand">KKP USED Car</div>
+        <div class="brand">T-ratecar</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
             <form action="Calculate" method="POST" id="inputData">

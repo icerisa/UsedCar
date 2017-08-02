@@ -36,7 +36,7 @@
     </head>
     <body>
         <jsp:include page="/menu.jsp" />
-        <div class="brand">KKP USED Car</div>
+        <div class="brand">T-ratecar</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
             <div class="row">

@@ -42,8 +42,8 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`accountId`, `username`, `password`, `accountName`, `accountSurname`, `accountEmail`, `accountPhone`, `userType`) VALUES
-(1, 'admin', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', 'Admin', 'admin@admin.admin', '0800000000', 0),
-(2, 'user', '827ccb0eea8a706c4c34a16891f84e7b', 'user', 'normal', 'user@user.user', '0810000000', 1);
+(1, 'admin', '25d55ad283aa400af464c76d713c07ad', 'Admin', 'Admin', 'admin@admin.admin', '0800000000', 0),
+(2, 'user', '25d55ad283aa400af464c76d713c07ad', 'user', 'normal', 'user@user.user', '0810000000', 1);
 
 -- --------------------------------------------------------
 
