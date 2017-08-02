@@ -9,6 +9,7 @@ import controller.DBConnector;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 
 public class Rate {
@@ -110,7 +111,29 @@ public class Rate {
         return "Rate{" + "rateId=" + rateId + ", brandTypeId=" + brandTypeId + ", guarantee=" + guarantee + ", carYear=" + carYear + ", autoTypeId=" + autoTypeId + ", term=" + term + ", rate=" + rate + ", rate48=" + rate48 + ", rate60=" + rate60 + ", rate72=" + rate72 + '}';
     }
 
-
+    public static ArrayList<Rate> getAllRate(){
+        ArrayList<Rate> rates = new ArrayList<Rate>();
+        try{
+            Connection con = DBConnector.getConnection();
+            String sql = "SELECT * FROM rate";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                Rate rate = new Rate();
+                rate.setRateId(rs.getInt("rateId"));
+                rate.setGuarantee(rs.getInt("guarantee"));
+                rate.setBrandTypeId(rs.getInt("brandType"));
+                rate.setCarYear(rs.getInt("carYear"));
+                rate.setAutoTypeId(rs.getInt("autoTypeId"));
+                rate.setTerm(rs.getInt("term"));
+                rate.setRate(rs.getFloat("rate"));
+                rates.add(rate);
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return rates;
+    }
     
     public void getData(int guarantee,int brandType,int carYear, int autoTypeId, int term){
         System.out.println(guarantee + " : " +brandType + " : " + carYear + " : " + autoTypeId);
