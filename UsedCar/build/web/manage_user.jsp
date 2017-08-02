@@ -154,6 +154,7 @@
                                                 <div class="form-group">
                                                     <label>E-Mail</label>
                                                     <input type="email" class="form-control" name="email" maxlength="50" value="" >
+                                                    <div id="emailMessage"></div>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>เบอร์โทรศัพท์ติดต่อ</label>
@@ -175,7 +176,8 @@
                                             let usernameCreateLength = false;
                                             let passwordCreateMatch = false;
                                             let passwordCreateLength = false;
-                                            
+                                            let emailValidateCreate = false;
+
                                             $("#createAccountForm input[name=username]").on('keyup', function () {
                                                 if ($(this).val().length < 8) {//check length atlest 8 chatacter
                                                     $('#createFormUserMessage').html('Username ต้องจำนวนมากกว่า 8 ตัวอักษร').css('color', 'red').show();
@@ -187,7 +189,7 @@
                                                 }
                                                 checkCreateRequired();
                                             });
-                                            
+
                                             $("#createAccountForm input[name=username]").keypress(function (event) {
                                                 var ew = event.which;
                                                 if (48 <= ew && ew <= 57)
@@ -197,8 +199,8 @@
                                                 if (97 <= ew && ew <= 122)
                                                     return true;
                                                 return false;
-                                            }); //accept only english and number
-                                            
+                                            }); //accept only english and number                                            
+
                                             $('#createAccountForm input[name=password], #createAccountForm input[name=passwordRetry]').on('keyup', function () {
                                                 if ($('#createAccountForm input[name=password]').val() === $('#createAccountForm input[name=passwordRetry]').val()) {
                                                     $('#createFormPasswordMessage').html('Matching').css('color', 'green').show().fadeOut(1000);
@@ -219,15 +221,32 @@
                                                 checkCreateRequired();
                                             });
 
+                                            $("#createAccountForm input[name=email]").on('keyup',function () {
+                                                if (isEmail($(this).val())) {
+                                                    if (!emailValidateCreate)
+                                                        $("#emailMessage").html('Email ที่กรอกไม่ถูกต้อง').css('color', 'green').show().fadeOut(1000);
+                                                    emailValidateCreate = true;
+                                                } else {
+                                                    $("#emailMessage").html('Email ที่กรอกไม่ถูกต้อง').css('color', 'red').show();
+                                                    emailValidateCreate = false;
+                                                }
+                                                checkCreateRequired();
+                                            });
+
                                             function checkCreateRequired() {
-                                                if (passwordCreateMatch && passwordCreateLength && usernameCreateLength) {
+                                                if (passwordCreateMatch && passwordCreateLength && usernameCreateLength && emailValidateCreate) {
                                                     if ($("#createAccountForm input[name=username]").val() !== "") {
                                                         $("#createAccountForm input[type=submit]").prop('disabled', false);
                                                         return;
                                                     }
                                                 }
                                                 $("#createAccountForm input[type=submit]").prop('disabled', true)
-                                            }                                            
+                                            }
+
+                                            function isEmail(email) {
+                                                var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                                return regex.test(email);
+                                            }
 
                                             $("#createAccountForm").submit(function () {
                                                 $("#createAccountForm :input").each(function () {
