@@ -21,7 +21,7 @@
 
 
         <!-- Bootstrap Core CSS -->
-        <title>KKP Used Car - ความสามารถในการผ่อนชำระค่างวดรถยนต์</title>
+        <title>T-ratecar - ความสามารถในการผ่อนชำระค่างวดรถยนต์</title>
 
         <!-- Bootstrap Core CSS -->
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css">

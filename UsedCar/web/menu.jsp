@@ -46,6 +46,17 @@
                 </span> -->
             </li>
             <li class="mdl-menu__item mdl-list__item list__item--border-top mgg" >
+                <span class="mdl-list__item-primary-content" onclick="location.href = 'Manage_Rate';">
+                    <span class="mdl-list__item-avatar" style="background-color:#85CD1C">
+                        <i class="material-icons" style = "margin:20%">account_balance</i>
+                    </span>
+                    <span class="mng">จัดการ Rate</span>
+                </span>
+                <!-- <span class="mdl-list__item-secondary-content">
+                  <span class="label">2 hours</span>
+                </span> -->
+            </li>
+            <li class="mdl-menu__item mdl-list__item list__item--border-top mgg" >
                 <span class="mdl-list__item-primary-content" onclick="location.href = 'Manage_user';">
                     <span class="mdl-list__item-avatar" style="background-color:#FFB300">
                         <i class="material-icons" style = "margin:20%">group_add</i>
