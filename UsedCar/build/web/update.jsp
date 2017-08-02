@@ -157,7 +157,7 @@
             }
         </script>
         <% ArrayList<pdpg_used> pdpg_useds = (ArrayList<pdpg_used>) request.getAttribute("pdpg_useds");%>
-        <div class="brand">KKP USED Car</div>
+        <div class="brand">T-ratecar</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
         <div class="container">
             <div class="row">
