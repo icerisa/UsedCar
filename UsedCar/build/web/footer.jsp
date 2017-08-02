@@ -6,5 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div class="footer">
-    <p>Kiatnakin Bank</p>
+    <p>www.t-ratecar.com</p>
 </div>

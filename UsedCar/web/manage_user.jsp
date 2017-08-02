@@ -28,7 +28,7 @@
     <body>
         <jsp:include page="menu.jsp" />        
         <jsp:include page="modal.jsp" />        
-        <div class="brand">KKP USED Car</div>
+        <div class="brand">T-ratecar</div>
         <div class="descript">ความสามารถในการผ่อนชำระค่างวดรถยนต์</div>
 
 
