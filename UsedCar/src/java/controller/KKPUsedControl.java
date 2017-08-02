@@ -137,8 +137,7 @@ public class KKPUsedControl extends HttpServlet {
             }
             request.setAttribute("notiHead", notiHead);
             request.setAttribute("notiMessage", notiMessage);
-            request.setAttribute("showNoti", "true");
-            request.setAttribute("refreshPage", request.getContextPath() + "/Update");
+            request.setAttribute("showNoti", "true");            
             getServletContext().getRequestDispatcher("/Update").forward(request, response);
 //            response.sendRedirect(request.getContextPath() + "/Update");
         }
