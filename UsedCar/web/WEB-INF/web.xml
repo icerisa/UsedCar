@@ -21,6 +21,8 @@
         <url-pattern>/Manage_user</url-pattern>
         <url-pattern>/Profile</url-pattern>
         <url-pattern>/Update</url-pattern>
+        <url-pattern>/Manage_Rate</url-pattern>
+        <url-pattern>/RateControl</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>Login</servlet-name>
