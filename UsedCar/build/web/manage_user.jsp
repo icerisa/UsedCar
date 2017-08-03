@@ -73,11 +73,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>กรอกรหัสผ่าน</label>
-                                                    <input type="password" id='resetPassword' name="password" class="form-control" placeholder="รหัสผ่าน"  >
+                                                    <input type="password" id='resetPassword' name="password" class="form-control" maxlength='32' placeholder="รหัสผ่าน"  >
                                                 </div>
                                                 <div class="form-group">
                                                     <abel>ยืนยันรหัสผ่าน</label>
-                                                        <input type="password" id='resetConfirmPassword' name='passwordRetry' class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง"  >
+                                                        <input type="password" id='resetConfirmPassword' name='passwordRetry' class="form-control" maxlength='32' placeholder="กรอกรหัสผ่านอีกครั้ง"  >
                                                         <div id='message'></div>
                                                         <div id='messagePassword'></div>
                                                 </div>
@@ -162,11 +162,11 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>กรอกรหัสผ่าน</label>
-                                                    <input type="password" name="password" class="form-control" placeholder="รหัสผ่าน">
+                                                    <input type="password" name="password" class="form-control" maxlength='32'  placeholder="รหัสผ่าน">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>ยืนยันรหัสผ่าน</label>
-                                                    <input type="password" name="passwordRetry" class="form-control" placeholder="กรอกรหัสผ่านอีกครั้ง">
+                                                    <input type="password" name="passwordRetry" class="form-control" maxlength='32'  placeholder="กรอกรหัสผ่านอีกครั้ง">
                                                     <div id='createFormPasswordMessage'></div>
                                                     <div id='createFormPasswordMessageLength'></div>
                                                 </div>

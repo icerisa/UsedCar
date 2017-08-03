@@ -266,6 +266,13 @@
                                 showCon();
                             }
 
+                            $("#keyword").keyup(function (e) {
+                                if (e.keyCode === 13)
+                                {
+                                    btnClickSearch();
+                                }
+                            });
+                            
                             function btnClickSearch() {
                                 let topic = document.getElementById("selectTopic").value;
                                 let keyword = document.getElementById("keyword").value;
@@ -336,18 +343,18 @@
                                     let shouldShow = false;
                                     for (var j = 0, col; col = row.cells[j]; j++) {
                                         if (col.getAttribute("data-th") === thread) {
-//                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
-//                                                shouldShow = true;
-//                                            }
-//                                            if (thread === "Term" || thread === "Rate" || thread === "Car Year" || thread === "Guarantee" || thread === "IIR")
-                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
                                                 shouldShow = true;
                                             }
+//                                            if (thread === "Term" || thread === "Rate" || thread === "Car Year" || thread === "Guarantee" || thread === "IIR")
+//                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+//                                                shouldShow = true;
+//                                            }
                                         }
                                     }
                                     row.style.display = shouldShow ? "table-row" : "none";
                                 }
-                            }                            
+                            }
 
                             function setOption(selectElement, value) { //select option by value
                                 return [...selectElement.options].some((option, index) => {
