@@ -383,6 +383,13 @@
                                 showCon();
                             }
 
+                            $("#keyword").keyup(function (e) {
+                                if (e.keyCode === 13)
+                                {
+                                    btnClickSearch();
+                                }
+                            });
+
                             function btnClickSearch() {
                                 let topic = document.getElementById("selectTopic").value;
                                 let keyword = document.getElementById("keyword").value;
