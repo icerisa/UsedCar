@@ -343,13 +343,13 @@
                                     let shouldShow = false;
                                     for (var j = 0, col; col = row.cells[j]; j++) {
                                         if (col.getAttribute("data-th") === thread) {
-//                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
-//                                                shouldShow = true;
-//                                            }
-//                                            if (thread === "Term" || thread === "Rate" || thread === "Car Year" || thread === "Guarantee" || thread === "IIR")
-                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+                                            if (col.innerHTML.toLowerCase().indexOf(keyword.toLowerCase()) > -1) {
                                                 shouldShow = true;
                                             }
+//                                            if (thread === "Term" || thread === "Rate" || thread === "Car Year" || thread === "Guarantee" || thread === "IIR")
+//                                            if (col.innerHTML.toLowerCase() === keyword.toLowerCase()) {
+//                                                shouldShow = true;
+//                                            }
                                         }
                                     }
                                     row.style.display = shouldShow ? "table-row" : "none";
